@@ -12,23 +12,23 @@ public class EquipoLiga {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idEquipo", nullable = false)
-    private Equipos equipo;
+    @JoinColumn(name = "id_equipo", nullable = false)
+    private Equipo equipo;
 
     @ManyToOne
-    @JoinColumn(name = "idLiga", nullable = false)
+    @JoinColumn(name = "id_liga", nullable = false)
     private Liga liga;
 
-    @Column(name = "Fecha_inscripcion", nullable = false)
+    @Column(name = "fecha_inscripcion", nullable = false)
     private LocalDate fechaInscripcion;
 
-    @Column(name = "Precio_plaza", nullable = false)
+    @Column(name = "precio_plaza", nullable = false)
     private Double precioPlaza;
 
     public EquipoLiga() {
     }
 
-    public EquipoLiga(Long id, Equipos equipo, Liga liga, LocalDate fechaInscripcion, Double precioPlaza) {
+    public EquipoLiga(Long id, Equipo equipo, Liga liga, LocalDate fechaInscripcion, Double precioPlaza) {
         this.id = id;
         this.equipo = equipo;
         this.liga = liga;
@@ -44,11 +44,11 @@ public class EquipoLiga {
         this.id = id;
     }
 
-    public Equipos getEquipo() {
+    public Equipo getEquipo() {
         return equipo;
     }
 
-    public void setEquipo(Equipos equipo) {
+    public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 

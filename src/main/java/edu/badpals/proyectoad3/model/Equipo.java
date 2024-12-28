@@ -1,49 +1,50 @@
 package edu.badpals.proyectoad3.model;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Equipos")
-public class Equipos {
+@Table(name = "equipos")
+public class Equipo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_equipo;
+    private Long idEquipo;
 
-    @Column(name = "Nombre", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "fecha_creacion", nullable = false)
-    private LocalDate fecha_creacion;
+    private LocalDate fechaCreacion;
 
     @Column(name = "region", nullable = false)
     private String region;
 
-    @Column(name = "Tier", nullable = false)
-    private String Tier;
+    @Column(name = "tier", nullable = false)
+    private String tier;
 
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EquipoLiga> equipoLigas;
 
-    public Equipos() {
+    public Equipo() {
     }
 
-    public Equipos(Long id_equipo, List<EquipoLiga> equipoLigas, String tier, String region, LocalDate fecha_creacion, String nombre) {
-        this.id_equipo = id_equipo;
-        this.equipoLigas = equipoLigas;
-        Tier = tier;
-        this.region = region;
-        this.fecha_creacion = fecha_creacion;
+    public Equipo(Long idEquipo, String nombre, LocalDate fechaCreacion, String region, String tier, List<EquipoLiga> equipoLigas) {
+        this.idEquipo = idEquipo;
         this.nombre = nombre;
+        this.fechaCreacion = fechaCreacion;
+        this.region = region;
+        this.tier = tier;
+        this.equipoLigas = equipoLigas;
     }
 
-    public Long getId_equipo() {
-        return id_equipo;
+    public Long getIdEquipo() {
+        return idEquipo;
     }
 
-    public void setId_equipo(Long id_equipo) {
-        this.id_equipo = id_equipo;
+    public void setIdEquipo(Long idEquipo) {
+        this.idEquipo = idEquipo;
     }
 
     public String getNombre() {
@@ -54,12 +55,12 @@ public class Equipos {
         this.nombre = nombre;
     }
 
-    public LocalDate getFecha_creacion() {
-        return fecha_creacion;
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFecha_creacion(LocalDate fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getRegion() {
@@ -71,11 +72,11 @@ public class Equipos {
     }
 
     public String getTier() {
-        return Tier;
+        return tier;
     }
 
     public void setTier(String tier) {
-        Tier = tier;
+        this.tier = tier;
     }
 
     public List<EquipoLiga> getEquipoLigas() {
@@ -88,12 +89,12 @@ public class Equipos {
 
     @Override
     public String toString() {
-        return "Equipos{" +
-                "id_equipo=" + id_equipo +
+        return "Equipo{" +
+                "idEquipo=" + idEquipo +
                 ", nombre='" + nombre + '\'' +
-                ", fecha_creacion=" + fecha_creacion +
+                ", fechaCreacion=" + fechaCreacion +
                 ", region='" + region + '\'' +
-                ", Tier='" + Tier + '\'' +
+                ", tier='" + tier + '\'' +
                 ", equipoLigas=" + equipoLigas +
                 '}';
     }
