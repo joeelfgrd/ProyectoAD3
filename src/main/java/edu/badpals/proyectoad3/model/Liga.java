@@ -22,7 +22,4 @@ public class Liga {
 
     @Column(name = "Tier", nullable = false)
     private String Tier;
-
-
-
 }
