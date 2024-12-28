@@ -1,0 +1,86 @@
+package edu.badpals.proyectoad3.model;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "Equipos")
+public class Equipos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_equipo;
+
+    @Column(name = "Nombre", nullable = false)
+    private String nombre;
+
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDate fecha_creacion;
+
+    @Column(name = "region", nullable = false)
+    private String region;
+
+    @Column(name = "Tier", nullable = false)
+    private String Tier;
+
+    public Equipos() {
+    }
+
+    public Equipos(Long id_equipo, String nombre, LocalDate fecha_creacion, String region, String tier) {
+        this.id_equipo = id_equipo;
+        this.nombre = nombre;
+        this.fecha_creacion = fecha_creacion;
+        this.region = region;
+        Tier = tier;
+    }
+
+    public Long getId_equipo() {
+        return id_equipo;
+    }
+
+    public void setId_equipo(Long id_equipo) {
+        this.id_equipo = id_equipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public LocalDate getFecha_creacion() {
+        return fecha_creacion;
+    }
+
+    public void setFecha_creacion(LocalDate fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getTier() {
+        return Tier;
+    }
+
+    public void setTier(String tier) {
+        Tier = tier;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipos{" +
+                "id_equipo=" + id_equipo +
+                ", nombre='" + nombre + '\'' +
+                ", fecha_creacion=" + fecha_creacion +
+                ", region='" + region + '\'' +
+                ", Tier='" + Tier + '\'' +
+                '}';
+    }
+}
