@@ -2,6 +2,7 @@ package edu.badpals.proyectoad3.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Equipos")
@@ -22,15 +23,19 @@ public class Equipos {
     @Column(name = "Tier", nullable = false)
     private String Tier;
 
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EquipoLiga> equipoLigas;
+
     public Equipos() {
     }
 
-    public Equipos(Long id_equipo, String nombre, LocalDate fecha_creacion, String region, String tier) {
+    public Equipos(Long id_equipo, List<EquipoLiga> equipoLigas, String tier, String region, LocalDate fecha_creacion, String nombre) {
         this.id_equipo = id_equipo;
-        this.nombre = nombre;
-        this.fecha_creacion = fecha_creacion;
-        this.region = region;
+        this.equipoLigas = equipoLigas;
         Tier = tier;
+        this.region = region;
+        this.fecha_creacion = fecha_creacion;
+        this.nombre = nombre;
     }
 
     public Long getId_equipo() {
@@ -73,6 +78,14 @@ public class Equipos {
         Tier = tier;
     }
 
+    public List<EquipoLiga> getEquipoLigas() {
+        return equipoLigas;
+    }
+
+    public void setEquipoLigas(List<EquipoLiga> equipoLigas) {
+        this.equipoLigas = equipoLigas;
+    }
+
     @Override
     public String toString() {
         return "Equipos{" +
@@ -81,6 +94,7 @@ public class Equipos {
                 ", fecha_creacion=" + fecha_creacion +
                 ", region='" + region + '\'' +
                 ", Tier='" + Tier + '\'' +
+                ", equipoLigas=" + equipoLigas +
                 '}';
     }
 }
