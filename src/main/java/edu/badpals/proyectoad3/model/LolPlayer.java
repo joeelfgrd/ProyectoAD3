@@ -6,5 +6,54 @@ import jakarta.persistence.*;
 @DiscriminatorValue(value="2")
 public class LolPlayer extends Jugador{
 
+    @Column(name="Posicion", nullable = false)
+    private String posicion;
+    @Column(name="EarlyShotcaller")
+    private boolean EarlyShotcaller;
+    @Column(name="LateShotcaller")
+    private boolean LateShotcaller;
+
+    public LolPlayer() {
+    }
+
+    public LolPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, String equipo, String posicion, boolean earlyShotcaller, boolean lateShotcaller) {
+        super(id_jugador, informacionPersonal, nickname, equipo);
+        this.posicion = posicion;
+        EarlyShotcaller = earlyShotcaller;
+        LateShotcaller = lateShotcaller;
+    }
+
+    public String getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(String posicion) {
+        this.posicion = posicion;
+    }
+
+    public boolean isEarlyShotcaller() {
+        return EarlyShotcaller;
+    }
+
+    public void setEarlyShotcaller(boolean earlyShotcaller) {
+        EarlyShotcaller = earlyShotcaller;
+    }
+
+    public boolean isLateShotcaller() {
+        return LateShotcaller;
+    }
+
+    public void setLateShotcaller(boolean lateShotcaller) {
+        LateShotcaller = lateShotcaller;
+    }
+
+    @Override
+    public String toString() {
+        return "LolPlayer{" +
+                "posicion='" + posicion + '\'' +
+                ", EarlyShotcaller=" + EarlyShotcaller +
+                ", LateShotcaller=" + LateShotcaller +
+                '}';
+    }
 }
 
