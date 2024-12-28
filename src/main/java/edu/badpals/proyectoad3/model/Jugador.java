@@ -1,7 +1,6 @@
 package edu.badpals.proyectoad3.model;
 
 
-import edu.badpals.proyectoad3.InformacionPersonal;
 import jakarta.persistence.*;
 
 
@@ -15,11 +14,10 @@ public class Jugador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_jugador;
 
+    @Embedded
+    private InformacionPersonal informacionPersonal;
     @Column(name="Nickname", unique = true, nullable = false)
     private String Nickname;
     @Column(name="Equipo", unique = true, nullable = false)
     private String Equipo;
-    @Embedded
-    private InformacionPersonal informacionPersonal;
-
 }
