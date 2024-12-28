@@ -6,3 +6,6 @@ Por otro lado, los equipos también tendrán un ID único, y se guardará su nom
 mediante un ID exclusivo, con información detallada sobre su nombre, fecha de fundación, tier y región.
 Adicionalmente, se rastreará la participación de los equipos en las ligas, registrando la fecha de inscripción y el precio de la plaza de participación, considerando que este será 0 € para ligas que no sigan un
 modelo de franquicias. La base de datos facilitará un análisis claro y actualizado de la escena competitiva.
+
+# Modelo Entidad-Relación
+![Descripción de la imagen](img/AD3.png)
