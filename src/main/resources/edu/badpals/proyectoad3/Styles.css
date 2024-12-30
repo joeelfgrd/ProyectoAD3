@@ -1,0 +1,68 @@
+/* Fondo del contenedor principal: color pastel */
+VBox {
+    -fx-background-color: #f3e9e5; /* Fondo pastel cálido */
+}
+
+/* Fondo del AnchorPane */
+AnchorPane {
+    -fx-background-color: #fff4e6; /* Fondo ligeramente más claro */
+    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10;
+}
+
+/* Estilo para las etiquetas */
+Label {
+    -fx-text-fill: #5d5654; /* Gris suave para el texto */
+}
+
+/* Estilo para el título */
+Label:top {
+    -fx-text-fill: #a37d74; /* Marrón pastel suave */
+    -fx-font-weight: bold;
+}
+
+/* Botones */
+Button {
+    -fx-background-color: #cfa490; /* Marrón pastel */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-border-radius: 5px;
+    -fx-padding: 8px 16px;
+}
+
+Button:hover {
+    -fx-background-color: #b48978; /* Marrón pastel más oscuro */
+}
+
+/* Campos de texto */
+TextField, ComboBox, Spinner, PasswordField {
+    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
+    -fx-border-radius: 3px;
+    -fx-background-color: #ffffff; /* Fondo blanco para claridad */
+    -fx-text-fill: #5d5654; /* Gris suave */
+}
+
+/* CheckBoxes */
+CheckBox {
+    -fx-text-fill: #5d5654; /* Gris suave */
+    -fx-cursor: hand;
+}
+
+/* Spinners */
+Spinner {
+    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
+    -fx-background-color: #ffffff; /* Fondo claro */
+    -fx-text-fill: #5d5654; /* Texto gris suave */
+}
+
+/* Efectos de hover para los campos */
+TextField:focused, ComboBox:focused, Spinner:focused, PasswordField:focused {
+    -fx-border-color: #cfa490; /* Cambia el borde al marrón pastel cuando se enfoca */
+    -fx-background-color: #fef9f6; /* Fondo ligeramente más cálido */
+}
+
+/* Estilo para los CheckBoxes cuando se seleccionan */
+CheckBox:selected {
+    -fx-text-fill: #a37d74; /* Marrón pastel suave */
+}

@@ -7,6 +7,10 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args) {
+        generateDB();
+    }
+
+    public static void generateDB() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
