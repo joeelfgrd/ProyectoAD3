@@ -1,6 +1,9 @@
 package edu.badpals.proyectoad3.model;
 
 
+import edu.badpals.proyectoad3.model.entities.Equipo;
+import edu.badpals.proyectoad3.model.entities.EquipoLiga;
+import edu.badpals.proyectoad3.model.entities.Liga;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
