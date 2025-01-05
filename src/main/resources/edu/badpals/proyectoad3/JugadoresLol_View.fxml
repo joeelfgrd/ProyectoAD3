@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="645.0" prefWidth="950.0">
+         <children>
+            <Label layoutX="75.0" layoutY="84.0" text="Nombre" />
+            <ListView fx:id="LeaguePlayerListView" layoutX="-2.0" layoutY="247.0" prefHeight="400.0" prefWidth="950.0" />
+            <Label layoutX="72.0" layoutY="126.0" text="Apellidos" />
+            <Label layoutX="320.0" layoutY="126.0" text="Equipo" />
+            <Label layoutX="86.0" layoutY="167.0" text="Pais" />
+            <Label layoutX="312.0" layoutY="84.0" text="Nickname" />
+            <Label layoutX="317.0" layoutY="168.0" text="Posicion" />
+            <Label layoutX="396.0" layoutY="62.0" />
+            <CheckBox fx:id="LeaguePlayerEarlyShtCllrChk" layoutX="614.0" layoutY="84.0" mnemonicParsing="false" text="Early ShotCaller" />
+            <CheckBox fx:id="LeaguePlayerLateShtCllrChk" layoutX="615.0" layoutY="126.0" mnemonicParsing="false" text="Late ShotCaller" />
+            <Button fx:id="CreateLeaguePlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
+            <Button fx:id="UpdateLeaguePlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
+            <Button fx:id="DeleteLeaguePlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
+            <TextField fx:id="LeaguePlayerNameLbl" layoutX="141.0" layoutY="80.0" />
+            <TextField fx:id="LeaguePlayerSurnameLbl" layoutX="142.0" layoutY="123.0" />
+            <ComboBox fx:id="LeaguePlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />
+            <ComboBox fx:id="LeaguePlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
+            <ComboBox fx:id="LeaguePlayerPositionCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
+            <TextField fx:id="LeaguePlayerNickLbl" layoutX="399.0" layoutY="80.0" />
+            <Label layoutX="340.0" layoutY="20.0" text="League of Legends">
+               <font>
+                  <Font name="Calibri" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="VolverLeaguePlayerBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" text="Volver" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
