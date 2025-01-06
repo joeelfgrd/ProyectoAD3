@@ -1,10 +1,7 @@
 package edu.badpals.proyectoad3.model;
 
 
-import edu.badpals.proyectoad3.model.entities.Equipo;
-import edu.badpals.proyectoad3.model.entities.EquipoLiga;
-import edu.badpals.proyectoad3.model.entities.Liga;
-import edu.badpals.proyectoad3.model.entities.LolPlayer;
+import edu.badpals.proyectoad3.model.entities.*;
 import jakarta.persistence.*;
 
 import java.sql.Connection;
@@ -52,14 +49,48 @@ public class Main {
 
 //            Conection_App.deleteTeamForID(4L);
 
-            Equipo equipoActualizado = new Equipo(3L, "Movistar Riders", LocalDate.of(2015, 5, 15), "EU", "2", null);
+//            Equipo equipoActualizado = new Equipo(3L, "Movistar Riders", LocalDate.of(2015, 5, 15), "EU", "2", null);
+//
+//            Liga ligaActualizada = new Liga(3L, "Super Liga Orange", LocalDate.of(2020, 1, 1), "EU", "2", null);
+//
+//            EquipoLiga equipoLigaActualizado = new EquipoLiga(3L, em.find(Equipo.class, 1L), em.find(Liga.class, 1L), LocalDate.of(2021, 10, 10), 1000.00);
+//            Conection_App.updateTeam(equipoActualizado);
+//            Conection_App.updateLeague(ligaActualizada);
+//            Conection_App.updateParticipation(equipoLigaActualizado);
 
-            Liga ligaActualizada = new Liga(3L, "Super Liga Orange", LocalDate.of(2020, 1, 1), "EU", "2", null);
+//            LolPlayer lolPlayer = new LolPlayer();
+//            lolPlayer.setPosicion("Top");
+//            lolPlayer.setEarlyShotcaller(true);
+//            lolPlayer.setLateShotcaller(false);
+//            lolPlayer.setInformacionPersonal(new InformacionPersonal("Juan", "Perez", "ES"));
+//            lolPlayer.setNickname("Caps");
+//            lolPlayer.setEquipo("G2");
+//
+//            Conection_App.addLolPlayer(lolPlayer);
+//
+//            ValorantPlayer valorantPlayer = new ValorantPlayer();
+//            valorantPlayer.setRol("Duelista");
+//            valorantPlayer.setAgente("Jett");
+//            valorantPlayer.setIGL(false);
+//            valorantPlayer.setInformacionPersonal(new InformacionPersonal("Juan", "Perez", "ES"));
+//            valorantPlayer.setNickname("M1xwell");
+//            valorantPlayer.setEquipo("G2");
+//
+//            Conection_App.addValoPlayer(valorantPlayer);
 
-            EquipoLiga equipoLigaActualizado = new EquipoLiga(3L, em.find(Equipo.class, 1L), em.find(Liga.class, 1L), LocalDate.of(2021, 10, 10), 1000.00);
-            Conection_App.updateTeam(equipoActualizado);
-            Conection_App.updateLeague(ligaActualizada);
-            Conection_App.updateParticipation(equipoLigaActualizado);
+
+//            Conection_App.deleteLolPlayerForID(7L);
+
+//            Conection_App.deleteValoPlayerForID(11L);
+
+
+            LolPlayer lolPlayerActualizado = new LolPlayer(12L, new InformacionPersonal("Rasmus", "Borregaard Winther", "DEN"), "Caps", "G2", "Mid", true, false);
+
+            ValorantPlayer valorantPlayerActualizado = new ValorantPlayer(13L, new InformacionPersonal("Oscar", "Cañellas", "ES"), "Mixwell", "G2", "Centinela", "Chyper", true);
+
+            Conection_App.updateLolPlayer(lolPlayerActualizado);
+            Conection_App.updateValoPlayer(valorantPlayerActualizado);
+
 
             em.getTransaction().commit();
 

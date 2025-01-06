@@ -63,6 +63,7 @@ public class Jugador {
         Equipo = equipo;
     }
 
+
     @Override
     public String toString() {
         return "Jugador{" +
