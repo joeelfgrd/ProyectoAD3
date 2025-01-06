@@ -28,12 +28,12 @@
             <Button fx:id="CreateLeaguePlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
             <Button fx:id="UpdateLeaguePlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
             <Button fx:id="DeleteLeaguePlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
-            <TextField fx:id="LeaguePlayerNameLbl" layoutX="141.0" layoutY="80.0" />
-            <TextField fx:id="LeaguePlayerSurnameLbl" layoutX="142.0" layoutY="123.0" />
+            <TextField fx:id="LeaguePlayerNameTxt" layoutX="141.0" layoutY="80.0" />
+            <TextField fx:id="LeaguePlayerSurnameTxt" layoutX="142.0" layoutY="123.0" />
             <ComboBox fx:id="LeaguePlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />
             <ComboBox fx:id="LeaguePlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
             <ComboBox fx:id="LeaguePlayerPositionCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
-            <TextField fx:id="LeaguePlayerNickLbl" layoutX="399.0" layoutY="80.0" />
+            <TextField fx:id="LeaguePlayerNickTxt" layoutX="399.0" layoutY="80.0" />
             <Label layoutX="340.0" layoutY="20.0" text="League of Legends">
                <font>
                   <Font name="Calibri" size="36.0" />

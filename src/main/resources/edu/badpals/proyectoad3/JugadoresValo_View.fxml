@@ -26,12 +26,12 @@
             <Button fx:id="CreateValoPlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
             <Button fx:id="UpdateValoPlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
             <Button fx:id="DeleteValoPlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
-            <TextField fx:id="ValoPlayerNameLbl" layoutX="141.0" layoutY="80.0" />
-            <TextField fx:id="ValoPlayerSurnameLbl" layoutX="142.0" layoutY="123.0" />
+            <TextField fx:id="ValoPlayerNameTxt" layoutX="141.0" layoutY="80.0" />
+            <TextField fx:id="ValoPlayerSurnameTxt" layoutX="142.0" layoutY="123.0" />
             <ComboBox fx:id="ValoPlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />
             <ComboBox fx:id="ValoPlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
             <ComboBox fx:id="ValoPlayerRolCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
-            <TextField fx:id="ValoPlayerNickLbl" layoutX="399.0" layoutY="80.0" />
+            <TextField fx:id="ValoPlayerNickTxt" layoutX="399.0" layoutY="80.0" />
             <Label layoutX="378.0" layoutY="20.0" text="Valorant">
                <font>
                   <Font name="Calibri" size="36.0" />

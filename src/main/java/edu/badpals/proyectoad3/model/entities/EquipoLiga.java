@@ -48,12 +48,20 @@ public class EquipoLiga {
         return equipo;
     }
 
+    public Long getEquipoId() {
+        return equipo.getIdEquipo();
+    }
+
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 
     public Liga getLiga() {
         return liga;
+    }
+
+    public Long getLigaId() {
+        return liga.getIdLiga();
     }
 
     public void setLiga(Liga liga) {

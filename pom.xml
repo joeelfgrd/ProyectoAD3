@@ -94,7 +94,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>edu.badpals.proyectoad3/edu.badpals.proyectoad3.HelloApplication</mainClass>
+                            <mainClass>edu.badpals.proyectoad3/edu.badpals.proyectoad3.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
