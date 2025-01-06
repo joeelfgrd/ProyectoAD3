@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@Styles.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.LeaguesViewController">
    <children>
       <AnchorPane prefHeight="645.0" prefWidth="950.0">
          <children>
@@ -31,7 +31,7 @@
                   <Font name="Calibri" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="VolverLigaBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" text="Volver" />
+            <Button fx:id="VolverLigaBtn" onAction="#toMainMenu" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" text="Volver" />
          </children>
       </AnchorPane>
    </children>
