@@ -4,25 +4,23 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" stylesheets="@Styles.css" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresLolViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresLolViewController">
    <children>
       <AnchorPane prefHeight="645.0" prefWidth="950.0">
          <children>
             <Label layoutX="75.0" layoutY="84.0" text="Nombre" />
-            <ListView fx:id="LeaguePlayerListView" layoutX="-2.0" layoutY="247.0" prefHeight="400.0" prefWidth="950.0" />
             <Label layoutX="72.0" layoutY="126.0" text="Apellidos" />
             <Label layoutX="320.0" layoutY="126.0" text="Equipo" />
-            <Label layoutX="86.0" layoutY="167.0" text="Pais" />
+            <Label layoutX="86.0" layoutY="167.0" text="País" />
             <Label layoutX="312.0" layoutY="84.0" text="Nickname" />
-            <Label layoutX="317.0" layoutY="168.0" text="Posicion" />
-            <Label layoutX="396.0" layoutY="62.0" />
+            <Label layoutX="317.0" layoutY="168.0" text="Posición" />
             <CheckBox fx:id="LeaguePlayerEarlyShtCllrChk" layoutX="614.0" layoutY="84.0" mnemonicParsing="false" text="Early ShotCaller" />
             <CheckBox fx:id="LeaguePlayerLateShtCllrChk" layoutX="615.0" layoutY="126.0" mnemonicParsing="false" text="Late ShotCaller" />
             <Button fx:id="CreateLeaguePlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
@@ -39,7 +37,19 @@
                   <Font name="Calibri" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="VolverLeaguePlayerBtn" onAction="#toMainMenu" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" text="Volver" />
+            <Button fx:id="VolverLeaguePlayerBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" onAction="#toMainMenu" text="Volver" />
+            <TableView fx:id="LolPlayerTableView" layoutX="-2.0" layoutY="247.0" prefHeight="400.0" prefWidth="950.0">
+               <columns>
+                  <TableColumn fx:id="colName" prefWidth="150.0" text="Nombre" />
+                  <TableColumn fx:id="colSurname" prefWidth="150.0" text="Apellidos" />
+                  <TableColumn fx:id="colCountry" prefWidth="150.0" text="País" />
+                  <TableColumn fx:id="colTeam" prefWidth="150.0" text="Equipo" />
+                  <TableColumn fx:id="colPosition" prefWidth="150.0" text="Posición" />
+                  <TableColumn fx:id="colNickname" prefWidth="150.0" text="Nickname" />
+                  <TableColumn fx:id="colEarlyShotCaller" prefWidth="150.0" text="Early ShotCaller" />
+                  <TableColumn fx:id="colLateShotCaller" prefWidth="150.0" text="Late ShotCaller" />
+               </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

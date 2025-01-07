@@ -1,78 +1,139 @@
 package edu.badpals.proyectoad3.controller;
 
 import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.model.entities.LolPlayer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Connection;
 import java.util.List;
 
 public class JugadoresLolViewController {
 
     @FXML
-    private TextField LeaguePlayerNickTxt;
+    public CheckBox LeaguePlayerEarlyShtCllrChk;
     @FXML
-    private ComboBox LeaguePlayerPositionCmb;
+    public CheckBox LeaguePlayerLateShtCllrChk;
     @FXML
-    private ComboBox LeaguePlayerTeamCmb;
+    public Button CreateLeaguePlayerBtn;
     @FXML
-    private ComboBox LeaguePlayerCountryCmb;
+    public Button UpdateLeaguePlayerBtn;
     @FXML
-    private TextField LeaguePlayerSurnameTxt;
+    public Button DeleteLeaguePlayerBtn;
     @FXML
-    private TextField LeaguePlayerNameTxt;
+    public TextField LeaguePlayerNameTxt;
     @FXML
-    private Button DeleteLeaguePlayerBtn;
+    public TextField LeaguePlayerSurnameTxt;
     @FXML
-    private Button UpdateLeaguePlayerBtn;
+    public TextField LeaguePlayerNickTxt;
     @FXML
-    private Button CreateLeaguePlayerBtn;
+    public Button VolverLeaguePlayerBtn;
     @FXML
-    private CheckBox LeaguePlayerLateShtCllrChk;
+    public TableView<LolPlayer> LolPlayerTableView;
     @FXML
-    private CheckBox LeaguePlayerEarlyShtCllrChk;
+    public TableColumn<LolPlayer, String> colName;
     @FXML
-    private Button VolverLeaguePlayerBtn;
+    public TableColumn<LolPlayer, String> colSurname;
+    @FXML
+    public TableColumn<LolPlayer, String> colCountry;
+    @FXML
+    public TableColumn<LolPlayer, String> colTeam;
+    @FXML
+    public TableColumn<LolPlayer, String> colPosition;
+    @FXML
+    public TableColumn<LolPlayer, String> colNickname;
+    @FXML
+    public TableColumn<LolPlayer, Boolean> colEarlyShotCaller;
+    @FXML
+    public TableColumn<LolPlayer, Boolean> colLateShotCaller;
+    @FXML
+    private ComboBox<String> LeaguePlayerPositionCmb;
+    @FXML
+    private ComboBox<String> LeaguePlayerTeamCmb;
+    @FXML
+    private ComboBox<String> LeaguePlayerCountryCmb;
 
     private final Conection_App conectionApp = new Conection_App();
 
-
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/MainView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
 
     @FXML
-    public void initialize() {
-        List<String> lista = Conection_App.returnAllTeams(conectionApp.crearConexion());
-        LeaguePlayerPositionCmb.getItems().addAll("Top", "Jungle", "Mid", "ADC", "Support");
-        LeaguePlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. Swaziland)", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
-        LeaguePlayerTeamCmb.getItems().addAll(lista);
+    public void setCells() {
+        colName.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colSurname.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+        colCountry.setCellValueFactory(new PropertyValueFactory<>("pais"));
+        colTeam.setCellValueFactory(new PropertyValueFactory<>("equipo"));
+        colPosition.setCellValueFactory(new PropertyValueFactory<>("posicion"));
+        colNickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
+        colEarlyShotCaller.setCellValueFactory(new PropertyValueFactory<>("earlyShotCaller"));
+        colLateShotCaller.setCellValueFactory(new PropertyValueFactory<>("lateShotCaller"));
     }
 
+    @FXML
+    public void loadData() {
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            List<LolPlayer> LolPlayer = Conection_App.getLolPlayers(connection);
+            ObservableList<LolPlayer> leaguePlayerObservableList = FXCollections.observableArrayList(LolPlayer);
+            LolPlayerTableView.setItems(leaguePlayerObservableList);
+            Conection_App.cerrarConexion(connection);
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
 
+    @FXML
+    public void initialize() {
+        setCells();
+        loadData();
 
+        LeaguePlayerPositionCmb.getItems().addAll("Top", "Jungle", "Mid", "ADC", "Support");
+        LeaguePlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany", "India", "Japan", "Korea (South)", "Mexico", "Spain", "United Kingdom", "United States", "Vietnam");
+        LeaguePlayerTeamCmb.getItems().addAll(Conection_App.returnAllTeams(conectionApp.crearConexion()));
+
+        LolPlayerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        LolPlayerTableView.setOnMouseClicked(event -> {
+            if (!LolPlayerTableView.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                cargarDatosJugador();
+            }
+        });
+    }
+
+    private void cargarDatosJugador() {
+        LolPlayer jugadorSeleccionado = LolPlayerTableView.getSelectionModel().getSelectedItem();
+        if (jugadorSeleccionado != null) {
+            LeaguePlayerNameTxt.setText(jugadorSeleccionado.getInformacionPersonal().getNombre());
+            LeaguePlayerSurnameTxt.setText(jugadorSeleccionado.getInformacionPersonal().getApellidos());
+            LeaguePlayerNickTxt.setText(jugadorSeleccionado.getNickname());
+            LeaguePlayerCountryCmb.setValue(jugadorSeleccionado.getInformacionPersonal().getPais());
+            if (jugadorSeleccionado.getEquipo() != null) {
+                LeaguePlayerTeamCmb.setValue(jugadorSeleccionado.getEquipoNombre());
+            } else {
+                LeaguePlayerTeamCmb.setValue("No asignado");
+            }
+            LeaguePlayerPositionCmb.setValue(jugadorSeleccionado.getPosicion());
+            LeaguePlayerEarlyShtCllrChk.setSelected(jugadorSeleccionado.isEarlyShotCaller());
+            LeaguePlayerLateShtCllrChk.setSelected(jugadorSeleccionado.isLateShotCaller());
+        }
+    }
 }

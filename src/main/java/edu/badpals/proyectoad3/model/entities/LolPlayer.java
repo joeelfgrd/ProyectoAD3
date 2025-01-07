@@ -31,7 +31,7 @@ public class LolPlayer extends Jugador{
         this.posicion = posicion;
     }
 
-    public boolean isEarlyShotcaller() {
+    public boolean isEarlyShotCaller() {
         return EarlyShotcaller;
     }
 
@@ -39,9 +39,19 @@ public class LolPlayer extends Jugador{
         EarlyShotcaller = earlyShotcaller;
     }
 
-    public boolean isLateShotcaller() {
+    public boolean isLateShotCaller() {
         return LateShotcaller;
     }
+
+    public boolean getEarlyShotcaller() {
+        return EarlyShotcaller;
+    }
+
+    public boolean getLateShotcaller() {
+        return LateShotcaller;
+    }
+
+
 
     public void setLateShotcaller(boolean lateShotcaller) {
         LateShotcaller = lateShotcaller;

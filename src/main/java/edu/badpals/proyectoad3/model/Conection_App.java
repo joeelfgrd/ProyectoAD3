@@ -171,8 +171,8 @@ public class Conection_App {
             try (PreparedStatement psLolPlayer = c.prepareStatement(insertLolPlayer)) {
                 psLolPlayer.setLong(1, idJugadorGenerado);
                 psLolPlayer.setString(2, lolPlayer.getPosicion());
-                psLolPlayer.setBoolean(3, lolPlayer.isEarlyShotcaller());
-                psLolPlayer.setBoolean(4, lolPlayer.isLateShotcaller());
+                psLolPlayer.setBoolean(3, lolPlayer.isEarlyShotCaller());
+                psLolPlayer.setBoolean(4, lolPlayer.isLateShotCaller());
                 psLolPlayer.executeUpdate();
             }
         } catch (SQLException e) {
@@ -311,8 +311,8 @@ public class Conection_App {
             String updateLolPlayers = "UPDATE LolPlayers SET posicion = ?, earlyShotcaller = ?, lateShotcaller = ? WHERE id_jugador = ?";
             try (PreparedStatement psLolPlayers = c.prepareStatement(updateLolPlayers)) {
                 psLolPlayers.setString(1, lolPlayer.getPosicion());
-                psLolPlayers.setBoolean(2, lolPlayer.isEarlyShotcaller());
-                psLolPlayers.setBoolean(3, lolPlayer.isLateShotcaller());
+                psLolPlayers.setBoolean(2, lolPlayer.isEarlyShotCaller());
+                psLolPlayers.setBoolean(3, lolPlayer.isLateShotCaller());
                 psLolPlayers.setLong(4, lolPlayer.getId_jugador());
                 psLolPlayers.executeUpdate();
             }
@@ -524,6 +524,40 @@ public class Conection_App {
             throw new RuntimeException(e);
         }
         return valorantPlayer;
+    }
+
+    public static List<LolPlayer> getLolPlayers(Connection c) {
+        List<LolPlayer> lolPlayers = new ArrayList<>();
+        String query = "SELECT * FROM LolPlayers " +
+                "INNER JOIN personal ON LolPlayers.id_jugador = personal.id_jugador";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                LolPlayer lp = new LolPlayer();
+                lp.setId_jugador(rs.getLong("id_jugador"));
+                lp.setPosicion(rs.getString("Posicion"));
+                lp.setEarlyShotcaller(rs.getBoolean("EarlyShotcaller"));
+                lp.setLateShotcaller(rs.getBoolean("LateShotcaller"));
+                lp.setInformacionPersonal(new InformacionPersonal(
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("pais")
+                ));
+                lp.setNickname(rs.getString("nickname"));
+                Long equipoId = rs.getLong("equipo");
+                Equipo equipo = getEquipoById(c, equipoId);
+                if (equipo != null) {
+                    lp.setEquipo(equipo);
+                } else {
+                    System.err.println("Equipo no encontrado con id: " + equipoId);
+                }
+
+                lolPlayers.add(lp);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener LolPlayers", e);
+        }
+        return lolPlayers;
     }
 
     private static Equipo getEquipoById(Connection c, Long idEquipo) {
