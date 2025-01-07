@@ -22,6 +22,32 @@ public class ValorantPlayer extends Jugador{
         this.IGL = IGL;
     }
 
+    public String getNombre() {
+        return informacionPersonal.getNombre();
+    }
+
+    public String getApellidos() {
+        return informacionPersonal.getApellidos();
+    }
+
+    public String getPais() {
+        return informacionPersonal.getPais();
+    }
+
+    public void setNombre(String nombre) {
+        informacionPersonal.setNombre(nombre);
+    }
+
+    public void setApellidos(String apellidos) {
+        informacionPersonal.setApellidos(apellidos);
+    }
+
+    public void setPais(String pais) {
+        informacionPersonal.setPais(pais);
+    }
+
+
+
     public String getRol() {
         return rol;
     }

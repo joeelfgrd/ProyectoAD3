@@ -15,11 +15,11 @@ public class Jugador {
     private long id_jugador;
 
     @Embedded
-    private InformacionPersonal informacionPersonal;
+    public InformacionPersonal informacionPersonal;
     @Column(name="Nickname", unique = true, nullable = false)
-    private String Nickname;
-    @Column(name="Equipo", unique = true, nullable = false)
-    private String Equipo;
+    public String Nickname;
+    @Column(name="Equipo", nullable = false)
+    public String Equipo;
 
     public Jugador() {
     }

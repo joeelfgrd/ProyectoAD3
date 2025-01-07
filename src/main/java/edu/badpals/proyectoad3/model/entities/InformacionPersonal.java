@@ -2,9 +2,9 @@ package edu.badpals.proyectoad3.model.entities;
 import jakarta.persistence.Embeddable;
 @Embeddable
 public class InformacionPersonal {
-    private String nombre;
-    private String apellidos;
-    private String pais;
+    public String nombre;
+    public String apellidos;
+    public String pais;
 
     public InformacionPersonal() {
     }
