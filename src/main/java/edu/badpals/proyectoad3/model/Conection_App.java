@@ -140,7 +140,6 @@ public class Conection_App {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();
         try {
-            // Paso 1: Insertar en 'personal'
             String insertPersonal = "INSERT INTO personal (nombre, apellidos, pais, nickname, equipo, tipo_jugador) VALUES (?, ?, ?, ?, ?, ?)";
             long idJugadorGenerado;
 
