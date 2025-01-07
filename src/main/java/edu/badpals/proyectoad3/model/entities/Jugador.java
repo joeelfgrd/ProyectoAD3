@@ -16,11 +16,12 @@ public class Jugador {
 
     @Embedded
     private InformacionPersonal informacionPersonal;
+
     @Column(name="Nickname", unique = true, nullable = false)
     private String Nickname;
 
     @ManyToOne
-    @JoinColumn(name = "Equipo" , nullable = false)
+    @JoinColumn(name = "Equipo", nullable = false)
     private Equipo Equipo;
 
     public Jugador() {
@@ -29,8 +30,8 @@ public class Jugador {
     public Jugador(long id_jugador, InformacionPersonal informacionPersonal, String nickname, Equipo equipo) {
         this.id_jugador = id_jugador;
         this.informacionPersonal = informacionPersonal;
-        Nickname = nickname;
-        Equipo = equipo;
+        this.Nickname = nickname;
+        this.Equipo = equipo;
     }
 
     public long getId_jugador() {
@@ -54,7 +55,7 @@ public class Jugador {
     }
 
     public void setNickname(String nickname) {
-        Nickname = nickname;
+        this.Nickname = nickname;
     }
 
     public Equipo getEquipo() {
@@ -66,10 +67,21 @@ public class Jugador {
     }
 
     public void setEquipo(Equipo equipo) {
-        Equipo = equipo;
+        this.Equipo = equipo;
     }
 
+    // Métodos para acceder a la información personal
+    public String getNombre() {
+        return informacionPersonal.getNombre();
+    }
 
+    public String getApellidos() {
+        return informacionPersonal.getApellidos();
+    }
+
+    public String getPais() {
+        return informacionPersonal.getPais();
+    }
 
     @Override
     public String toString() {

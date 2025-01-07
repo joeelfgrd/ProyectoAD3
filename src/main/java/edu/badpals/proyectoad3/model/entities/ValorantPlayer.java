@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="ValorantPlayers")
 @DiscriminatorValue(value="1")
-public class ValorantPlayer extends Jugador{
+public class ValorantPlayer extends Jugador {
+
     @Column(name="rol", nullable = false)
     private String rol;
+
     @Column(name="agente")
     private String agente;
+
     @Column(name="IGL")
     private boolean IGL;
 

@@ -89,13 +89,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" +
-                "idEquipo=" + idEquipo +
-                ", nombre='" + nombre + '\'' +
-                ", fechaCreacion=" + fechaCreacion +
-                ", region='" + region + '\'' +
-                ", tier='" + tier + '\'' +
-                ", equipoLigas=" + equipoLigas +
-                '}';
+        return nombre;
     }
+
 }
