@@ -3,6 +3,8 @@ package edu.badpals.proyectoad3.model;
 import edu.badpals.proyectoad3.model.entities.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Conection_App {
@@ -384,10 +386,27 @@ public class Conection_App {
         }
     }
 
+    //LISTAR LOS OBJETOS
 
+    public static List<Equipo> getEquipos(Connection c) {
+        List<Equipo> equipos = new ArrayList<>();
+        String query = "SELECT * FROM equipos";
 
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                Equipo equipo = new Equipo();
+                equipo.setIdEquipo(rs.getLong("idEquipo"));
+                equipo.setNombre(rs.getString("nombre"));
+                equipo.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                equipo.setRegion(rs.getString("region"));
+                equipo.setTier(rs.getString("tier"));
+                equipos.add(equipo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-
-
-
+        return equipos;
+    }
 }
+
