@@ -10,11 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseButton;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -39,6 +38,18 @@ public class EquiposViewController {
 
     @FXML
     private Button VolverTeamBtn;
+
+    @FXML
+    private TextField TeamNameTxt;
+
+    @FXML
+    private TextField TeamDateTxt;
+
+    @FXML
+    private ComboBox TeamRegionCmb;
+
+    @FXML
+    private ComboBox TeamTierCmb;
 
     private final Conection_App conectionApp = new Conection_App();
 
@@ -86,7 +97,24 @@ public class EquiposViewController {
         setCells();
         loadData();
         tableEquipos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableEquipos.setOnMouseClicked(event -> {
+            if (!tableEquipos.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                cargarDatosEquipo();
+            }
+        });
     }
+
+    private void cargarDatosEquipo() {
+        Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
+
+        if (equipoSeleccionado != null) {
+            TeamNameTxt.setText(equipoSeleccionado.getNombre());
+            TeamDateTxt.setText(String.valueOf(equipoSeleccionado.getFechaCreacion()));
+            TeamRegionCmb.setValue(equipoSeleccionado.getRegion());
+            TeamTierCmb.setValue(equipoSeleccionado.getTier());
+        }
+    }
+
 
 
 

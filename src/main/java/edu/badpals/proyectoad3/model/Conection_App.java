@@ -408,5 +408,25 @@ public class Conection_App {
 
         return equipos;
     }
+
+    public static List<Liga> getLigas(Connection c) {
+        List<Liga> ligas = new ArrayList<>();
+        String query = "SELECT * FROM ligas";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                Liga liga = new Liga();
+                liga.setIdLiga(rs.getLong("idLiga"));
+                liga.setNombre(rs.getString("nombre"));
+                liga.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                liga.setRegion(rs.getString("region"));
+                liga.setTier(rs.getString("tier"));
+                ligas.add(liga);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ligas;
+    }
 }
 
