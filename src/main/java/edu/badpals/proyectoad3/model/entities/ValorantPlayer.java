@@ -15,7 +15,7 @@ public class ValorantPlayer extends Jugador{
     public ValorantPlayer() {
     }
 
-    public ValorantPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, String equipo, String rol, String agente, boolean IGL) {
+    public ValorantPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, Equipo equipo, String rol, String agente, boolean IGL) {
         super(id_jugador, informacionPersonal, nickname, equipo);
         this.rol = rol;
         this.agente = agente;

@@ -149,7 +149,10 @@ public class Conection_App {
                 psPersonal.setString(2, lolPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, lolPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, lolPlayer.getNickname());
-                psPersonal.setString(5, lolPlayer.getEquipo());
+
+                // Aquí debes usar el ID del equipo, no el nombre
+                psPersonal.setLong(5, lolPlayer.getEquipo().getIdEquipo()); // Ahora insertamos el ID del equipo
+
                 psPersonal.setInt(6, 1); // Valor para tipo_jugador, por ejemplo: 1 para LolPlayer
                 psPersonal.executeUpdate();
 
@@ -190,7 +193,7 @@ public class Conection_App {
                 psPersonal.setString(2, valoPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, valoPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, valoPlayer.getNickname());
-                psPersonal.setString(5, valoPlayer.getEquipo());
+                psPersonal.setString(5, valoPlayer.getEquipoNombre());
                 psPersonal.setInt(6, 2); // Valor para tipo_jugador, por ejemplo: 2 para ValoPlayer
                 psPersonal.executeUpdate();
 
@@ -317,7 +320,7 @@ public class Conection_App {
                 psPersonal.setString(2, lolPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, lolPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, lolPlayer.getNickname());
-                psPersonal.setString(5, lolPlayer.getEquipo());
+                psPersonal.setString(5, lolPlayer.getEquipoNombre());
                 psPersonal.setLong(6, lolPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
@@ -363,7 +366,7 @@ public class Conection_App {
                 psPersonal.setString(2, valoPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, valoPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, valoPlayer.getNickname());
-                psPersonal.setString(5, valoPlayer.getEquipo());
+                psPersonal.setString(5, valoPlayer.getEquipoNombre());
                 psPersonal.setLong(6, valoPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
@@ -427,6 +430,38 @@ public class Conection_App {
             e.printStackTrace();
         }
         return ligas;
+    }
+
+    public static List<String> returnAllTeams(Connection c) {
+        List<String> teams = new ArrayList<>();
+        String query = "SELECT nombre FROM equipos";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                teams.add(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teams;
+    }
+
+    public static Equipo getEquipoFromName(String name, Connection c) {
+        Equipo equipo = new Equipo();
+        String query = "SELECT * FROM equipos WHERE nombre = '" + name + "'";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                equipo.setIdEquipo(rs.getLong("idEquipo"));
+                equipo.setNombre(rs.getString("nombre"));
+                equipo.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                equipo.setRegion(rs.getString("region"));
+                equipo.setTier(rs.getString("tier"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipo;
     }
 }
 

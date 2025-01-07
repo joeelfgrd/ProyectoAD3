@@ -16,7 +16,7 @@ public class LolPlayer extends Jugador{
     public LolPlayer() {
     }
 
-    public LolPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, String equipo, String posicion, boolean earlyShotcaller, boolean lateShotcaller) {
+    public LolPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, Equipo equipo, String posicion, boolean earlyShotcaller, boolean lateShotcaller) {
         super(id_jugador, informacionPersonal, nickname, equipo);
         this.posicion = posicion;
         EarlyShotcaller = earlyShotcaller;

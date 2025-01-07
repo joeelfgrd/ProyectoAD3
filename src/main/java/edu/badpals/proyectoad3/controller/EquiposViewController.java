@@ -102,6 +102,9 @@ public class EquiposViewController {
                 cargarDatosEquipo();
             }
         });
+        TeamRegionCmb.getItems().addAll("NA", "EU", "KR", "CN", "BR", "LATAM", "OCE", "SEA", "JP", "TR", "CIS");
+        TeamTierCmb.getItems().addAll("1", "2", "3", "4", "5");
+
     }
 
     private void cargarDatosEquipo() {

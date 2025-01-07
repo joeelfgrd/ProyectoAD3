@@ -18,13 +18,15 @@ public class Jugador {
     private InformacionPersonal informacionPersonal;
     @Column(name="Nickname", unique = true, nullable = false)
     private String Nickname;
-    @Column(name="Equipo", unique = true, nullable = false)
-    private String Equipo;
+
+    @ManyToOne
+    @JoinColumn(name = "Equipo" , nullable = false)
+    private Equipo Equipo;
 
     public Jugador() {
     }
 
-    public Jugador(long id_jugador, InformacionPersonal informacionPersonal, String nickname, String equipo) {
+    public Jugador(long id_jugador, InformacionPersonal informacionPersonal, String nickname, Equipo equipo) {
         this.id_jugador = id_jugador;
         this.informacionPersonal = informacionPersonal;
         Nickname = nickname;
@@ -55,13 +57,18 @@ public class Jugador {
         Nickname = nickname;
     }
 
-    public String getEquipo() {
+    public Equipo getEquipo() {
         return Equipo;
     }
 
-    public void setEquipo(String equipo) {
+    public String getEquipoNombre() {
+        return Equipo.getNombre();
+    }
+
+    public void setEquipo(Equipo equipo) {
         Equipo = equipo;
     }
+
 
 
     @Override
@@ -70,7 +77,7 @@ public class Jugador {
                 "id_jugador=" + id_jugador +
                 ", informacionPersonal=" + informacionPersonal +
                 ", Nickname='" + Nickname + '\'' +
-                ", Equipo='" + Equipo + '\'' +
+                ", Equipo='" + Equipo.getNombre() + '\'' +
                 '}';
     }
 }

@@ -22,6 +22,15 @@ import java.util.List;
 public class LeaguesViewController {
 
     @FXML
+    public Button DeleteLigaBtn;
+
+    @FXML
+    public Button UpdateLigaBtn;
+
+    @FXML
+    public Button CreateLigaBtn;
+
+    @FXML
     private TableView<Liga> tableLigas;
 
     @FXML
@@ -96,6 +105,10 @@ public class LeaguesViewController {
                 cargarDatosLiga();
             }
         });
+        LigaRegionCmb.getItems().addAll("NA", "EU", "KR", "CN", "BR", "LATAM", "OCE", "SEA", "JP", "TR", "CIS");
+        LigaTierCmb.getItems().addAll("1", "2", "3", "4", "5");
+
+
     }
 
     private void cargarDatosLiga() {
