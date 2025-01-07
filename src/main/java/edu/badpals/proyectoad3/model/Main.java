@@ -66,7 +66,7 @@ public class Main {
 //            lolPlayer.setEquipo(Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()));
 //
 //            Conection_App.addLolPlayer(lolPlayer);
-
+//
 //
 //            ValorantPlayer valorantPlayer = new ValorantPlayer();
 //            valorantPlayer.setRol("Duelista");
@@ -79,15 +79,15 @@ public class Main {
 //            Conection_App.addValoPlayer(valorantPlayer);
 //
 //
-//            Conection_App.deleteLolPlayerForID(7L);
+//            Conection_App.deleteLolPlayerForID(1L);
+////
+//            Conection_App.deleteValoPlayerForID(2L);
 //
-//            Conection_App.deleteValoPlayerForID(11L);
 //
-//
-//            LolPlayer lolPlayerActualizado = new LolPlayer(12L, new InformacionPersonal("Rasmus", "Borregaard Winther", "DEN"), "Caps", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Mid", true, false);
-//
-//            ValorantPlayer valorantPlayerActualizado = new ValorantPlayer(13L, new InformacionPersonal("Oscar", "Cañellas", "ES"), "Mixwell", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Centinela", "Chyper", true);
-//
+//            LolPlayer lolPlayerActualizado = new LolPlayer(3L, new InformacionPersonal("Rasmus", "Borregaard Winther", "DEN"), "Caps", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Mid", true, false);
+////
+//            ValorantPlayer valorantPlayerActualizado = new ValorantPlayer(4L, new InformacionPersonal("Oscar", "Cañellas", "ES"), "Mixwell", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Centinela", "Chyper", true);
+////
 //            Conection_App.updateLolPlayer(lolPlayerActualizado);
 //            Conection_App.updateValoPlayer(valorantPlayerActualizado);
 

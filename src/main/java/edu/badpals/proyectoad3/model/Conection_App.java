@@ -188,12 +188,15 @@ public class Conection_App {
             String insertPersonal = "INSERT INTO personal (nombre, apellidos, pais, nickname, equipo, tipo_jugador) VALUES (?, ?, ?, ?, ?, ?)";
             long idJugadorGenerado;
 
+            // Obtén el ID del equipo en lugar del nombre
+            long idEquipo = valoPlayer.getEquipo().getIdEquipo();  // Asegúrate de que el equipo tenga el ID asignado
+
             try (PreparedStatement psPersonal = c.prepareStatement(insertPersonal, Statement.RETURN_GENERATED_KEYS)) {
                 psPersonal.setString(1, valoPlayer.getInformacionPersonal().getNombre());
                 psPersonal.setString(2, valoPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, valoPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, valoPlayer.getNickname());
-                psPersonal.setString(5, valoPlayer.getEquipoNombre());
+                psPersonal.setLong(5, idEquipo);  // Inserta el ID del equipo
                 psPersonal.setInt(6, 2); // Valor para tipo_jugador, por ejemplo: 2 para ValoPlayer
                 psPersonal.executeUpdate();
 
@@ -207,7 +210,7 @@ public class Conection_App {
                 }
             }
 
-            // Paso 2: Insertar en 'ValoPlayers' usando la clave generada
+            // Paso 2: Insertar en 'ValorantPlayers' usando la clave generada
             String insertValoPlayer = "INSERT INTO ValorantPlayers (id_jugador, rol, agente, IGL) VALUES (?, ?, ?, ?)";
             try (PreparedStatement psValoPlayer = c.prepareStatement(insertValoPlayer)) {
                 psValoPlayer.setLong(1, idJugadorGenerado);
@@ -220,6 +223,7 @@ public class Conection_App {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteLolPlayerForID(Long id) {
         Conection_App conection_app = new Conection_App();
@@ -320,7 +324,11 @@ public class Conection_App {
                 psPersonal.setString(2, lolPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, lolPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, lolPlayer.getNickname());
-                psPersonal.setString(5, lolPlayer.getEquipoNombre());
+
+                // Obtén el ID del equipo en lugar del nombre
+                long idEquipo = lolPlayer.getEquipo().getIdEquipo();  // Asegúrate de que el equipo tenga el ID asignado
+                psPersonal.setLong(5, idEquipo);  // Inserta el ID del equipo
+
                 psPersonal.setLong(6, lolPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
@@ -342,6 +350,7 @@ public class Conection_App {
             cerrarConexion(c); // Cerrar conexión
         }
     }
+
 
     public static void updateValoPlayer(ValorantPlayer valoPlayer) {
         Conection_App conection_app = new Conection_App();
@@ -366,7 +375,11 @@ public class Conection_App {
                 psPersonal.setString(2, valoPlayer.getInformacionPersonal().getApellidos());
                 psPersonal.setString(3, valoPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, valoPlayer.getNickname());
-                psPersonal.setString(5, valoPlayer.getEquipoNombre());
+
+                // Obtén el ID del equipo en lugar del nombre
+                long idEquipo = valoPlayer.getEquipo().getIdEquipo();  // Asegúrate de que el equipo tenga el ID asignado
+                psPersonal.setLong(5, idEquipo);  // Inserta el ID del equipo
+
                 psPersonal.setLong(6, valoPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
@@ -388,6 +401,7 @@ public class Conection_App {
             cerrarConexion(c); // Cerrar conexión
         }
     }
+
 
     //LISTAR LOS OBJETOS
 
