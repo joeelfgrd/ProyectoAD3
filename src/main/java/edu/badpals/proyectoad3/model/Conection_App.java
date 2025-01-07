@@ -494,7 +494,8 @@ public class Conection_App {
 
     public static List<ValorantPlayer> getJugadorValorant(Connection c) {
         List<ValorantPlayer> valorantPlayer = new ArrayList<>();
-        String query = "SELECT * FROM ValorantPlayers inner join personal on ValorantPlayers.id_jugador = personal.id_jugador";
+        String query = "SELECT * FROM ValorantPlayers " +
+                "INNER JOIN personal ON ValorantPlayers.id_jugador = personal.id_jugador";
 
         try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
             while (rs.next()) {
@@ -505,13 +506,53 @@ public class Conection_App {
                 vp.setIGL(rs.getBoolean("IGL"));
                 vp.setInformacionPersonal(new InformacionPersonal(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("pais")));
                 vp.setNickname(rs.getString("nickname"));
-//                vp.setEquipo(rs.getString("equipo"));
-                valorantPlayer.add(vp);
+
+                // Obtener el id del equipo, no el nombre
+                Long equipoId = rs.getLong("equipo");
+
+                // Recuperar el equipo por su id
+                Equipo equipo = getEquipoById(c, equipoId);
+                if (equipo != null) {
+                    vp.setEquipo(equipo);  // Asignar el equipo al jugador
+                } else {
+                    System.err.println("Equipo no encontrado con id: " + equipoId);
+                }
+
+                valorantPlayer.add(vp);  // Agregar el jugador a la lista
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return valorantPlayer;
     }
+
+    private static Equipo getEquipoById(Connection c, Long idEquipo) {
+        Equipo equipo = null;
+        String query = "SELECT * FROM equipos WHERE idEquipo = ?";  // Buscar por idEquipo
+
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setLong(1, idEquipo);  // Usar el id del equipo
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    equipo = new Equipo();
+                    equipo.setIdEquipo(rs.getLong("idEquipo"));
+                    equipo.setNombre(rs.getString("nombre"));
+                    equipo.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+                    equipo.setRegion(rs.getString("region"));
+                    equipo.setTier(rs.getString("tier"));
+                    // Asigna otros campos de Equipo si es necesario
+                } else {
+                    System.err.println("Equipo no encontrado en la base de datos con id: " + idEquipo);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return equipo;
+    }
+
+
+
+
 }
 
