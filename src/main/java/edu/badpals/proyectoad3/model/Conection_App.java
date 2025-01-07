@@ -460,6 +460,20 @@ public class Conection_App {
         return teams;
     }
 
+    public static List<String> returnAllLeagues(Connection c) {
+        List<String> leagues = new ArrayList<>();
+        String query = "SELECT nombre FROM ligas";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                leagues.add(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return leagues;
+    }
+
     public static Equipo getEquipoFromName(String name, Connection c) {
         Equipo equipo = new Equipo();
         String query = "SELECT * FROM equipos WHERE nombre = '" + name + "'";
@@ -476,6 +490,28 @@ public class Conection_App {
             e.printStackTrace();
         }
         return equipo;
+    }
+
+    public static List<ValorantPlayer> getJugadorValorant(Connection c) {
+        List<ValorantPlayer> valorantPlayer = new ArrayList<>();
+        String query = "SELECT * FROM ValorantPlayers inner join personal on ValorantPlayers.id_jugador = personal.id_jugador";
+
+        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                ValorantPlayer vp = new ValorantPlayer();
+                vp.setId_jugador(rs.getLong("id_jugador"));
+                vp.setRol(rs.getString("rol"));
+                vp.setAgente(rs.getString("agente"));
+                vp.setIGL(rs.getBoolean("IGL"));
+                vp.setInformacionPersonal(new InformacionPersonal(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("pais")));
+                vp.setNickname(rs.getString("nickname"));
+//                vp.setEquipo(rs.getString("equipo"));
+                valorantPlayer.add(vp);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return valorantPlayer;
     }
 }
 

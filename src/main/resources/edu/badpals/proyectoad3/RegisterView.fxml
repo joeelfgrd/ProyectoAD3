@@ -21,7 +21,7 @@
             <Button fx:id="UpdateRegisterBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
             <Button fx:id="DeleteRegisterBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
             <ComboBox fx:id="SelectTeamCmb" layoutX="314.0" layoutY="80.0" prefWidth="150.0" />
-            <ComboBox fx:id="SelectRegisterCmb" layoutX="574.0" layoutY="80.0" prefWidth="150.0" />
+            <ComboBox fx:id="SelectLeagueCmb" layoutX="574.0" layoutY="80.0" prefWidth="150.0" />
             <Label layoutX="437.0" layoutY="29.0" text="Registrar">
                <font>
                   <Font name="Calibri" size="36.0" />

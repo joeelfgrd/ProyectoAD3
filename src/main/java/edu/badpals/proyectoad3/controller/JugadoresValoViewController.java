@@ -15,7 +15,6 @@ import java.util.List;
 
 public class JugadoresValoViewController {
 
-    @FXML
     private final Conection_App conectionApp = new Conection_App();
 
     @FXML
