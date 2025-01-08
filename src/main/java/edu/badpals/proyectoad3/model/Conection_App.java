@@ -127,6 +127,18 @@ public class Conection_App {
         cerrarConexion(c);
     }
 
+    public static void deleteTeam(Equipo equipo) {
+        Conection_App conection_app = new Conection_App();
+        Connection c = conection_app.crearConexion();
+        try {
+            c.createStatement().executeUpdate("DELETE FROM equipos WHERE idEquipo = " + equipo.getIdEquipo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cerrarConexion(c);
+    }
+
+
     public static void updateParticipation(EquipoLiga equipoLiga) {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();

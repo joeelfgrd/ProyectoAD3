@@ -166,4 +166,27 @@ public class EquiposViewController {
             System.out.println("Ocurrió un error al actualizar el equipo: " + e.getMessage());
         }
     }
+
+
+    @FXML
+    public void eliminarEquipo() {
+        Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
+        if (equipoSeleccionado == null) {
+            System.out.println("Debe seleccionar un equipo para eliminar.");
+            return;
+        }
+
+        try {
+            Conection_App.deleteTeam(equipoSeleccionado);
+            loadData();
+            TeamNameTxt.clear();
+            TeamDateTxt.setValue(null);
+            TeamRegionCmb.setValue(null);
+            TeamTierCmb.setValue(null);
+
+            System.out.println("Equipo eliminado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al eliminar el equipo: " + e.getMessage());
+        }
+    }
 }
