@@ -175,7 +175,6 @@ public class EquiposViewController {
             System.out.println("Debe seleccionar un equipo para eliminar.");
             return;
         }
-
         try {
             Conection_App.deleteTeam(equipoSeleccionado);
             loadData();

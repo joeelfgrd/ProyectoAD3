@@ -52,7 +52,7 @@ public class LeaguesViewController {
     private TextField LigaNameTxt;
 
     @FXML
-    private TextField LigaDateTxt;
+    private DatePicker LigaDateTxt;
 
     @FXML
     private ComboBox LigaRegionCmb;
@@ -113,12 +113,35 @@ public class LeaguesViewController {
 
     private void cargarDatosLiga() {
         Liga ligaSeleccionada = tableLigas.getSelectionModel().getSelectedItem();
-
         if (ligaSeleccionada != null) {
             LigaNameTxt.setText(ligaSeleccionada.getNombre());
-            LigaDateTxt.setText(String.valueOf(ligaSeleccionada.getFechaCreacion()));
+            LigaDateTxt.setValue(ligaSeleccionada.getFechaCreacion());
             LigaRegionCmb.setValue(ligaSeleccionada.getRegion());
             LigaTierCmb.setValue(ligaSeleccionada.getTier());
         }
     }
+
+    @FXML
+    private void CreateLiga(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        if (LigaNameTxt.getText().isEmpty() || LigaDateTxt.getValue() == null ||
+                LigaRegionCmb.getValue() == null || LigaTierCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+        if (connection != null) {
+            Liga liga = new Liga();
+            liga.setNombre(LigaNameTxt.getText());
+            liga.setFechaCreacion(LigaDateTxt.getValue());
+            liga.setRegion(LigaRegionCmb.getValue().toString());
+            liga.setTier(LigaTierCmb.getValue().toString());
+            Conection_App.addLeague(liga);
+            Conection_App.cerrarConexion(connection);
+            loadData();
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+
 }
