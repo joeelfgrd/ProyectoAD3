@@ -262,5 +262,24 @@ public class JugadoresValoViewController {
         ValoPlayerTeamCmb.setValue(null);
     }
 
+    @FXML
+    private void DeleteValorantPlayer(ActionEvent event) {
+        ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
+        if (playerSeleccionado == null) {
+            System.out.println("Debe seleccionar un jugador para eliminar.");
+            return;
+        }
+
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            Conection_App.deleteValoPlayerForID(playerSeleccionado.getId_jugador());
+            Conection_App.cerrarConexion(connection);
+            loadData();
+            System.out.println("Jugador eliminado exitosamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
 
 }

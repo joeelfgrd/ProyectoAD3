@@ -38,7 +38,7 @@
             <CheckBox fx:id="IGLCheckbox" layoutX="620.0" layoutY="126.0" mnemonicParsing="false" text="IGL" />
             <Button fx:id="CreateValoPlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" onAction="#CreateValorantPlayer" text="Crear" />
             <Button fx:id="UpdateValoPlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#actualizarValorantPlayer" text="Actualizar" />
-            <Button fx:id="DeleteValoPlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="DeleteValoPlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#DeleteValorantPlayer" text="Eliminar" />
             <TextField fx:id="ValoPlayerNameTxt" layoutX="141.0" layoutY="80.0" />
             <TextField fx:id="ValoPlayerSurnameTxt" layoutX="142.0" layoutY="123.0" />
             <ComboBox fx:id="ValoPlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />

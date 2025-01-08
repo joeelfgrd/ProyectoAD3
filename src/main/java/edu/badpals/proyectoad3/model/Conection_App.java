@@ -294,37 +294,33 @@ public class Conection_App {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();
         try {
-            c.setAutoCommit(false); // Iniciar transacción
-
-            // Paso 1: Eliminar registros relacionados en ValorantPlayers
+            c.setAutoCommit(false);
             String deleteValoPlayers = "DELETE FROM ValorantPlayers WHERE id_jugador = ?";
             try (PreparedStatement psValoPlayers = c.prepareStatement(deleteValoPlayers)) {
                 psValoPlayers.setLong(1, id);
                 psValoPlayers.executeUpdate();
             }
-
-            // Paso 2: Eliminar el registro en personal
             String deletePersonal = "DELETE FROM personal WHERE id_jugador = ?";
             try (PreparedStatement psPersonal = c.prepareStatement(deletePersonal)) {
                 psPersonal.setLong(1, id);
                 psPersonal.executeUpdate();
             }
 
-            c.commit(); // Confirmar transacción
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {
-                c.rollback(); // Revertir en caso de error
+                c.rollback();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
         } finally {
             try {
-                c.setAutoCommit(true); // Restaurar estado por defecto
+                c.setAutoCommit(true);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            cerrarConexion(c); // Cerrar conexión
+            cerrarConexion(c);
         }
     }
 
@@ -332,9 +328,7 @@ public class Conection_App {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();
         try {
-            c.setAutoCommit(false); // Iniciar transacción
-
-            // Paso 1: Actualizar registros relacionados en LolPlayers
+            c.setAutoCommit(false);
             String updateLolPlayers = "UPDATE LolPlayers SET posicion = ?, earlyShotcaller = ?, lateShotcaller = ? WHERE id_jugador = ?";
             try (PreparedStatement psLolPlayers = c.prepareStatement(updateLolPlayers)) {
                 psLolPlayers.setString(1, lolPlayer.getPosicion());
@@ -343,8 +337,6 @@ public class Conection_App {
                 psLolPlayers.setLong(4, lolPlayer.getId_jugador());
                 psLolPlayers.executeUpdate();
             }
-
-            // Paso 2: Actualizar el registro en personal
             String updatePersonal = "UPDATE personal SET nombre = ?, apellidos = ?, pais = ?, nickname = ?, equipo = ? WHERE id_jugador = ?";
             try (PreparedStatement psPersonal = c.prepareStatement(updatePersonal)) {
                 psPersonal.setString(1, lolPlayer.getInformacionPersonal().getNombre());
@@ -352,29 +344,28 @@ public class Conection_App {
                 psPersonal.setString(3, lolPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, lolPlayer.getNickname());
 
-                // Obtén el ID del equipo en lugar del nombre
-                long idEquipo = lolPlayer.getEquipo().getIdEquipo();  // Asegúrate de que el equipo tenga el ID asignado
-                psPersonal.setLong(5, idEquipo);  // Inserta el ID del equipo
+                long idEquipo = lolPlayer.getEquipo().getIdEquipo();
+                psPersonal.setLong(5, idEquipo);
 
                 psPersonal.setLong(6, lolPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
 
-            c.commit(); // Confirmar transacción
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {
-                c.rollback(); // Revertir en caso de error
+                c.rollback();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
         } finally {
             try {
-                c.setAutoCommit(true); // Restaurar estado por defecto
+                c.setAutoCommit(true);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            cerrarConexion(c); // Cerrar conexión
+            cerrarConexion(c);
         }
     }
 
@@ -383,9 +374,8 @@ public class Conection_App {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();
         try {
-            c.setAutoCommit(false); // Iniciar transacción
+            c.setAutoCommit(false);
 
-            // Paso 1: Actualizar registros relacionados en ValorantPlayers
             String updateValoPlayers = "UPDATE ValorantPlayers SET rol = ?, agente = ?, IGL = ? WHERE id_jugador = ?";
             try (PreparedStatement psValoPlayers = c.prepareStatement(updateValoPlayers)) {
                 psValoPlayers.setString(1, valoPlayer.getRol());
@@ -394,8 +384,6 @@ public class Conection_App {
                 psValoPlayers.setLong(4, valoPlayer.getId_jugador());
                 psValoPlayers.executeUpdate();
             }
-
-            // Paso 2: Actualizar el registro en personal
             String updatePersonal = "UPDATE personal SET nombre = ?, apellidos = ?, pais = ?, nickname = ?, equipo = ? WHERE id_jugador = ?";
             try (PreparedStatement psPersonal = c.prepareStatement(updatePersonal)) {
                 psPersonal.setString(1, valoPlayer.getInformacionPersonal().getNombre());
@@ -403,29 +391,28 @@ public class Conection_App {
                 psPersonal.setString(3, valoPlayer.getInformacionPersonal().getPais());
                 psPersonal.setString(4, valoPlayer.getNickname());
 
-                // Obtén el ID del equipo en lugar del nombre
-                long idEquipo = valoPlayer.getEquipo().getIdEquipo();  // Asegúrate de que el equipo tenga el ID asignado
-                psPersonal.setLong(5, idEquipo);  // Inserta el ID del equipo
+                long idEquipo = valoPlayer.getEquipo().getIdEquipo();
+                psPersonal.setLong(5, idEquipo);
 
                 psPersonal.setLong(6, valoPlayer.getId_jugador());
                 psPersonal.executeUpdate();
             }
 
-            c.commit(); // Confirmar transacción
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {
-                c.rollback(); // Revertir en caso de error
+                c.rollback();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
         } finally {
             try {
-                c.setAutoCommit(true); // Restaurar estado por defecto
+                c.setAutoCommit(true);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            cerrarConexion(c); // Cerrar conexión
+            cerrarConexion(c);
         }
     }
 
@@ -480,12 +467,8 @@ public class Conection_App {
         try (Statement s = connection.createStatement(); ResultSet rs = s.executeQuery(query)) {
             while (rs.next()) {
                 EquipoLiga equipoLiga = new EquipoLiga();
-
-                // Recuperar IDs desde la base de datos
                 long idEquipo = rs.getLong("id_equipo");
                 long idLiga = rs.getLong("id_liga");
-
-                // Usar EntityManager para buscar las entidades correspondientes
                 Equipo equipo = em.find(Equipo.class, idEquipo);
                 Liga liga = em.find(Liga.class, idLiga);
 
@@ -495,8 +478,6 @@ public class Conection_App {
                 if (liga == null) {
                     throw new IllegalStateException("Liga con ID " + idLiga + " no encontrada.");
                 }
-
-                // Configurar el objeto EquipoLiga
                 equipoLiga.setEquipo(equipo);
                 equipoLiga.setLiga(liga);
                 equipoLiga.setFechaInscripcion(rs.getDate("fecha_inscripcion").toLocalDate());
@@ -572,19 +553,15 @@ public class Conection_App {
                 vp.setIGL(rs.getBoolean("IGL"));
                 vp.setInformacionPersonal(new InformacionPersonal(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("pais")));
                 vp.setNickname(rs.getString("nickname"));
-
-                // Obtener el id del equipo, no el nombre
                 Long equipoId = rs.getLong("equipo");
-
-                // Recuperar el equipo por su id
                 Equipo equipo = getEquipoById(c, equipoId);
                 if (equipo != null) {
-                    vp.setEquipo(equipo);  // Asignar el equipo al jugador
+                    vp.setEquipo(equipo);
                 } else {
                     System.err.println("Equipo no encontrado con id: " + equipoId);
                 }
 
-                valorantPlayer.add(vp);  // Agregar el jugador a la lista
+                valorantPlayer.add(vp);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

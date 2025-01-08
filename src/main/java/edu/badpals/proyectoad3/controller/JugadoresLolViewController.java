@@ -106,11 +106,9 @@ public class JugadoresLolViewController {
     public void initialize() {
         setCells();
         loadData();
-
         LeaguePlayerPositionCmb.getItems().addAll("Top", "Jungle", "Mid", "ADC", "Support");
         LeaguePlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany", "India", "Japan", "Korea (South)", "Mexico", "Spain", "United Kingdom", "United States", "Vietnam");
         LeaguePlayerTeamCmb.getItems().addAll(Conection_App.returnAllTeams(conectionApp.crearConexion()));
-
         LolPlayerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         LolPlayerTableView.setOnMouseClicked(event -> {
             if (!LolPlayerTableView.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
