@@ -53,7 +53,7 @@ public class Main {
             Conection_App.registerTeam(equipoLiga);
 
             // Eliminar liga y equipo por ID
-            Conection_App.deleteTeamForID(1L);
+            //Conection_App.deleteTeamForID(1L);
 
             // Actualizar equipo, liga y participación
             Equipo equipoActualizado = new Equipo(3L, "Movistar Riders", LocalDate.of(2015, 5, 15), "EU", "2", null);

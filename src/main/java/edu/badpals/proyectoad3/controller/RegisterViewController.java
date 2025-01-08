@@ -4,15 +4,21 @@ import edu.badpals.proyectoad3.model.Conection_App;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import edu.badpals.proyectoad3.model.entities.EquipoLiga;
 import edu.badpals.proyectoad3.model.entities.Liga;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,10 +29,25 @@ import java.util.List;
 public class RegisterViewController {
 
     @FXML
-    private ComboBox<Equipo> SelectTeamCmb;
+    private ComboBox<String> SelectTeamCmb;
 
     @FXML
-    private ComboBox<Liga> SelectLeagueCmb;
+    private ComboBox<String> SelectLeagueCmb;
+
+    @FXML
+    private TableView<EquipoLiga> tableRegister;
+
+    @FXML
+    private TableColumn<EquipoLiga, String> colEquipo;
+
+    @FXML
+    private TableColumn<EquipoLiga, String> colLiga;
+
+    @FXML
+    private TableColumn<EquipoLiga, Double> colPrecio;
+
+    @FXML
+    private TableColumn<EquipoLiga, LocalDate> colFechaInscripcion;
 
     @FXML
     private Button DeleteRegisterBtn;
@@ -46,7 +67,66 @@ public class RegisterViewController {
     @FXML
     private TextField DateRegisterTxt;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+    private EntityManager em;
+
+    @FXML
+    public void initialize() {
+        em = emf.createEntityManager();
+        setCells();
+        loadData();
+        loadComboBoxes();
+        tableRegister.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableRegister.setOnMouseClicked(event -> {
+            if (!tableRegister.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                cargarDatosRegistro();
+            }
+        });
+    }
+
+    private void setCells() {
+        colEquipo.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getEquipo().getNombre()));
+        colLiga.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getLiga().getNombre()));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioPlaza"));
+        colFechaInscripcion.setCellValueFactory(new PropertyValueFactory<>("fechaInscripcion"));
+    }
+
+    private void loadData() {
+        List<EquipoLiga> registros = em.createQuery("SELECT e FROM EquipoLiga e", EquipoLiga.class).getResultList();
+        ObservableList<EquipoLiga> registroObservableList = FXCollections.observableArrayList(registros);
+        tableRegister.setItems(registroObservableList);
+    }
+
+    private void loadComboBoxes() {
+        Connection connection = new Conection_App().crearConexion();
+        if (connection != null) {
+            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            equipos.forEach(equipo -> SelectTeamCmb.getItems().add(equipo.getNombre()));
+
+            List<Liga> ligas = Conection_App.getLigas(connection);
+            ligas.forEach(liga -> SelectLeagueCmb.getItems().add(liga.getNombre()));
+
+
+
+            new Conection_App().cerrarConexion(connection);
+        }
+    }
+
+    private void cargarDatosRegistro() {
+        EquipoLiga registroSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
+
+        if (registroSeleccionado != null) {
+            SelectLeagueCmb.setValue(registroSeleccionado.getLiga().getNombre());
+            SelectTeamCmb.setValue(registroSeleccionado.getEquipo().getNombre());
+
+
+            DateRegisterTxt.setText(String.valueOf(registroSeleccionado.getFechaInscripcion()));
+            PriceRegisterTxt.setText(String.valueOf(registroSeleccionado.getPrecioPlaza()));
+        }
+    }
+
 
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
@@ -59,106 +139,9 @@ public class RegisterViewController {
         currentStage.close();
     }
 
-    @FXML
-    public void initialize() {
-        Connection connection = conectionApp.crearConexion();
-        if (connection != null) {
-            List<Equipo> equipos = Conection_App.returnAllTeams(connection);
-            List<Liga> ligas = Conection_App.returnAllLeagues(connection);
 
-            SelectTeamCmb.getItems().addAll(equipos);
-            SelectLeagueCmb.getItems().addAll(ligas);
 
-            conectionApp.cerrarConexion(connection);
-        } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
-        }
-    }
 
-    @FXML
-    public void createRegister() {
-        Equipo selectedTeam = SelectTeamCmb.getSelectionModel().getSelectedItem();
-        Liga selectedLeague = SelectLeagueCmb.getSelectionModel().getSelectedItem();
-        String priceText = PriceRegisterTxt.getText();
-        String dateText = DateRegisterTxt.getText();
 
-        if (selectedTeam != null && selectedLeague != null && !priceText.isEmpty() && !dateText.isEmpty()) {
-            try {
-                LocalDate date = LocalDate.parse(dateText);
-                Double price = Double.parseDouble(priceText);
 
-                EquipoLiga newRegister = new EquipoLiga(null, selectedTeam, selectedLeague, date, price);
-
-                Connection connection = conectionApp.crearConexion();
-                if (connection != null) {
-                    Conection_App.saveEquipoLiga(connection, newRegister);
-                    conectionApp.cerrarConexion(connection);
-                    System.out.println("Registro creado correctamente.");
-                } else {
-                    System.out.println("Error al conectar con la base de datos.");
-                }
-            } catch (Exception e) {
-                System.out.println("Error al crear el registro: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Todos los campos deben estar llenos para crear un registro.");
-        }
-    }
-
-    @FXML
-    public void deleteRegister() {
-        Equipo selectedTeam = SelectTeamCmb.getSelectionModel().getSelectedItem();
-        Liga selectedLeague = SelectLeagueCmb.getSelectionModel().getSelectedItem();
-
-        if (selectedTeam != null && selectedLeague != null) {
-            Connection connection = conectionApp.crearConexion();
-            if (connection != null) {
-                boolean success = Conection_App.deleteEquipoLiga(connection, selectedTeam.getIdEquipo(), selectedLeague.getIdLiga());
-                conectionApp.cerrarConexion(connection);
-
-                if (success) {
-                    System.out.println("Registro eliminado correctamente.");
-                } else {
-                    System.out.println("No se encontró el registro a eliminar.");
-                }
-            } else {
-                System.out.println("Error al conectar con la base de datos.");
-            }
-        } else {
-            System.out.println("Debe seleccionar un equipo y una liga para eliminar un registro.");
-        }
-    }
-
-    @FXML
-    public void updateRegister() {
-        Equipo selectedTeam = SelectTeamCmb.getSelectionModel().getSelectedItem();
-        Liga selectedLeague = SelectLeagueCmb.getSelectionModel().getSelectedItem();
-        String priceText = PriceRegisterTxt.getText();
-        String dateText = DateRegisterTxt.getText();
-
-        if (selectedTeam != null && selectedLeague != null && !priceText.isEmpty() && !dateText.isEmpty()) {
-            try {
-                LocalDate date = LocalDate.parse(dateText);
-                Double price = Double.parseDouble(priceText);
-
-                Connection connection = conectionApp.crearConexion();
-                if (connection != null) {
-                    boolean success = Conection_App.updateEquipoLiga(connection, selectedTeam.getIdEquipo(), selectedLeague.getIdLiga(), date, price);
-                    conectionApp.cerrarConexion(connection);
-
-                    if (success) {
-                        System.out.println("Registro actualizado correctamente.");
-                    } else {
-                        System.out.println("No se encontró el registro a actualizar.");
-                    }
-                } else {
-                    System.out.println("Error al conectar con la base de datos.");
-                }
-            } catch (Exception e) {
-                System.out.println("Error al actualizar el registro: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Todos los campos deben estar llenos para actualizar un registro.");
-        }
-    }
 }

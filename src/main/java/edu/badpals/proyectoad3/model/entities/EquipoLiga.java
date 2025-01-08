@@ -56,6 +56,7 @@ public class EquipoLiga {
         this.equipo = equipo;
     }
 
+
     public Liga getLiga() {
         return liga;
     }

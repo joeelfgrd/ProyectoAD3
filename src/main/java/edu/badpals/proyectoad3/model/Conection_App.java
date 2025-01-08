@@ -1,6 +1,7 @@
 package edu.badpals.proyectoad3.model;
 
 import edu.badpals.proyectoad3.model.entities.*;
+import jakarta.persistence.EntityManager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.Properties;
 public class Conection_App {
 
     private final String URLDB = "jdbc:mysql://127.0.0.1:3307/ESPORTS";
+
+
 
     public Connection crearConexion() {
         try {
@@ -445,6 +448,45 @@ public class Conection_App {
         }
         return ligas;
     }
+
+    public static List<EquipoLiga> getEquipoLiga(Connection connection, EntityManager em) {
+        List<EquipoLiga> equipoLigas = new ArrayList<>();
+        String query = "SELECT * FROM equipo_liga";
+
+        try (Statement s = connection.createStatement(); ResultSet rs = s.executeQuery(query)) {
+            while (rs.next()) {
+                EquipoLiga equipoLiga = new EquipoLiga();
+
+                // Recuperar IDs desde la base de datos
+                long idEquipo = rs.getLong("id_equipo");
+                long idLiga = rs.getLong("id_liga");
+
+                // Usar EntityManager para buscar las entidades correspondientes
+                Equipo equipo = em.find(Equipo.class, idEquipo);
+                Liga liga = em.find(Liga.class, idLiga);
+
+                if (equipo == null) {
+                    throw new IllegalStateException("Equipo con ID " + idEquipo + " no encontrado.");
+                }
+                if (liga == null) {
+                    throw new IllegalStateException("Liga con ID " + idLiga + " no encontrada.");
+                }
+
+                // Configurar el objeto EquipoLiga
+                equipoLiga.setEquipo(equipo);
+                equipoLiga.setLiga(liga);
+                equipoLiga.setFechaInscripcion(rs.getDate("fecha_inscripcion").toLocalDate());
+                equipoLiga.setPrecioPlaza(rs.getDouble("precio_plaza"));
+
+                equipoLigas.add(equipoLiga);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipoLigas;
+    }
+
+
 
     public static List<String> returnAllTeams(Connection c) {
         List<String> teams = new ArrayList<>();
