@@ -117,11 +117,10 @@ public class EquiposViewController {
             System.out.println("Todos los campos deben estar completos.");
             return;
         }
-
         try {
             Equipo equipo = new Equipo();
             equipo.setNombre(TeamNameTxt.getText());
-            equipo.setFechaCreacion(Date.valueOf(TeamDateTxt.getValue()).toLocalDate());
+            equipo.setFechaCreacion(TeamDateTxt.getValue());
             equipo.setRegion(TeamRegionCmb.getValue().toString());
             equipo.setTier(TeamTierCmb.getValue().toString());
             Conection_App.addTeam(equipo);
@@ -137,4 +136,34 @@ public class EquiposViewController {
         }
     }
 
+    @FXML
+    public void actualizarEquipo() {
+        Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
+        if (equipoSeleccionado == null) {
+            System.out.println("Debe seleccionar un equipo para actualizar.");
+            return;
+        }
+        if (TeamNameTxt.getText().isEmpty() || TeamDateTxt.getValue() == null ||
+                TeamRegionCmb.getValue() == null || TeamTierCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+
+        try {
+            equipoSeleccionado.setNombre(TeamNameTxt.getText());
+            equipoSeleccionado.setFechaCreacion(TeamDateTxt.getValue());
+            equipoSeleccionado.setRegion(TeamRegionCmb.getValue().toString());
+            equipoSeleccionado.setTier(TeamTierCmb.getValue().toString());
+            Conection_App.updateTeam(equipoSeleccionado);
+            loadData();
+            TeamNameTxt.clear();
+            TeamDateTxt.setValue(null);
+            TeamRegionCmb.setValue(null);
+            TeamTierCmb.setValue(null);
+
+            System.out.println("Equipo actualizado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al actualizar el equipo: " + e.getMessage());
+        }
+    }
 }
