@@ -142,6 +142,27 @@ public class LeaguesViewController {
             System.out.println("No se pudo establecer la conexión con la base de datos.");
         }
     }
+    @FXML
+    private void UpdateLiga(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        if (LigaNameTxt.getText().isEmpty() || LigaDateTxt.getValue() == null ||
+                LigaRegionCmb.getValue() == null || LigaTierCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+        if (connection != null) {
+            Liga liga = tableLigas.getSelectionModel().getSelectedItem();
+            liga.setNombre(LigaNameTxt.getText());
+            liga.setFechaCreacion(LigaDateTxt.getValue());
+            liga.setRegion(LigaRegionCmb.getValue().toString());
+            liga.setTier(LigaTierCmb.getValue().toString());
+            Conection_App.updateLeague(liga);
+            Conection_App.cerrarConexion(connection);
+            loadData();
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
 
 
 }
