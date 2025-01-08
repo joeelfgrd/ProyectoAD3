@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
-
+import java.sql.Date;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
@@ -43,7 +43,7 @@ public class EquiposViewController {
     private TextField TeamNameTxt;
 
     @FXML
-    private TextField TeamDateTxt;
+    private DatePicker TeamDateTxt;
 
     @FXML
     private ComboBox TeamRegionCmb;
@@ -55,18 +55,11 @@ public class EquiposViewController {
 
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/MainView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -104,7 +97,6 @@ public class EquiposViewController {
         });
         TeamRegionCmb.getItems().addAll("NA", "EU", "KR", "CN", "BR", "LATAM", "OCE", "SEA", "JP", "TR", "CIS");
         TeamTierCmb.getItems().addAll("1", "2", "3", "4", "5");
-
     }
 
     private void cargarDatosEquipo() {
@@ -112,13 +104,37 @@ public class EquiposViewController {
 
         if (equipoSeleccionado != null) {
             TeamNameTxt.setText(equipoSeleccionado.getNombre());
-            TeamDateTxt.setText(String.valueOf(equipoSeleccionado.getFechaCreacion()));
+            TeamDateTxt.setValue(equipoSeleccionado.getFechaCreacion());
             TeamRegionCmb.setValue(equipoSeleccionado.getRegion());
             TeamTierCmb.setValue(equipoSeleccionado.getTier());
         }
     }
 
+    @FXML
+    public void crearEquipo() {
+        if (TeamNameTxt.getText().isEmpty() || TeamDateTxt.getValue() == null ||
+                TeamRegionCmb.getValue() == null || TeamTierCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
 
+        try {
+            Equipo equipo = new Equipo();
+            equipo.setNombre(TeamNameTxt.getText());
+            equipo.setFechaCreacion(Date.valueOf(TeamDateTxt.getValue()).toLocalDate());
+            equipo.setRegion(TeamRegionCmb.getValue().toString());
+            equipo.setTier(TeamTierCmb.getValue().toString());
+            Conection_App.addTeam(equipo);
+            loadData();
+            TeamNameTxt.clear();
+            TeamDateTxt.setValue(null);
+            TeamRegionCmb.setValue(null);
+            TeamTierCmb.setValue(null);
 
+            System.out.println("Equipo creado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al crear el equipo: " + e.getMessage());
+        }
+    }
 
 }

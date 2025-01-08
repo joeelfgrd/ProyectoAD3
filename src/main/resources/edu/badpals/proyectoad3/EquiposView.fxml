@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,16 +15,15 @@
    <children>
       <AnchorPane prefHeight="645.0" prefWidth="950.0">
          <children>
-            <Label layoutX="219.0" layoutY="90.0" text="Nombre" />
-            <Label layoutX="193.0" layoutY="133.0" text="Fecha de Creación" />
+            <Label layoutX="171.0" layoutY="91.0" text="Nombre" />
+            <Label layoutX="171.0" layoutY="133.0" text="Fecha de Creación" />
             <Label layoutX="494.0" layoutY="90.0" text="Region" />
             <Label layoutX="503.0" layoutY="133.0" text="Tier" />
             <Label layoutX="396.0" layoutY="62.0" />
-            <Button fx:id="CreateTeamBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
+            <Button fx:id="CreateTeamBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" onAction="#crearEquipo" text="Crear" />
             <Button fx:id="UpdateTeamBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
             <Button fx:id="DeleteTeamBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
-            <TextField fx:id="TeamNameTxt" layoutX="296.0" layoutY="86.0" />
-            <TextField fx:id="TeamDateTxt" layoutX="297.0" layoutY="129.0" />
+            <TextField fx:id="TeamNameTxt" layoutX="297.0" layoutY="86.0" />
             <ComboBox fx:id="TeamRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" promptText="Elige la Region" />
             <ComboBox fx:id="TeamTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0" promptText="Elige el tier" />
             <Label layoutX="417.0" layoutY="29.0" text="Equipos">
@@ -40,6 +40,7 @@
                   <TableColumn fx:id="colFechaCreacion" editable="false" prefWidth="141.0" text="Fecha de Creacion" />
               </columns>
             </TableView>
+            <DatePicker fx:id="TeamDateTxt" layoutX="297.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
          </children>
       </AnchorPane>
    </children>

@@ -104,12 +104,8 @@ public class RegisterViewController {
         if (connection != null) {
             List<Equipo> equipos = Conection_App.getEquipos(connection);
             equipos.forEach(equipo -> SelectTeamCmb.getItems().add(equipo.getNombre()));
-
             List<Liga> ligas = Conection_App.getLigas(connection);
             ligas.forEach(liga -> SelectLeagueCmb.getItems().add(liga.getNombre()));
-
-
-
             new Conection_App().cerrarConexion(connection);
         }
     }
@@ -120,13 +116,10 @@ public class RegisterViewController {
         if (registroSeleccionado != null) {
             SelectLeagueCmb.setValue(registroSeleccionado.getLiga().getNombre());
             SelectTeamCmb.setValue(registroSeleccionado.getEquipo().getNombre());
-
-
             DateRegisterTxt.setText(String.valueOf(registroSeleccionado.getFechaInscripcion()));
             PriceRegisterTxt.setText(String.valueOf(registroSeleccionado.getPrecioPlaza()));
         }
     }
-
 
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
@@ -138,10 +131,4 @@ public class RegisterViewController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
-
-
-
-
-
 }
