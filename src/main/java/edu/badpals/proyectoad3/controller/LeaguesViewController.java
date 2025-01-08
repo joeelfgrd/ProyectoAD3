@@ -142,6 +142,7 @@ public class LeaguesViewController {
             System.out.println("No se pudo establecer la conexión con la base de datos.");
         }
     }
+
     @FXML
     private void UpdateLiga(ActionEvent event) {
         Connection connection = conectionApp.crearConexion();
@@ -164,5 +165,16 @@ public class LeaguesViewController {
         }
     }
 
-
+    @FXML
+    private void DeleteLiga(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            Liga liga = tableLigas.getSelectionModel().getSelectedItem();
+            Conection_App.deleteLeague(liga);
+            Conection_App.cerrarConexion(connection);
+            loadData();
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
 }
