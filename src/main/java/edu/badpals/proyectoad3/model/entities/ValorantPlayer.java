@@ -16,7 +16,10 @@ public class ValorantPlayer extends Jugador {
     private boolean IGL;
 
     public ValorantPlayer() {
+        super();
+        this.setInformacionPersonal(new InformacionPersonal());
     }
+
 
     public ValorantPlayer(long id_jugador, InformacionPersonal informacionPersonal, String nickname, Equipo equipo, String rol, String agente, boolean IGL) {
         super(id_jugador, informacionPersonal, nickname, equipo);

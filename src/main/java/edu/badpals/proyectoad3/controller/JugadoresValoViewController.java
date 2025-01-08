@@ -1,6 +1,8 @@
 package edu.badpals.proyectoad3.controller;
 
 import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.model.entities.Equipo;
+import edu.badpals.proyectoad3.model.entities.InformacionPersonal;
 import edu.badpals.proyectoad3.model.entities.ValorantPlayer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -129,14 +131,12 @@ public class JugadoresValoViewController {
         ValoPlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. Swaziland)", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
         ValoPlayerTeamCmb.getItems().addAll(lista);
         ValoPlayerAgentCmb.getItems().addAll("Astra", "Breach", "Brimstone", "Chamber", "Cypher", "Fade", "Gekko", "Harbor", "Jett", "Killjoy", "KAY/O", "Neon", "Omen", "Phoenix", "Raze", "Reyna", "Sage", "Skye", "Sova", "Tejo", "Viper", "Vyse", "Yoru");
-
         ValoPlayerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         ValoPlayerTableView.setOnMouseClicked(event -> {
             if (!ValoPlayerTableView.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
                 cargarDatosJugador();
             }
         });
-
         if (IGLCheckbox != null) {
             IGLCheckbox.setSelected(true);
         } else {
@@ -165,5 +165,102 @@ public class JugadoresValoViewController {
             IGLCheckbox.setSelected(jugadorSeleccionado.isIGL());
         }
     }
+
+    @FXML
+    private void CreateValorantPlayer(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        if (ValoPlayerNameTxt.getText().isEmpty() || ValoPlayerSurnameTxt.getText().isEmpty() ||
+                ValoPlayerNickTxt.getText().isEmpty() || ValoPlayerRolCmb.getValue() == null ||
+                ValoPlayerCountryCmb.getValue() == null || ValoPlayerAgentCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+
+        if (connection != null) {
+            ValorantPlayer player = new ValorantPlayer();
+            if (player.getInformacionPersonal() == null) {
+                player.setInformacionPersonal(new InformacionPersonal());
+            }
+            player.getInformacionPersonal().setNombre(ValoPlayerNameTxt.getText());
+            player.getInformacionPersonal().setApellidos(ValoPlayerSurnameTxt.getText());
+            player.getInformacionPersonal().setPais(ValoPlayerCountryCmb.getValue());
+            player.setNickname(ValoPlayerNickTxt.getText());
+            player.setRol(ValoPlayerRolCmb.getValue());
+            player.setAgente(ValoPlayerAgentCmb.getValue());
+            player.setIGL(IGLCheckbox.isSelected());
+
+            if (ValoPlayerTeamCmb.getValue() != null) {
+                List<Equipo> equipos = Conection_App.getEquipos(connection);
+                for (Equipo equipo : equipos) {
+                    if (equipo.getNombre().equals(ValoPlayerTeamCmb.getValue())) {
+                        player.setEquipo(equipo);
+                        break;
+                    }
+                }
+            }
+            Conection_App.addValoPlayer(player);
+            Conection_App.cerrarConexion(connection);
+            loadData();
+            limpiarCamposValorantPlayer();
+            System.out.println("Jugador creado correctamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void actualizarValorantPlayer() {
+        ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
+        if (playerSeleccionado == null) {
+            System.out.println("Debe seleccionar un jugador para actualizar.");
+            return;
+        }
+        if (ValoPlayerNickTxt.getText().isEmpty() || ValoPlayerRolCmb.getValue() == null ||
+                ValoPlayerAgentCmb.getValue() == null || ValoPlayerNameTxt.getText().isEmpty() ||
+                ValoPlayerSurnameTxt.getText().isEmpty() || ValoPlayerCountryCmb.getValue() == null) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+
+        try {
+            playerSeleccionado.setNickname(ValoPlayerNickTxt.getText());
+            playerSeleccionado.setRol(ValoPlayerRolCmb.getValue());
+            playerSeleccionado.setAgente(ValoPlayerAgentCmb.getValue());
+            playerSeleccionado.setIGL(IGLCheckbox.isSelected());
+            if (ValoPlayerTeamCmb.getValue() != null) {
+                List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
+                for (Equipo equipo : equipos) {
+                    if (equipo.getNombre().equals(ValoPlayerTeamCmb.getValue())) {
+                        playerSeleccionado.setEquipo(equipo);
+                        break;
+                    }
+                }
+            }
+            playerSeleccionado.getInformacionPersonal().setNombre(ValoPlayerNameTxt.getText());
+            playerSeleccionado.getInformacionPersonal().setApellidos(ValoPlayerSurnameTxt.getText());
+            playerSeleccionado.getInformacionPersonal().setPais(ValoPlayerCountryCmb.getValue());
+            Conection_App.updateValoPlayer(playerSeleccionado);
+            loadData();
+
+            limpiarCamposValorantPlayer();
+
+
+            System.out.println("Jugador actualizado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al actualizar el jugador: " + e.getMessage());
+        }
+    }
+
+    private void limpiarCamposValorantPlayer() {
+        ValoPlayerNickTxt.clear();
+        ValoPlayerRolCmb.setValue(null);
+        ValoPlayerAgentCmb.setValue(null);
+        IGLCheckbox.setSelected(false);
+        ValoPlayerNameTxt.clear();
+        ValoPlayerSurnameTxt.clear();
+        ValoPlayerCountryCmb.setValue(null);
+        ValoPlayerTeamCmb.setValue(null);
+    }
+
 
 }
