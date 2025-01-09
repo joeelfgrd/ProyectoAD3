@@ -226,8 +226,9 @@ public class RegisterViewController {
                 return;
             }
             Conection_App.updateParticipation(equipoLigaSeleccionado);
-            loadData();
+            tableRegister.refresh();
             limpiarCamposRegisterEquipoLiga();
+            loadData();
 
 
             System.out.println("Jugador actualizado exitosamente.");
