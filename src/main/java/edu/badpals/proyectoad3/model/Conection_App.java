@@ -545,6 +545,7 @@ public class Conection_App {
                 "INNER JOIN personal ON ValorantPlayers.id_jugador = personal.id_jugador";
 
         try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+
             while (rs.next()) {
                 ValorantPlayer vp = new ValorantPlayer();
                 vp.setId_jugador(rs.getLong("id_jugador"));
@@ -560,7 +561,6 @@ public class Conection_App {
                 } else {
                     System.err.println("Equipo no encontrado con id: " + equipoId);
                 }
-
                 valorantPlayer.add(vp);
             }
         } catch (SQLException e) {

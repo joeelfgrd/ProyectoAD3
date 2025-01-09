@@ -1,6 +1,8 @@
 package edu.badpals.proyectoad3.controller;
 
 import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.model.entities.Equipo;
+import edu.badpals.proyectoad3.model.entities.InformacionPersonal;
 import edu.badpals.proyectoad3.model.entities.LolPlayer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,7 +92,7 @@ public class JugadoresLolViewController {
     }
 
     @FXML
-    public void loadData() {
+    public void loadLolData() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             List<LolPlayer> LolPlayer = Conection_App.getLolPlayers(connection);
@@ -105,7 +107,7 @@ public class JugadoresLolViewController {
     @FXML
     public void initialize() {
         setCells();
-        loadData();
+        loadLolData();
         LeaguePlayerPositionCmb.getItems().addAll("Top", "Jungle", "Mid", "ADC", "Support");
         LeaguePlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany", "India", "Japan", "Korea (South)", "Mexico", "Spain", "United Kingdom", "United States", "Vietnam");
         LeaguePlayerTeamCmb.getItems().addAll(Conection_App.returnAllTeams(conectionApp.crearConexion()));
@@ -134,4 +136,133 @@ public class JugadoresLolViewController {
             LeaguePlayerLateShtCllrChk.setSelected(jugadorSeleccionado.isLateShotCaller());
         }
     }
+
+    @FXML
+    private void createLolPlayer(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        if (LeaguePlayerNameTxt.getText().isEmpty() ||
+                LeaguePlayerSurnameTxt.getText().isEmpty() ||
+                LeaguePlayerNickTxt.getText().isEmpty() ||
+                LeaguePlayerCountryCmb.getValue() == null ||
+                LeaguePlayerTeamCmb.getValue() == null ||
+                LeaguePlayerPositionCmb.getValue() == null) {
+            System.out.println("Por favor, completa todos los campos obligatorios.");
+            return;
+        }
+
+        if (connection != null) {
+            LolPlayer player = new LolPlayer();
+            if (player.getInformacionPersonal() == null) {
+                player.setInformacionPersonal(new InformacionPersonal());
+            }
+
+            player.getInformacionPersonal().setNombre(LeaguePlayerNameTxt.getText());
+            player.getInformacionPersonal().setApellidos(LeaguePlayerSurnameTxt.getText());
+            player.getInformacionPersonal().setPais(LeaguePlayerCountryCmb.getValue());
+            player.setNickname(LeaguePlayerNickTxt.getText());
+            player.setPosicion(LeaguePlayerPositionCmb.getValue());
+            player.setEarlyShotcaller(LeaguePlayerEarlyShtCllrChk.isSelected());
+            player.setLateShotcaller(LeaguePlayerLateShtCllrChk.isSelected());
+
+            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            for (Equipo equipo : equipos) {
+                if (equipo.getNombre().equals(LeaguePlayerTeamCmb.getValue())) {
+                    player.setEquipo(equipo);
+                    break;
+                }
+            }
+
+            Conection_App.addLolPlayer(player);
+            Conection_App.cerrarConexion(connection);
+            loadLolData();
+            limpiarCamposLeaguePlayer();
+            System.out.println("Jugador creado exitosamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión a la base de datos.");
+        }
+    }
+
+
+    @FXML
+    private void updateLeaguePlayer(ActionEvent event) {
+        LolPlayer selectedPlayer = LolPlayerTableView.getSelectionModel().getSelectedItem();
+        if (selectedPlayer == null) {
+            System.out.println("Selecciona un jugador para actualizar.");
+            return;
+        }
+
+        if (LeaguePlayerNameTxt.getText().isEmpty() ||
+                LeaguePlayerSurnameTxt.getText().isEmpty() ||
+                LeaguePlayerNickTxt.getText().isEmpty() ||
+                LeaguePlayerCountryCmb.getValue() == null ||
+                LeaguePlayerTeamCmb.getValue() == null ||
+                LeaguePlayerPositionCmb.getValue() == null) {
+            System.out.println("Por favor, completa todos los campos obligatorios.");
+            return;
+        }
+
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            selectedPlayer.getInformacionPersonal().setNombre(LeaguePlayerNameTxt.getText());
+            selectedPlayer.getInformacionPersonal().setApellidos(LeaguePlayerSurnameTxt.getText());
+            selectedPlayer.getInformacionPersonal().setPais(LeaguePlayerCountryCmb.getValue());
+            selectedPlayer.setNickname(LeaguePlayerNickTxt.getText());
+            selectedPlayer.setPosicion(LeaguePlayerPositionCmb.getValue());
+            selectedPlayer.setEarlyShotcaller(LeaguePlayerEarlyShtCllrChk.isSelected());
+            selectedPlayer.setLateShotcaller(LeaguePlayerLateShtCllrChk.isSelected());
+
+            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            for (Equipo equipo : equipos) {
+                if (equipo.getNombre().equals(LeaguePlayerTeamCmb.getValue())) {
+                    selectedPlayer.setEquipo(equipo);
+                    break;
+                }
+            }
+
+            Conection_App.updateLolPlayer(selectedPlayer);
+            Conection_App.cerrarConexion(connection);
+            loadLolData();
+            limpiarCamposLeaguePlayer();
+            System.out.println("Jugador actualizado correctamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión a la base de datos.");
+        }
+    }
+
+
+    @FXML
+    private void deleteLolPlayer(ActionEvent event) {
+        LolPlayer selectedPlayer = LolPlayerTableView.getSelectionModel().getSelectedItem();
+        if (selectedPlayer == null) {
+            System.out.println("Selecciona un jugador para eliminar.");
+            return;
+        }
+
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            Conection_App.deleteLolPlayerForID(selectedPlayer.getId_jugador());
+            Conection_App.cerrarConexion(connection);
+            loadLolData();
+            limpiarCamposLeaguePlayer();
+            System.out.println("Jugador eliminado correctamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión a la base de datos.");
+        }
+    }
+
+
+
+    private void limpiarCamposLeaguePlayer() {
+        LeaguePlayerNameTxt.clear();
+        LeaguePlayerSurnameTxt.clear();
+        LeaguePlayerNickTxt.clear();
+        LeaguePlayerCountryCmb.setValue(null);
+        LeaguePlayerTeamCmb.setValue(null);
+        LeaguePlayerPositionCmb.setValue(null);
+        LeaguePlayerEarlyShtCllrChk.setSelected(false);
+        LeaguePlayerLateShtCllrChk.setSelected(false);
+    }
+
+
+
 }

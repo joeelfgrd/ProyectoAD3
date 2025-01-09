@@ -23,9 +23,9 @@
             <Label layoutX="317.0" layoutY="168.0" text="Posición" />
             <CheckBox fx:id="LeaguePlayerEarlyShtCllrChk" layoutX="614.0" layoutY="84.0" mnemonicParsing="false" text="Early ShotCaller" />
             <CheckBox fx:id="LeaguePlayerLateShtCllrChk" layoutX="615.0" layoutY="126.0" mnemonicParsing="false" text="Late ShotCaller" />
-            <Button fx:id="CreateLeaguePlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" text="Crear" />
-            <Button fx:id="UpdateLeaguePlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" text="Actualizar" />
-            <Button fx:id="DeleteLeaguePlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="CreateLeaguePlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" onAction="#createLolPlayer" text="Crear" />
+            <Button fx:id="UpdateLeaguePlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#updateLeaguePlayer" text="Actualizar" />
+            <Button fx:id="DeleteLeaguePlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#deleteLolPlayer" text="Eliminar" />
             <TextField fx:id="LeaguePlayerNameTxt" layoutX="141.0" layoutY="80.0" />
             <TextField fx:id="LeaguePlayerSurnameTxt" layoutX="142.0" layoutY="123.0" />
             <ComboBox fx:id="LeaguePlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />
