@@ -242,6 +242,7 @@ public class JugadoresValoViewController {
             Conection_App.updateValoPlayer(playerSeleccionado);
             loadData();
 
+
             limpiarCamposValorantPlayer();
 
 

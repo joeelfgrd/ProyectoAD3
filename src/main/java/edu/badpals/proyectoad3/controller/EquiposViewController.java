@@ -137,7 +137,7 @@ public class EquiposViewController {
     }
 
     @FXML
-    public void actualizarEquipo() {
+    public void actualizarEquipo(ActionEvent event) {
         Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
         if (equipoSeleccionado == null) {
             System.out.println("Debe seleccionar un equipo para actualizar.");
@@ -169,7 +169,7 @@ public class EquiposViewController {
 
 
     @FXML
-    public void eliminarEquipo() {
+    public void eliminarEquipo(ActionEvent event) {
         Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
         if (equipoSeleccionado == null) {
             System.out.println("Debe seleccionar un equipo para eliminar.");

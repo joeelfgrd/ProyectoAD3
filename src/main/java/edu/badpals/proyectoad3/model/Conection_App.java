@@ -155,7 +155,7 @@ public class Conection_App {
         Conection_App conection_app = new Conection_App();
         Connection c = conection_app.crearConexion();
         try {
-            c.createStatement().executeUpdate("UPDATE equipo_liga SET fecha_inscripcion = '" + equipoLiga.getFechaInscripcion() + "', precio_plaza = '" + equipoLiga.getPrecioPlaza() + "' WHERE id_equipo = " + equipoLiga.getEquipoId() + " AND id_liga = " + equipoLiga.getLigaId());
+            c.createStatement().executeUpdate("UPDATE equipo_liga SET fecha_inscripcion = '" + equipoLiga.getFechaInscripcion() + "', precio_plaza = '" + equipoLiga.getPrecioPlaza() + "', id_equipo = '" + equipoLiga.getEquipoId() + "' , id_liga = '" + equipoLiga.getLigaId() + "' where id = " + equipoLiga.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import edu.badpals.proyectoad3.model.Conection_App;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import edu.badpals.proyectoad3.model.entities.EquipoLiga;
 import edu.badpals.proyectoad3.model.entities.Liga;
+import edu.badpals.proyectoad3.model.entities.ValorantPlayer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -70,6 +71,8 @@ public class RegisterViewController {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
     private EntityManager em;
 
+    private final Conection_App conectionApp = new Conection_App();
+
     @FXML
     public void initialize() {
         em = emf.createEntityManager();
@@ -131,4 +134,132 @@ public class RegisterViewController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
+
+    @FXML
+    public void registrarEquipoEnLiga() {
+        if (SelectTeamCmb.getValue() == null ||
+                SelectLeagueCmb.getValue() == null || PriceRegisterTxt.getText().isEmpty() || DateRegisterTxt.getText().isEmpty()) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+        try {
+            EquipoLiga equipoliga = new EquipoLiga();
+
+            equipoliga.setPrecioPlaza(Double.valueOf(PriceRegisterTxt.getText()));
+            equipoliga.setFechaInscripcion(LocalDate.parse(DateRegisterTxt.getText()));
+
+            if (SelectTeamCmb.getValue() != null) {
+                List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
+                for (Equipo equipo : equipos) {
+                    if (equipo.getNombre().equals(SelectTeamCmb.getValue())) {
+                        equipoliga.setEquipo(equipo);
+                        break;
+                    }
+                }
+            }
+
+            if (SelectLeagueCmb.getValue() != null) {
+                List<Liga> ligas = Conection_App.getLigas(conectionApp.crearConexion());
+                for (Liga liga : ligas) {
+                    if (liga.getNombre().equals(SelectLeagueCmb.getValue())) {
+                        equipoliga.setLiga(liga);
+                        break;
+                    }
+                }
+            }
+
+            if (equipoliga.getEquipo() == null || equipoliga.getLiga() == null) {
+                System.out.println("No se pudo encontrar el equipo o la liga seleccionada.");
+                return;
+            }
+
+            Conection_App.registerTeam(equipoliga);
+            loadData();
+            limpiarCamposRegisterEquipoLiga();
+            System.out.println("Equipo creado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al crear el equipo: " + e.getMessage());
+        }
+    }
+
+
+
+    @FXML
+    public void actualizarEquipoEnLiga() {
+        EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
+        if (equipoLigaSeleccionado == null) {
+            System.out.println("Debe seleccionar un jugador para actualizar.");
+            return;
+        }
+        if (PriceRegisterTxt.getText().isEmpty() || SelectTeamCmb.getValue() == null ||
+                SelectLeagueCmb.getValue() == null || DateRegisterTxt.getText().isEmpty()) {
+            System.out.println("Todos los campos deben estar completos.");
+            return;
+        }
+
+        try {
+            equipoLigaSeleccionado.setPrecioPlaza(Double.valueOf(PriceRegisterTxt.getText()));
+            equipoLigaSeleccionado.setFechaInscripcion(LocalDate.parse(DateRegisterTxt.getText()));
+
+            if (SelectTeamCmb.getValue() != null) {
+                List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
+                for (Equipo equipo : equipos) {
+                    if (equipo.getNombre().equals(SelectTeamCmb.getValue())) {
+                        equipoLigaSeleccionado.setEquipo(equipo);
+                        break;
+                    }
+                }
+            }
+
+            if (SelectLeagueCmb.getValue() != null) {
+                List<Liga> ligas = Conection_App.getLigas(conectionApp.crearConexion());
+                for (Liga liga : ligas) {
+                    if (liga.getNombre().equals(SelectLeagueCmb.getValue())) {
+                        equipoLigaSeleccionado.setLiga(liga);
+                        break;
+                    }
+                }
+            }
+
+            if (equipoLigaSeleccionado.getEquipo() == null || equipoLigaSeleccionado.getLiga() == null) {
+                System.out.println("No se pudo encontrar el equipo o la liga seleccionada.");
+                return;
+            }
+            Conection_App.updateParticipation(equipoLigaSeleccionado);
+            loadData();
+            limpiarCamposRegisterEquipoLiga();
+
+
+            System.out.println("Jugador actualizado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al actualizar el jugador: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void DeleteEquipoLiga(ActionEvent event) {
+        EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
+        if (equipoLigaSeleccionado == null) {
+            System.out.println("Debe seleccionar un jugador para eliminar.");
+            return;
+        }
+
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            Conection_App.unregisterTeam(equipoLigaSeleccionado);
+            Conection_App.cerrarConexion(connection);
+            loadData();
+            System.out.println("EquipoLiga eliminado exitosamente.");
+        } else {
+            System.out.println("No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    private void limpiarCamposRegisterEquipoLiga() {
+        PriceRegisterTxt.clear();
+        DateRegisterTxt.clear();
+        SelectTeamCmb.setValue(null);
+        SelectLeagueCmb.setValue(null);
+    }
+
 }
