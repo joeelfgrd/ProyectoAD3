@@ -20,7 +20,6 @@ public class Conection_App {
             propiedadesConexion.setProperty("user", "root");
             propiedadesConexion.setProperty("password", "root");
             Connection c = DriverManager.getConnection(URLDB, propiedadesConexion);
-            System.out.println("Conexion establecida");
             return c;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +30,6 @@ public class Conection_App {
     public static void cerrarConexion(Connection c) {
         try {
             c.close();
-            System.out.println("Conexión cerrada");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
+import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -118,7 +119,7 @@ public class JugadoresValoViewController {
             ValoPlayerTableView.setItems(valorantPlayerObservableList);
             Conection_App.cerrarConexion(connection);
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 
@@ -172,7 +173,7 @@ public class JugadoresValoViewController {
         if (ValoPlayerNameTxt.getText().isEmpty() || ValoPlayerSurnameTxt.getText().isEmpty() ||
                 ValoPlayerNickTxt.getText().isEmpty() || ValoPlayerRolCmb.getValue() == null ||
                 ValoPlayerCountryCmb.getValue() == null || ValoPlayerAgentCmb.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -202,9 +203,9 @@ public class JugadoresValoViewController {
             Conection_App.cerrarConexion(connection);
             loadData();
             limpiarCamposValorantPlayer();
-            System.out.println("Jugador creado correctamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador creado correctamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 
@@ -212,13 +213,13 @@ public class JugadoresValoViewController {
     public void actualizarValorantPlayer() {
         ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
         if (playerSeleccionado == null) {
-            System.out.println("Debe seleccionar un jugador para actualizar.");
+            AlertasController.mostrarError("Error", "Debe seleccionar un jugador disponible en la base de datos.");
             return;
         }
         if (ValoPlayerNickTxt.getText().isEmpty() || ValoPlayerRolCmb.getValue() == null ||
                 ValoPlayerAgentCmb.getValue() == null || ValoPlayerNameTxt.getText().isEmpty() ||
                 ValoPlayerSurnameTxt.getText().isEmpty() || ValoPlayerCountryCmb.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -245,10 +246,9 @@ public class JugadoresValoViewController {
 
             limpiarCamposValorantPlayer();
 
-
-            System.out.println("Jugador actualizado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador actualizado exitosamente.");
         } catch (Exception e) {
-            System.out.println("Ocurrió un error al actualizar el jugador: " + e.getMessage());
+            AlertasController.mostrarError("Error", "No se ha podido actualizar al jugador en la base de datos");
         }
     }
 
@@ -267,7 +267,7 @@ public class JugadoresValoViewController {
     private void DeleteValorantPlayer(ActionEvent event) {
         ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
         if (playerSeleccionado == null) {
-            System.out.println("Debe seleccionar un jugador para eliminar.");
+            AlertasController.mostrarError("Error", "Debe seleccionar un jugador para eliminar." );
             return;
         }
 
@@ -276,9 +276,9 @@ public class JugadoresValoViewController {
             Conection_App.deleteValoPlayerForID(playerSeleccionado.getId_jugador());
             Conection_App.cerrarConexion(connection);
             loadData();
-            System.out.println("Jugador eliminado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador eliminado exitosamente." );
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos");
         }
     }
 

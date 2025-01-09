@@ -139,7 +139,7 @@ public class RegisterViewController {
     public void registrarEquipoEnLiga() {
         if (SelectTeamCmb.getValue() == null ||
                 SelectLeagueCmb.getValue() == null || PriceRegisterTxt.getText().isEmpty() || DateRegisterTxt.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
         try {
@@ -169,16 +169,16 @@ public class RegisterViewController {
             }
 
             if (equipoliga.getEquipo() == null || equipoliga.getLiga() == null) {
-                System.out.println("No se pudo encontrar el equipo o la liga seleccionada.");
+                AlertasController.mostrarError("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
                 return;
             }
 
             Conection_App.registerTeam(equipoliga);
             loadData();
             limpiarCamposRegisterEquipoLiga();
-            System.out.println("Equipo creado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Equipo creado exitosamente.");
         } catch (Exception e) {
-            System.out.println("Ocurrió un error al crear el equipo: " + e.getMessage());
+            AlertasController.mostrarError("Error", "Ocurrió un error al crear el equipo" );
         }
     }
 
@@ -188,12 +188,12 @@ public class RegisterViewController {
     public void actualizarEquipoEnLiga() {
         EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
         if (equipoLigaSeleccionado == null) {
-            System.out.println("Debe seleccionar un jugador para actualizar.");
+            AlertasController.mostrarError("Error", "Debe seleccionar un jugador para actualizar.");
             return;
         }
         if (PriceRegisterTxt.getText().isEmpty() || SelectTeamCmb.getValue() == null ||
                 SelectLeagueCmb.getValue() == null || DateRegisterTxt.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -222,7 +222,7 @@ public class RegisterViewController {
             }
 
             if (equipoLigaSeleccionado.getEquipo() == null || equipoLigaSeleccionado.getLiga() == null) {
-                System.out.println("No se pudo encontrar el equipo o la liga seleccionada.");
+                AlertasController.mostrarError("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
                 return;
             }
             Conection_App.updateParticipation(equipoLigaSeleccionado);
@@ -230,10 +230,9 @@ public class RegisterViewController {
             limpiarCamposRegisterEquipoLiga();
             loadData();
 
-
-            System.out.println("Jugador actualizado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador actualizado exitosamente.");
         } catch (Exception e) {
-            System.out.println("Ocurrió un error al actualizar el jugador: " + e.getMessage());
+            AlertasController.mostrarError("Error", "Ocurrió un error al actualizar el jugador:" );
         }
     }
 

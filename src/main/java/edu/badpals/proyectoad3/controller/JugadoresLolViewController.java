@@ -139,17 +139,12 @@ public class JugadoresLolViewController {
 
     @FXML
     private void createLolPlayer(ActionEvent event) {
-        Connection connection = conectionApp.crearConexion();
-        if (LeaguePlayerNameTxt.getText().isEmpty() ||
-                LeaguePlayerSurnameTxt.getText().isEmpty() ||
-                LeaguePlayerNickTxt.getText().isEmpty() ||
-                LeaguePlayerCountryCmb.getValue() == null ||
-                LeaguePlayerTeamCmb.getValue() == null ||
-                LeaguePlayerPositionCmb.getValue() == null) {
-            System.out.println("Por favor, completa todos los campos obligatorios.");
+        if (checkCamposVaciosLolPlayer()) {
+            AlertasController.mostrarAdvertencia("Campos incompletos", "Por favor, completa todos los campos obligatorios.");
             return;
         }
 
+        Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             LolPlayer player = new LolPlayer();
             if (player.getInformacionPersonal() == null) {
@@ -176,18 +171,26 @@ public class JugadoresLolViewController {
             Conection_App.cerrarConexion(connection);
             loadLolData();
             limpiarCamposLeaguePlayer();
-            System.out.println("Jugador creado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador creado exitosamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión a la base de datos.");
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión a la base de datos.");
         }
     }
 
+    private boolean checkCamposVaciosLolPlayer() {
+        return LeaguePlayerNameTxt.getText().isEmpty() ||
+                LeaguePlayerSurnameTxt.getText().isEmpty() ||
+                LeaguePlayerNickTxt.getText().isEmpty() ||
+                LeaguePlayerCountryCmb.getValue() == null ||
+                LeaguePlayerTeamCmb.getValue() == null ||
+                LeaguePlayerPositionCmb.getValue() == null;
+    }
 
     @FXML
     private void updateLeaguePlayer(ActionEvent event) {
         LolPlayer selectedPlayer = LolPlayerTableView.getSelectionModel().getSelectedItem();
         if (selectedPlayer == null) {
-            System.out.println("Selecciona un jugador para actualizar.");
+            AlertasController.mostrarAdvertencia("Selección necesaria", "Selecciona un jugador para actualizar.");
             return;
         }
 
@@ -197,7 +200,7 @@ public class JugadoresLolViewController {
                 LeaguePlayerCountryCmb.getValue() == null ||
                 LeaguePlayerTeamCmb.getValue() == null ||
                 LeaguePlayerPositionCmb.getValue() == null) {
-            System.out.println("Por favor, completa todos los campos obligatorios.");
+            AlertasController.mostrarAdvertencia("Campos incompletos", "Por favor, completa todos los campos obligatorios.");
             return;
         }
 
@@ -223,18 +226,17 @@ public class JugadoresLolViewController {
             Conection_App.cerrarConexion(connection);
             loadLolData();
             limpiarCamposLeaguePlayer();
-            System.out.println("Jugador actualizado correctamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador actualizado correctamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión a la base de datos.");
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión a la base de datos.");
         }
     }
-
 
     @FXML
     private void deleteLolPlayer(ActionEvent event) {
         LolPlayer selectedPlayer = LolPlayerTableView.getSelectionModel().getSelectedItem();
         if (selectedPlayer == null) {
-            System.out.println("Selecciona un jugador para eliminar.");
+            AlertasController.mostrarAdvertencia("Selección necesaria", "Selecciona un jugador para eliminar.");
             return;
         }
 
@@ -244,13 +246,11 @@ public class JugadoresLolViewController {
             Conection_App.cerrarConexion(connection);
             loadLolData();
             limpiarCamposLeaguePlayer();
-            System.out.println("Jugador eliminado correctamente.");
+            AlertasController.mostrarInformacion("Éxito", "Jugador eliminado correctamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión a la base de datos.");
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión a la base de datos.");
         }
     }
-
-
 
     private void limpiarCamposLeaguePlayer() {
         LeaguePlayerNameTxt.clear();

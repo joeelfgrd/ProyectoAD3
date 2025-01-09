@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
+import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -126,7 +127,7 @@ public class LeaguesViewController {
         Connection connection = conectionApp.crearConexion();
         if (LigaNameTxt.getText().isEmpty() || LigaDateTxt.getValue() == null ||
                 LigaRegionCmb.getValue() == null || LigaTierCmb.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
         if (connection != null) {
@@ -138,8 +139,9 @@ public class LeaguesViewController {
             Conection_App.addLeague(liga);
             Conection_App.cerrarConexion(connection);
             loadData();
+            AlertasController.mostrarInformacion("Éxito", "Liga creada correctamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 
@@ -148,7 +150,7 @@ public class LeaguesViewController {
         Connection connection = conectionApp.crearConexion();
         if (LigaNameTxt.getText().isEmpty() || LigaDateTxt.getValue() == null ||
                 LigaRegionCmb.getValue() == null || LigaTierCmb.getValue() == null) {
-            System.out.println("Todos los campos deben estar completos.");
+            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
         if (connection != null) {
@@ -160,8 +162,9 @@ public class LeaguesViewController {
             Conection_App.updateLeague(liga);
             Conection_App.cerrarConexion(connection);
             loadData();
+            AlertasController.mostrarInformacion("Éxito", "Liga actualizada exitosamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 
@@ -173,8 +176,9 @@ public class LeaguesViewController {
             Conection_App.deleteLeague(liga);
             Conection_App.cerrarConexion(connection);
             loadData();
+            AlertasController.mostrarInformacion("Éxito", "Liga eliminada exitosamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 }
