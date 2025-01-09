@@ -66,7 +66,7 @@ public class RegisterViewController {
     private TextField PriceRegisterTxt;
 
     @FXML
-    private TextField DateRegisterTxt;
+    private DatePicker DateRegisterTxt;
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
     private EntityManager em;
@@ -119,7 +119,7 @@ public class RegisterViewController {
         if (registroSeleccionado != null) {
             SelectLeagueCmb.setValue(registroSeleccionado.getLiga().getNombre());
             SelectTeamCmb.setValue(registroSeleccionado.getEquipo().getNombre());
-            DateRegisterTxt.setText(String.valueOf(registroSeleccionado.getFechaInscripcion()));
+            DateRegisterTxt.setValue(registroSeleccionado.getFechaInscripcion());
             PriceRegisterTxt.setText(String.valueOf(registroSeleccionado.getPrecioPlaza()));
         }
     }
@@ -138,7 +138,7 @@ public class RegisterViewController {
     @FXML
     public void registrarEquipoEnLiga() {
         if (SelectTeamCmb.getValue() == null ||
-                SelectLeagueCmb.getValue() == null || PriceRegisterTxt.getText().isEmpty() || DateRegisterTxt.getText().isEmpty()) {
+                SelectLeagueCmb.getValue() == null || PriceRegisterTxt.getText().isEmpty() || DateRegisterTxt.getValue() == null) {
             System.out.println("Todos los campos deben estar completos.");
             return;
         }
@@ -146,7 +146,7 @@ public class RegisterViewController {
             EquipoLiga equipoliga = new EquipoLiga();
 
             equipoliga.setPrecioPlaza(Double.valueOf(PriceRegisterTxt.getText()));
-            equipoliga.setFechaInscripcion(LocalDate.parse(DateRegisterTxt.getText()));
+            equipoliga.setFechaInscripcion(DateRegisterTxt.getValue());
 
             if (SelectTeamCmb.getValue() != null) {
                 List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
@@ -192,14 +192,14 @@ public class RegisterViewController {
             return;
         }
         if (PriceRegisterTxt.getText().isEmpty() || SelectTeamCmb.getValue() == null ||
-                SelectLeagueCmb.getValue() == null || DateRegisterTxt.getText().isEmpty()) {
+                SelectLeagueCmb.getValue() == null || DateRegisterTxt.getValue() == null) {
             System.out.println("Todos los campos deben estar completos.");
             return;
         }
 
         try {
             equipoLigaSeleccionado.setPrecioPlaza(Double.valueOf(PriceRegisterTxt.getText()));
-            equipoLigaSeleccionado.setFechaInscripcion(LocalDate.parse(DateRegisterTxt.getText()));
+            equipoLigaSeleccionado.setFechaInscripcion(DateRegisterTxt.getValue());
 
             if (SelectTeamCmb.getValue() != null) {
                 List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
@@ -258,7 +258,7 @@ public class RegisterViewController {
 
     private void limpiarCamposRegisterEquipoLiga() {
         PriceRegisterTxt.clear();
-        DateRegisterTxt.clear();
+        DateRegisterTxt.setValue(null);
         SelectTeamCmb.setValue(null);
         SelectLeagueCmb.setValue(null);
     }
