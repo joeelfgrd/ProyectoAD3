@@ -176,9 +176,9 @@ public class RegisterViewController {
             Conection_App.registerTeam(equipoliga);
             loadData();
             limpiarCamposRegisterEquipoLiga();
-            AlertasController.mostrarInformacion("Éxito", "Equipo creado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Plaza asignada exitosamente.");
         } catch (Exception e) {
-            AlertasController.mostrarError("Error", "Ocurrió un error al crear el equipo" );
+            AlertasController.mostrarError("Error", "Ocurrió un error al crear la plaza" );
         }
     }
 
@@ -188,7 +188,7 @@ public class RegisterViewController {
     public void actualizarEquipoEnLiga() {
         EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
         if (equipoLigaSeleccionado == null) {
-            AlertasController.mostrarError("Error", "Debe seleccionar un jugador para actualizar.");
+            AlertasController.mostrarError("Error", "Debe seleccionar una plaza para actualizar.");
             return;
         }
         if (PriceRegisterTxt.getText().isEmpty() || SelectTeamCmb.getValue() == null ||
@@ -230,9 +230,9 @@ public class RegisterViewController {
             limpiarCamposRegisterEquipoLiga();
             loadData();
 
-            AlertasController.mostrarInformacion("Éxito", "Jugador actualizado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Plaza actualizado exitosamente.");
         } catch (Exception e) {
-            AlertasController.mostrarError("Error", "Ocurrió un error al actualizar el jugador:" );
+            AlertasController.mostrarError("Error", "Ocurrió un error al actualizar la plaza.");
         }
     }
 
@@ -240,7 +240,7 @@ public class RegisterViewController {
     private void DeleteEquipoLiga(ActionEvent event) {
         EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
         if (equipoLigaSeleccionado == null) {
-            System.out.println("Debe seleccionar un jugador para eliminar.");
+            AlertasController.mostrarError("Error", "Debe seleccionar una plaza para eliminarla.");
             return;
         }
 
@@ -249,9 +249,9 @@ public class RegisterViewController {
             Conection_App.unregisterTeam(equipoLigaSeleccionado);
             Conection_App.cerrarConexion(connection);
             loadData();
-            System.out.println("EquipoLiga eliminado exitosamente.");
+            AlertasController.mostrarInformacion("Éxito", "Plaza eliminado exitosamente.");
         } else {
-            System.out.println("No se pudo establecer la conexión con la base de datos.");
+            AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
 
