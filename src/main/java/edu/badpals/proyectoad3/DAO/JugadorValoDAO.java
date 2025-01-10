@@ -1,8 +1,8 @@
 package edu.badpals.proyectoad3.DAO;
 
-import edu.badpals.proyectoad3.model.entities.Equipo;
-import edu.badpals.proyectoad3.model.entities.InformacionPersonal;
-import edu.badpals.proyectoad3.model.entities.ValorantPlayer;
+import edu.badpals.proyectoad3.model.Equipo;
+import edu.badpals.proyectoad3.model.InformacionPersonal;
+import edu.badpals.proyectoad3.model.ValorantPlayer;
 
 import java.sql.*;
 import java.util.ArrayList;

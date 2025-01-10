@@ -2,7 +2,7 @@ package edu.badpals.proyectoad3.controller;
 
 import edu.badpals.proyectoad3.DAO.EquipoDAO;
 import edu.badpals.proyectoad3.DAO.ConnectionDAO;
-import edu.badpals.proyectoad3.model.entities.Equipo;
+import edu.badpals.proyectoad3.model.Equipo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

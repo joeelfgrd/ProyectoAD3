@@ -1,6 +1,6 @@
 package edu.badpals.proyectoad3.DAO;
 
-import edu.badpals.proyectoad3.model.entities.Liga;
+import edu.badpals.proyectoad3.model.Liga;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

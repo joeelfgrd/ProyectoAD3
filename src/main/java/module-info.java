@@ -5,14 +5,19 @@ module edu.badpals.proyectoad3 {
     requires org.hibernate.orm.core;
     requires org.checkerframework.checker.qual;
 
-    opens edu.badpals.proyectoad3 to javafx.fxml;
-    exports edu.badpals.proyectoad3;
-    exports edu.badpals.proyectoad3.model;
+    // Model package
     opens edu.badpals.proyectoad3.model to javafx.fxml, org.hibernate.orm.core;
-    exports edu.badpals.proyectoad3.model.entities;
-    opens edu.badpals.proyectoad3.model.entities to javafx.fxml, org.hibernate.orm.core;
-    exports edu.badpals.proyectoad3.controller;
+    exports edu.badpals.proyectoad3.model;
+
+    // Controller package
     opens edu.badpals.proyectoad3.controller to javafx.fxml;
+    exports edu.badpals.proyectoad3.controller;
+
+    // DAO package
+    opens edu.badpals.proyectoad3.DAO to org.hibernate.orm.core;
     exports edu.badpals.proyectoad3.DAO;
-    opens edu.badpals.proyectoad3.DAO to javafx.fxml, org.hibernate.orm.core;
+
+    // Main package
+    opens edu.badpals.proyectoad3 to javafx.fxml, org.hibernate.orm.core;
+    exports edu.badpals.proyectoad3;
 }

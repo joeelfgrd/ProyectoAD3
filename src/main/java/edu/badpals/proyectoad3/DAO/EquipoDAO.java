@@ -1,6 +1,6 @@
 package edu.badpals.proyectoad3.DAO;
 
-import edu.badpals.proyectoad3.model.entities.Equipo;
+import edu.badpals.proyectoad3.model.Equipo;
 
 import java.sql.*;
 import java.util.ArrayList;

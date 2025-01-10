@@ -1,6 +1,6 @@
 package edu.badpals.proyectoad3.DAO;
 
-import edu.badpals.proyectoad3.model.entities.EquipoLiga;
+import edu.badpals.proyectoad3.model.EquipoLiga;
 import jakarta.persistence.EntityManager;
 
 import java.sql.Connection;

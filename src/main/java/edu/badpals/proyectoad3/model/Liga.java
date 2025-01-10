@@ -1,16 +1,16 @@
-package edu.badpals.proyectoad3.model.entities;
+package edu.badpals.proyectoad3.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "equipos")
-public class Equipo {
+@Table(name = "ligas")
+public class Liga {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEquipo;
+    private Long idLiga;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -24,14 +24,14 @@ public class Equipo {
     @Column(name = "tier", nullable = false)
     private String tier;
 
-    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "liga", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EquipoLiga> equipoLigas;
 
-    public Equipo() {
+    public Liga() {
     }
 
-    public Equipo(Long idEquipo, String nombre, LocalDate fechaCreacion, String region, String tier, List<EquipoLiga> equipoLigas) {
-        this.idEquipo = idEquipo;
+    public Liga(Long idLiga, String nombre, LocalDate fechaCreacion, String region, String tier, List<EquipoLiga> equipoLigas) {
+        this.idLiga = idLiga;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
         this.region = region;
@@ -39,12 +39,12 @@ public class Equipo {
         this.equipoLigas = equipoLigas;
     }
 
-    public Long getIdEquipo() {
-        return idEquipo;
+    public Long getIdLiga() {
+        return idLiga;
     }
 
-    public void setIdEquipo(Long idEquipo) {
-        this.idEquipo = idEquipo;
+    public void setIdLiga(Long idLiga) {
+        this.idLiga = idLiga;
     }
 
     public String getNombre() {
@@ -89,7 +89,13 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return nombre;
+        return "Liga{" +
+                "idLiga=" + idLiga +
+                ", nombre='" + nombre + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", region='" + region + '\'' +
+                ", tier='" + tier + '\'' +
+                ", equipoLigas=" + equipoLigas +
+                '}';
     }
-
 }

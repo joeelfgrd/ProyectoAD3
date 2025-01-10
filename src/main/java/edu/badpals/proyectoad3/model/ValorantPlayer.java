@@ -1,4 +1,4 @@
-package edu.badpals.proyectoad3.model.entities;
+package edu.badpals.proyectoad3.model;
 import jakarta.persistence.*;
 
 @Entity
