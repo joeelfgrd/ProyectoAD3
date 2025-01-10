@@ -46,12 +46,11 @@
             <DatePicker fx:id="TeamDateTxt" layoutX="297.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
             <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="993.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Volver" />
                 <Menu mnemonicParsing="false" text="Buscar por">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Nombre" />
-                        <MenuItem mnemonicParsing="false" text="Region" />
-                        <MenuItem mnemonicParsing="false" text="Tier" />
+                    <MenuItem fx:id="EquipoMINombre" mnemonicParsing="false" text="Nombre" />
+                        <MenuItem fx:id="EquipoMIRegion" mnemonicParsing="false" text="Region" />
+                        <MenuItem fx:id="EquipoMITier" mnemonicParsing="false" text="Tier" />
                   </items>
                 </Menu>
               </menus>

@@ -46,11 +46,10 @@
             <DatePicker fx:id="DateRegisterTxt" layoutX="635.0" layoutY="130.0" />
             <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="994.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Volver" />
                 <Menu mnemonicParsing="false" text="Buscar por">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Equipo" />
-                        <MenuItem mnemonicParsing="false" text="Liga" />
+                    <MenuItem fx:id="RegistrarMIEquipo" mnemonicParsing="false" text="Equipo" />
+                      <MenuItem fx:id="RegistrarMILiga" mnemonicParsing="false" text="Liga" />
                   </items>
                 </Menu>
               </menus>

@@ -2,29 +2,40 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity"  stylesheets="@Styles.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="581.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
    <children>
-      <AnchorPane prefHeight="394.0" prefWidth="582.0">
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="582.0">
          <children>
             <Label layoutX="180.0" layoutY="34.0" text="Menu Principal">
                <font>
                   <Font name="Calibri" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="toEquiposBtn" onAction="#toTeams" layoutX="87.0" layoutY="172.0" mnemonicParsing="false" text="Equipos" />
-            <Button fx:id="toLigasBtn" onAction="#toLeagues" layoutX="257.0" layoutY="172.0" mnemonicParsing="false" text="Ligas" />
-            <Button fx:id="toValorantBtn"  onAction="#toValorant" layoutX="437.0" layoutY="146.0" mnemonicParsing="false" text="Valorant" />
-            <Button fx:id="toLeagueBtn"  onAction="#toLeagueOfLegends" layoutX="409.0" layoutY="223.0" mnemonicParsing="false" text="League of Legends" />
+            <Button fx:id="toEquiposBtn" layoutX="87.0" layoutY="172.0" mnemonicParsing="false" onAction="#toTeams" text="Equipos" />
+            <Button fx:id="toLigasBtn" layoutX="257.0" layoutY="172.0" mnemonicParsing="false" onAction="#toLeagues" text="Ligas" />
+            <Button fx:id="toValorantBtn" layoutX="437.0" layoutY="146.0" mnemonicParsing="false" onAction="#toValorant" text="Valorant" />
+            <Button fx:id="toLeagueBtn" layoutX="409.0" layoutY="223.0" mnemonicParsing="false" onAction="#toLeagueOfLegends" text="League of Legends" />
             <Label layoutX="95.0" layoutY="120.0" text="Equipos" />
             <Label layoutX="265.0" layoutY="120.0" text="Ligas" />
             <Label layoutX="440.0" layoutY="120.0" text="Jugadores" />
-            <Button fx:id="toRegisterBtn"  onAction="#toRegister" layoutX="163.0" layoutY="282.0" mnemonicParsing="false" text="Registrar" />
+            <Button fx:id="toRegisterBtn" layoutX="163.0" layoutY="282.0" mnemonicParsing="false" onAction="#toRegister" text="Registrar" />
             <Label layoutX="122.0" layoutY="249.0" text="Registrar equipos en Liga" />
+            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="581.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Iniciar Sesion">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Log In" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children>
       </AnchorPane>
    </children>

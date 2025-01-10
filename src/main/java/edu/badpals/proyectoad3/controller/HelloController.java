@@ -21,6 +21,7 @@ public class HelloController {
     @FXML
     private Button toMainMenuBtn;
 
+
     @FXML
     protected void onHelloButtonClick() {
         Main.generateDB();

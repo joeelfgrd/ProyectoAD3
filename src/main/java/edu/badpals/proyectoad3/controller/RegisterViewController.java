@@ -73,6 +73,7 @@ public class RegisterViewController {
 
     private final Conection_App conectionApp = new Conection_App();
 
+    private final Connection connection = conectionApp.crearConexion();
     @FXML
     public void initialize() {
         em = emf.createEntityManager();
@@ -174,14 +175,18 @@ public class RegisterViewController {
                 return;
             }
 
+            if (checkPlazaExiste(connection))
+                return;
             Conection_App.registerTeam(equipoliga);
             loadData();
             limpiarCamposRegisterEquipoLiga();
             AlertasController.mostrarInformacion("Éxito", "Plaza asignada exitosamente.");
+
         } catch (Exception e) {
             AlertasController.mostrarError("Error", "Ocurrió un error al crear la plaza" );
         }
     }
+
 
 
 
@@ -226,6 +231,10 @@ public class RegisterViewController {
                 AlertasController.mostrarError("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
                 return;
             }
+
+            if (checkPlazaExiste(connection))
+                return;
+
             Conection_App.updateParticipation(equipoLigaSeleccionado);
             tableRegister.refresh();
             limpiarCamposRegisterEquipoLiga();
@@ -254,6 +263,22 @@ public class RegisterViewController {
         } else {
             AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
+    }
+
+    private boolean checkPlazaExiste(Connection connection) {
+        boolean plazaExiste = false;
+        List<EquipoLiga> registros = Conection_App.getEquipoLiga(connection, em);
+        for (EquipoLiga registro : registros) {
+            if (registro.getEquipo().getNombre().equalsIgnoreCase(SelectTeamCmb.getValue()) && registro.getLiga().getNombre().equalsIgnoreCase(SelectLeagueCmb.getValue()) ) {
+                plazaExiste = true;
+                break;
+            }
+        }
+        if (plazaExiste){
+            AlertasController.mostrarError("Error" , "Ya existe ese registro en la base de datos");
+            return true;
+        }
+        return false;
     }
 
     private void limpiarCamposRegisterEquipoLiga() {
