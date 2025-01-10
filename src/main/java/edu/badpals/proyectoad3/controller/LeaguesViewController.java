@@ -87,7 +87,7 @@ public class LeaguesViewController {
     public void loadData() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            List<Liga> ligas = Conection_App.getLigas(connection);  // Asegúrate de tener este método en tu clase Conection_App
+            List<Liga> ligas = Conection_App.getLigas(connection);
             ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
             tableLigas.setItems(ligasObservableList);
             Conection_App.cerrarConexion(connection);

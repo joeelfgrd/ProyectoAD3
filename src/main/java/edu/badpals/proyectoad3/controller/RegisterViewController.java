@@ -97,7 +97,8 @@ public class RegisterViewController {
     }
 
     private void loadData() {
-        List<EquipoLiga> registros = em.createQuery("SELECT e FROM EquipoLiga e", EquipoLiga.class).getResultList();
+        Connection connection = conectionApp.crearConexion();
+        List<EquipoLiga> registros = Conection_App.getEquipoLiga(connection, em);
         ObservableList<EquipoLiga> registroObservableList = FXCollections.observableArrayList(registros);
         tableRegister.setItems(registroObservableList);
     }

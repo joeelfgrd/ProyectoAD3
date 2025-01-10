@@ -459,33 +459,7 @@ public class Conection_App {
     }
 
     public static List<EquipoLiga> getEquipoLiga(Connection connection, EntityManager em) {
-        List<EquipoLiga> equipoLigas = new ArrayList<>();
-        String query = "SELECT * FROM equipo_liga";
-
-        try (Statement s = connection.createStatement(); ResultSet rs = s.executeQuery(query)) {
-            while (rs.next()) {
-                EquipoLiga equipoLiga = new EquipoLiga();
-                long idEquipo = rs.getLong("id_equipo");
-                long idLiga = rs.getLong("id_liga");
-                Equipo equipo = em.find(Equipo.class, idEquipo);
-                Liga liga = em.find(Liga.class, idLiga);
-
-                if (equipo == null) {
-                    throw new IllegalStateException("Equipo con ID " + idEquipo + " no encontrado.");
-                }
-                if (liga == null) {
-                    throw new IllegalStateException("Liga con ID " + idLiga + " no encontrada.");
-                }
-                equipoLiga.setEquipo(equipo);
-                equipoLiga.setLiga(liga);
-                equipoLiga.setFechaInscripcion(rs.getDate("fecha_inscripcion").toLocalDate());
-                equipoLiga.setPrecioPlaza(rs.getDouble("precio_plaza"));
-
-                equipoLigas.add(equipoLiga);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<EquipoLiga> equipoLigas = em.createQuery("SELECT e FROM EquipoLiga e", EquipoLiga.class).getResultList();
         return equipoLigas;
     }
 
@@ -630,4 +604,3 @@ public class Conection_App {
 
 
 }
-
