@@ -4,6 +4,7 @@ module edu.badpals.proyectoad3 {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires org.checkerframework.checker.qual;
+    requires annotations;
 
     // Model package
     opens edu.badpals.proyectoad3.model to javafx.fxml, org.hibernate.orm.core;

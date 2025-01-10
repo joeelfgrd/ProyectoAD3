@@ -3,6 +3,7 @@ package edu.badpals.proyectoad3.DAO;
 import edu.badpals.proyectoad3.model.Equipo;
 import edu.badpals.proyectoad3.model.InformacionPersonal;
 import edu.badpals.proyectoad3.model.LolPlayer;
+import jakarta.persistence.EntityManager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -169,5 +170,93 @@ public class JugadorLolDAO {
             throw new RuntimeException("Error al obtener LolPlayers", e);
         }
         return lolPlayers;
+    }
+
+    public static List<LolPlayer> getJugadorLolPorEquipo(String nombreEquipo) {
+        List<LolPlayer> jugadores = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // JPQL adaptada para buscar por nombre del equipo
+        String jpql = "SELECT lp FROM LolPlayer lp " +
+                "JOIN lp.Equipo e " +
+                "WHERE e.nombre = :nombreEquipo"; // Ahora se usa el nombre del equipo
+
+        try {
+            em.getTransaction().begin();
+
+            // Ejecutar la consulta con el parámetro del nombre del equipo
+            jugadores = em.createQuery(jpql, LolPlayer.class)
+                    .setParameter("nombreEquipo", nombreEquipo)  // Usar el nombre del equipo
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadores;
+    }
+
+    public static List<LolPlayer> getJugadorLolPorPais(String pais) {
+        List<LolPlayer> jugadores = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // JPQL adaptada para buscar por país
+        String jpql = "SELECT lp FROM LolPlayer lp " +
+                "WHERE lp.informacionPersonal.pais = :pais"; // Ahora se usa el país
+
+        try {
+            em.getTransaction().begin();
+
+            // Ejecutar la consulta con el parámetro del país
+            jugadores = em.createQuery(jpql, LolPlayer.class)
+                    .setParameter("pais", pais)  // Usar el país como parámetro
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadores;
+    }
+
+    public static List<LolPlayer> getJugadoresLolPorPosicion(String posicionSeleccionada) {
+        List<LolPlayer> jugadores = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // JPQL adaptada para buscar por posición
+        String jpql = "SELECT lp FROM LolPlayer lp " +
+                "WHERE lp.posicion = :posicion"; // Se usa la posición como parámetro
+
+        try {
+            em.getTransaction().begin();
+
+            // Ejecutar la consulta con el parámetro de la posición
+            jugadores = em.createQuery(jpql, LolPlayer.class)
+                    .setParameter("posicion", posicionSeleccionada)  // Usar la posición como parámetro
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadores;
     }
 }

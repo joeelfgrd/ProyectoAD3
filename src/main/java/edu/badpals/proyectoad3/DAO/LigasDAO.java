@@ -1,16 +1,19 @@
 package edu.badpals.proyectoad3.DAO;
 
 import edu.badpals.proyectoad3.model.Liga;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LigasDAO {
 
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+    private EntityManager em;
 
     public static void addLeague(Liga liga) {
         ConnectionDAO connectionDAO = new ConnectionDAO();
@@ -22,7 +25,6 @@ public class LigasDAO {
         }
         ConnectionDAO.cerrarConexion(c);
     }
-
 
     public static void updateLeague(Liga liga) {
         ConnectionDAO connectionDAO = new ConnectionDAO();
@@ -63,6 +65,94 @@ public class LigasDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return ligas;
+    }
+
+    public static List<Liga> getLigasPorNombre(String nombre) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        List<Liga> ligasPorNombre = new ArrayList<>();
+        String jpql = "SELECT l FROM Liga l WHERE l.nombre LIKE :nombre";
+
+        try {
+            em.getTransaction().begin();
+            ligasPorNombre = em.createQuery(jpql, Liga.class).setParameter("nombre", "%" + nombre + "%")
+                    .getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            emf.close();
+        }
+        return ligasPorNombre;
+    }
+
+
+    public static List<Liga> getLigasPorRegion(String region) {
+        List<Liga> ligas = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // Consulta JPQL para obtener ligas por región
+        String jpql = "SELECT l FROM Liga l WHERE l.region = :region";
+
+        try {
+            // Inicia una transacción
+            em.getTransaction().begin();
+
+            // Ejecuta la consulta con el parámetro de la región
+            ligas = em.createQuery(jpql, Liga.class)
+                    .setParameter("region", region)
+                    .getResultList();
+
+            // Confirma la transacción
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            // Si ocurre un error, se revierte la transacción
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            // Cierra los recursos
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        // Devuelve la lista de ligas encontradas
+        return ligas;
+    }
+
+    public static List<Liga> getLigasPorTier(String tier) {
+        List<Liga> ligas = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // Consulta JPQL para obtener ligas por tier
+        String jpql = "SELECT l FROM Liga l WHERE l.tier = :tier";
+
+        try {
+            // Inicia una transacción
+            em.getTransaction().begin();
+
+            // Ejecuta la consulta con el parámetro del tier
+            ligas = em.createQuery(jpql, Liga.class)
+                    .setParameter("tier", tier)
+                    .getResultList();
+
+            // Confirma la transacción
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            // Si ocurre un error, se revierte la transacción
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            // Cierra los recursos
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        // Devuelve la lista de ligas encontradas
         return ligas;
     }
 

@@ -1,7 +1,9 @@
 package edu.badpals.proyectoad3.controller;
 
+import edu.badpals.proyectoad3.DAO.EquipoDAO;
 import edu.badpals.proyectoad3.DAO.LigasDAO;
 import edu.badpals.proyectoad3.DAO.ConnectionDAO;
+import edu.badpals.proyectoad3.model.Equipo;
 import edu.badpals.proyectoad3.model.Liga;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,7 +84,6 @@ public class LeaguesViewController {
         colFechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
     }
 
-
     @FXML
     public void loadData() {
         Connection connection = conectionApp.crearConexion();
@@ -139,6 +140,7 @@ public class LeaguesViewController {
             LigasDAO.addLeague(liga);
             ConnectionDAO.cerrarConexion(connection);
             loadData();
+            limpiarCeldasLigas();
             AlertasController.mostrarInformacion("Éxito", "Liga creada correctamente.");
         } else {
             AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
@@ -162,6 +164,7 @@ public class LeaguesViewController {
             LigasDAO.updateLeague(liga);
             ConnectionDAO.cerrarConexion(connection);
             loadData();
+            limpiarCeldasLigas();
             AlertasController.mostrarInformacion("Éxito", "Liga actualizada exitosamente.");
         } else {
             AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
@@ -176,9 +179,70 @@ public class LeaguesViewController {
             LigasDAO.deleteLeague(liga);
             ConnectionDAO.cerrarConexion(connection);
             loadData();
+            limpiarCeldasLigas();
             AlertasController.mostrarInformacion("Éxito", "Liga eliminada exitosamente.");
         } else {
             AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }
     }
+
+    @FXML
+    public void searchLigaByName() {
+        String nombreLiga = LigaNameTxt.getText().trim();
+
+        if (!nombreLiga.isEmpty()) {
+            List<Liga> ligas = LigasDAO.getLigasPorNombre(nombreLiga);
+            ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
+            tableLigas.setItems(ligasObservableList);
+        } else {
+            AlertasController.mostrarAdvertencia("Campo vacío", "Debe ingresar un nombre para buscar.");
+        }
+    }
+
+    @FXML
+    public void mostrarLigasPorRegion(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        String region = LigaRegionCmb.getValue().toString();
+        if (connection != null) {
+            List<Liga> ligas = LigasDAO.getLigasPorRegion(region);
+            ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
+            tableLigas.setItems(ligasObservableList);
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void mostrarLigasPorTier(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        String tier = LigaTierCmb.getValue().toString();  // Obtén el valor del tier seleccionado en el ComboBox
+        if (connection != null) {
+            // Llamamos a la función que obtiene las ligas por tier
+            List<Liga> ligas = LigasDAO.getLigasPorTier(tier);
+            ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
+            tableLigas.setItems(ligasObservableList);  // Establecemos las ligas en la tabla
+            ConnectionDAO.cerrarConexion(connection);  // Cerramos la conexión
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+
+    @FXML
+    private void recargarCeldasYtabla() {
+        limpiarCeldasLigas();
+        tableLigas.refresh();
+        loadData();
+    }
+
+    @FXML
+    private void limpiarCeldasLigas() {
+        LigaNameTxt.clear();
+        LigaDateTxt.setValue(null);
+        LigaRegionCmb.setValue(null);
+        LigaTierCmb.setValue(null);
+    }
+
+
 }

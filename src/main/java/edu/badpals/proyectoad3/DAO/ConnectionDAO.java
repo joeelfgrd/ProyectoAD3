@@ -1,5 +1,9 @@
 package edu.badpals.proyectoad3.DAO;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -49,6 +53,15 @@ public class ConnectionDAO {
             }
         }
 
+    }
+
+    public static llamadaEntityManager getLlamadaEntityManager() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        llamadaEntityManager result = new llamadaEntityManager(emf, em);
+        return result;
+    }
+    public record llamadaEntityManager(EntityManagerFactory emf, EntityManager em) {
     }
 
 

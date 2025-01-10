@@ -48,6 +48,9 @@ public class EquiposViewController {
     @FXML
     private ComboBox<String> TeamTierCmb;
 
+    @FXML
+    private Button LimpiarCamposEquiposBtn;
+
     private final ConnectionDAO conectionApp = new ConnectionDAO();
 
     @FXML
@@ -170,6 +173,10 @@ public class EquiposViewController {
             return;
         }
         try {
+            if (EquipoDAO.equipoTieneJugadores(equipoSeleccionado)) {
+                AlertasController.mostrarError("Error", "No se puede eliminar el equipo porque tiene jugadores asociados.");
+                return;
+            }
             EquipoDAO.deleteTeam(equipoSeleccionado);
             loadData();
             limpiarCeldasEquipos();
@@ -189,6 +196,47 @@ public class EquiposViewController {
         return false;
     }
 
+    @FXML
+    public void mostrarEquiposPorRegion(ActionEvent event) {
+        Connection connection = conectionApp.crearConexion();
+        String region = TeamRegionCmb.getValue();
+        if (connection != null) {
+            List<Equipo> equipos = EquipoDAO.getEquiposPorRegion(region);
+            ObservableList<Equipo> equiposObservableList = FXCollections.observableArrayList(equipos);
+            tableEquipos.setItems(equiposObservableList);
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public  void mostrarEquiposPorTier(ActionEvent event){
+        Connection connection = conectionApp.crearConexion();
+        String tier = TeamTierCmb.getValue();
+        if (connection != null) {
+            List<Equipo> equipos = EquipoDAO.getEquiposPorTier(tier);
+            ObservableList<Equipo> equiposObservableList = FXCollections.observableArrayList(equipos);
+            tableEquipos.setItems(equiposObservableList);
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void searchEquipoByName() {
+        String nombreEquipo = TeamNameTxt.getText().trim();
+
+        if (!nombreEquipo.isEmpty()) {
+            List<Equipo> equipos = EquipoDAO.getEquiposPorNombre(nombreEquipo);
+            ObservableList<Equipo> equipoObservableList = FXCollections.observableArrayList(equipos);
+            tableEquipos.setItems(equipoObservableList);
+        } else {
+            AlertasController.mostrarAdvertencia("Campo vacío", "Debe ingresar un nombre para buscar.");
+        }
+    }
+
     private void cargarDatosEquipo() {
         Equipo equipoSeleccionado = tableEquipos.getSelectionModel().getSelectedItem();
 
@@ -200,10 +248,19 @@ public class EquiposViewController {
         }
     }
 
+    @FXML
     private void limpiarCeldasEquipos() {
         TeamNameTxt.clear();
         TeamDateTxt.setValue(null);
         TeamRegionCmb.setValue(null);
         TeamTierCmb.setValue(null);
     }
+
+    @FXML
+    private void recargarCeldasYtabla() {
+        limpiarCeldasEquipos();
+        tableEquipos.refresh();
+        loadData();
+    }
+
 }

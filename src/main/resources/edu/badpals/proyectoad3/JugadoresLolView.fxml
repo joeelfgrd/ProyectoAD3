@@ -4,6 +4,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresLolViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="956.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresLolViewController">
    <children>
-      <AnchorPane prefHeight="645.0" prefWidth="950.0">
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="964.0">
          <children>
             <Label layoutX="75.0" layoutY="84.0" text="Nombre" />
             <Label layoutX="72.0" layoutY="126.0" text="Apellidos" />
@@ -32,7 +35,7 @@
             <ComboBox fx:id="LeaguePlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
             <ComboBox fx:id="LeaguePlayerPositionCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
             <TextField fx:id="LeaguePlayerNickTxt" layoutX="399.0" layoutY="80.0" />
-            <Label layoutX="340.0" layoutY="20.0" text="League of Legends">
+            <Label layoutX="339.0" layoutY="33.0" text="League of Legends">
                <font>
                   <Font name="Calibri" size="36.0" />
                </font>
@@ -50,6 +53,18 @@
                   <TableColumn fx:id="colLateShotCaller" prefWidth="150.0" text="Late ShotCaller" />
                </columns>
             </TableView>
+            <MenuBar layoutX="-2.0" layoutY="2.0" prefHeight="25.0" prefWidth="964.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Buscar por">
+                  <items>
+                    <MenuItem fx:id="LolPlayerMIPais" onAction="#mostrarJugadoresLolPorPais" mnemonicParsing="false" text="Pais" />
+                        <MenuItem fx:id="LolPlayerMIEquipo" onAction="#mostrarJugadoresLolPorEquipo" mnemonicParsing="false" text="Equipo" />
+                        <MenuItem fx:id="LolPlayerMIPosicion" onAction="#mostrarJugadoresLolPorPosicion" mnemonicParsing="false" text="Posicion" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="830.0" layoutY="58.0" mnemonicParsing="false" onAction="#recargarCeldasYtabla" text="Limpiar" />
          </children>
       </AnchorPane>
    </children>

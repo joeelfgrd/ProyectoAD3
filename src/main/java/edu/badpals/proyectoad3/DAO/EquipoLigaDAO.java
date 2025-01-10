@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
 
 public class EquipoLigaDAO {
 
@@ -47,4 +48,71 @@ public class EquipoLigaDAO {
         List<EquipoLiga> equipoLigas = em.createQuery("SELECT e FROM EquipoLiga e", EquipoLiga.class).getResultList();
         return equipoLigas;
     }
+
+    public static List<EquipoLiga> getEquipoLigaPorEquipo(Long equipoId) {
+        List<EquipoLiga> equipoLigas = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // Consulta JPQL para obtener las asociaciones de equipos en ligas
+        String jpql = "SELECT el FROM EquipoLiga el WHERE el.equipo.idEquipo = :equipoId";
+
+        try {
+            // Inicia una transacción
+            em.getTransaction().begin();
+
+            // Ejecuta la consulta con el parámetro del equipoId
+            equipoLigas = em.createQuery(jpql, EquipoLiga.class)
+                    .setParameter("equipoId", equipoId)
+                    .getResultList();
+
+            // Confirma la transacción
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            // Si ocurre un error, se revierte la transacción
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            // Cierra los recursos
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        // Devuelve la lista de asociaciones de equipo y liga encontradas
+        return equipoLigas;
+    }
+
+    public static List<EquipoLiga> getEquipoLigaPorLiga(Long ligaId) {
+        List<EquipoLiga> equipoLigas = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        // Consulta JPQL para obtener las asociaciones de equipos en una liga
+        String jpql = "SELECT el FROM EquipoLiga el WHERE el.liga.idLiga = :ligaId";
+
+        try {
+            // Inicia una transacción
+            em.getTransaction().begin();
+
+            // Ejecuta la consulta con el parámetro del ligaId
+            equipoLigas = em.createQuery(jpql, EquipoLiga.class)
+                    .setParameter("ligaId", ligaId)
+                    .getResultList();
+
+            // Confirma la transacción
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            // Si ocurre un error, se revierte la transacción
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            // Cierra los recursos
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        // Devuelve la lista de asociaciones de equipo y liga encontradas
+        return equipoLigas;
+    }
+
 }

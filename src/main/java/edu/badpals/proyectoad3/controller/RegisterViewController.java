@@ -265,6 +265,73 @@ public class RegisterViewController {
         }
     }
 
+    @FXML
+    public void mostrarEquipoLigaPorEquipo(ActionEvent event) {
+        // Obtener el nombre del equipo seleccionado en el ComboBox
+        String equipoNombre = SelectTeamCmb.getValue();
+
+        if (equipoNombre != null) {
+            // Obtener el equipo correspondiente a ese nombre
+            Equipo equipo = null;
+            List<Equipo> equipos = EquipoDAO.getEquipos(conectionApp.crearConexion());
+            for (Equipo e : equipos) {
+                if (e.getNombre().equals(equipoNombre)) {
+                    equipo = e;
+                    break;
+                }
+            }
+
+            if (equipo != null) {
+                // Obtener las ligas asociadas a este equipo
+                List<EquipoLiga> equipoLigas = EquipoLigaDAO.getEquipoLigaPorEquipo(equipo.getIdEquipo());
+
+                // Convertir la lista a ObservableList para mostrar en la TableView
+                ObservableList<EquipoLiga> equipoLigasObservableList = FXCollections.observableArrayList(equipoLigas);
+
+                // Asignar los elementos a la TableView para mostrar las ligas asociadas
+                tableRegister.setItems(equipoLigasObservableList);
+            } else {
+                AlertasController.mostrarError("Error", "El equipo seleccionado no existe.");
+            }
+        } else {
+            AlertasController.mostrarError("Error", "Por favor, selecciona un equipo.");
+        }
+    }
+
+    @FXML
+    public void mostrarEquipoLigaPorLiga(ActionEvent event) {
+        // Obtener el nombre de la liga seleccionada en el ComboBox
+        String ligaNombre = SelectLeagueCmb.getValue();
+
+        if (ligaNombre != null) {
+            // Obtener la liga correspondiente a ese nombre
+            Liga liga = null;
+            List<Liga> ligas = LigasDAO.getLigas(conectionApp.crearConexion());
+            for (Liga l : ligas) {
+                if (l.getNombre().equals(ligaNombre)) {
+                    liga = l;
+                    break;
+                }
+            }
+
+            if (liga != null) {
+                // Obtener los equipos asociados a esta liga
+                List<EquipoLiga> equipoLigas = EquipoLigaDAO.getEquipoLigaPorLiga(liga.getIdLiga());
+
+                // Convertir la lista a ObservableList para mostrar en la TableView
+                ObservableList<EquipoLiga> equipoLigasObservableList = FXCollections.observableArrayList(equipoLigas);
+
+                // Asignar los elementos a la TableView para mostrar los equipos asociados
+                tableRegister.setItems(equipoLigasObservableList);
+            } else {
+                AlertasController.mostrarError("Error", "La liga seleccionada no existe.");
+            }
+        } else {
+            AlertasController.mostrarError("Error", "Por favor, selecciona una liga.");
+        }
+    }
+
+
     private boolean checkPlazaExiste(Connection connection) {
         boolean plazaExiste = false;
         List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
@@ -286,6 +353,13 @@ public class RegisterViewController {
         DateRegisterTxt.setValue(null);
         SelectTeamCmb.setValue(null);
         SelectLeagueCmb.setValue(null);
+    }
+
+    @FXML
+    private void recargarCeldasYtabla() {
+        limpiarCamposRegisterEquipoLiga();
+        tableRegister.refresh();
+        loadData();
     }
 
 }

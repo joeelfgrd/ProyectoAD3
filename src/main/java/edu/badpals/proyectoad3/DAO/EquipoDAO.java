@@ -1,10 +1,13 @@
 package edu.badpals.proyectoad3.DAO;
 
 import edu.badpals.proyectoad3.model.Equipo;
+import jakarta.persistence.EntityManager;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.badpals.proyectoad3.DAO.ConnectionDAO.getLlamadaEntityManager;
 
 public class EquipoDAO {
 
@@ -76,25 +79,6 @@ public class EquipoDAO {
         return teams;
     }
 
-    public static Equipo getEquipoFromName(String name, Connection c) {
-        Equipo equipo = new Equipo();
-        String query = "SELECT * FROM equipos WHERE nombre = '" + name + "'";
-
-        try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
-            while (rs.next()) {
-                equipo.setIdEquipo(rs.getLong("idEquipo"));
-                equipo.setNombre(rs.getString("nombre"));
-                equipo.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-                equipo.setRegion(rs.getString("region"));
-                equipo.setTier(rs.getString("tier"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return equipo;
-    }
-
-
     public static Equipo getEquipoById(Connection c, Long idEquipo) {
         Equipo equipo = null;
         String query = "SELECT * FROM equipos WHERE idEquipo = ?";  // Buscar por idEquipo
@@ -118,5 +102,92 @@ public class EquipoDAO {
             throw new RuntimeException(e);
         }
         return equipo;
+    }
+
+    public static List<Equipo> getEquiposPorRegion(String region) {
+        List<Equipo> equipos = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        String jpql = "SELECT e FROM Equipo e WHERE e.region = :region";
+
+        try {
+            em.getTransaction().begin();
+            equipos = em.createQuery(jpql, Equipo.class)
+                    .setParameter("region", region)
+                    .getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return equipos;
+    }
+
+    public static List<Equipo> getEquiposPorTier(String tier) {
+        List<Equipo> equipos = new ArrayList<>();
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+
+        String jpql = "SELECT e FROM Equipo e WHERE e.tier = :tier";
+
+        try {
+            em.getTransaction().begin();
+            equipos = em.createQuery(jpql, Equipo.class)
+                    .setParameter("tier", tier)
+                    .getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return equipos;
+    }
+
+
+    public static List<Equipo> getEquiposPorNombre(String nombre) {
+        ConnectionDAO.llamadaEntityManager result = getLlamadaEntityManager();
+        List<Equipo> EquiposPorNombre = new ArrayList<>();
+        String jpql = "SELECT e FROM Equipo e WHERE e.nombre LIKE :nombre";
+
+        try {
+            result.em().getTransaction().begin();
+            EquiposPorNombre = result.em().createQuery(jpql, Equipo.class).setParameter("nombre", "%" + nombre + "%").getResultList();
+            result.em().getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.em().getTransaction().rollback();
+        } finally {
+            result.em().close();
+            result.emf().close();
+        }
+        return EquiposPorNombre;
+    }
+
+
+    public static boolean equipoTieneJugadores(Equipo equipoSeleccionado) {
+        ConnectionDAO connectionDAO = new ConnectionDAO();
+        Connection c = connectionDAO.crearConexion();
+        boolean hasPlayers = false;
+        try {
+            String query = "SELECT * FROM jugadores WHERE idEquipo = " + equipoSeleccionado.getIdEquipo();
+            try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+                if (rs.next()) {
+                    hasPlayers = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectionDAO.cerrarConexion(c);
+        return hasPlayers;
     }
 }

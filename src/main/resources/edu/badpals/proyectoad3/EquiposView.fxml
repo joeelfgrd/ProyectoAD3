@@ -48,13 +48,14 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Buscar por">
                   <items>
-                    <MenuItem fx:id="EquipoMINombre" mnemonicParsing="false" text="Nombre" />
-                        <MenuItem fx:id="EquipoMIRegion" mnemonicParsing="false" text="Region" />
-                        <MenuItem fx:id="EquipoMITier" mnemonicParsing="false" text="Tier" />
+                    <MenuItem fx:id="EquipoMINombre" mnemonicParsing="false" onAction="#searchEquipoByName" text="Nombre" />
+                        <MenuItem fx:id="EquipoMIRegion" mnemonicParsing="false" onAction="#mostrarEquiposPorRegion" text="Region" />
+                        <MenuItem fx:id="EquipoMITier" mnemonicParsing="false" onAction="#mostrarEquiposPorTier" text="Tier" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
+            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="830.0" layoutY="58.0" mnemonicParsing="false" onAction="#recargarCeldasYtabla" text="Limpiar" />
          </children>
       </AnchorPane>
    </children>

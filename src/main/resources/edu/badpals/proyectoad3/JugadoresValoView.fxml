@@ -4,6 +4,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="949.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresValoViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="970.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresValoViewController">
    <children>
-      <AnchorPane prefHeight="645.0" prefWidth="950.0">
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="960.0">
          <children>
             <Label layoutX="75.0" layoutY="84.0" text="Nombre" />
             <TableView fx:id="ValoPlayerTableView" layoutX="-2.0" layoutY="247.0" prefHeight="400.0" prefWidth="950.0">
@@ -45,7 +48,7 @@
             <ComboBox fx:id="ValoPlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
             <ComboBox fx:id="ValoPlayerRolCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
             <TextField fx:id="ValoPlayerNickTxt" layoutX="399.0" layoutY="80.0" />
-            <Label layoutX="378.0" layoutY="20.0" text="Valorant">
+            <Label layoutX="378.0" layoutY="33.0" text="Valorant">
                <font>
                   <Font name="Calibri" size="36.0" />
                </font>
@@ -53,6 +56,18 @@
             <Button fx:id="VolverValoPlayerBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" onAction="#toMainMenu" text="Volver" />
             <Label layoutX="621.0" layoutY="84.0" text="Agente" />
             <ComboBox fx:id="ValoPlayerAgentCmb" layoutX="673.0" layoutY="80.0" prefWidth="150.0" />
+            <MenuBar layoutX="-2.0" layoutY="2.0" prefHeight="25.0" prefWidth="970.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Buscar por">
+                  <items>
+                    <MenuItem fx:id="PlayerValoMIEquipo" onAction="#mostrarJugadoresValoPorEquipo" mnemonicParsing="false" text="Equipo" />
+                        <MenuItem fx:id="PlayerValoMIPais" onAction="#mostrarJugadoresValoPorPais" mnemonicParsing="false" text="Pais" />
+                        <MenuItem fx:id="PlayerValoMIRol" onAction="#mostrarJugadoresValoPorRol" mnemonicParsing="false" text="Rol" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="830.0" layoutY="58.0" mnemonicParsing="false" onAction="#recargarCeldasYtabla" text="Limpiar" />
          </children>
       </AnchorPane>
    </children>

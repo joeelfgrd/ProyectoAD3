@@ -7,6 +7,7 @@ import edu.badpals.proyectoad3.model.ValorantPlayer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.EntityManager;
 
 public class JugadorValoDAO {
 
@@ -40,7 +41,6 @@ public class JugadorValoDAO {
                 }
             }
 
-            // Paso 2: Insertar en 'ValorantPlayers' usando la clave generada
             String insertValoPlayer = "INSERT INTO ValorantPlayers (id_jugador, rol, agente, IGL) VALUES (?, ?, ?, ?)";
             try (PreparedStatement psValoPlayer = c.prepareStatement(insertValoPlayer)) {
                 psValoPlayer.setLong(1, idJugadorGenerado);
@@ -162,5 +162,105 @@ public class JugadorValoDAO {
             throw new RuntimeException(e);
         }
         return valorantPlayer;
+    }
+
+    public static List<ValorantPlayer> getJugadorValorantPorEquipo(String nombreEquipo) {
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+        List<ValorantPlayer> jugadoresValorant = new ArrayList<>();
+
+
+        String jpql = "SELECT vp FROM ValorantPlayer vp " +
+                "JOIN vp.Equipo e " +
+                "WHERE e.nombre = :nombreEquipo";
+
+        try {
+            em.getTransaction().begin();
+            jugadoresValorant = em.createQuery(jpql, ValorantPlayer.class)
+                    .setParameter("nombreEquipo", nombreEquipo)
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadoresValorant;
+    }
+
+    public static List<ValorantPlayer> getJugadorValorantPorPais(String pais) {
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+        List<ValorantPlayer> jugadoresValorant = new ArrayList<>();
+
+        String jpql = "SELECT vp FROM ValorantPlayer vp " +
+                "WHERE vp.informacionPersonal.pais = :pais";
+
+        try {
+            em.getTransaction().begin();
+            jugadoresValorant = em.createQuery(jpql, ValorantPlayer.class)
+                    .setParameter("pais", pais)
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadoresValorant;
+    }
+
+    public static List<ValorantPlayer> getJugadorValorantPorRol(String rol) {
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+        List<ValorantPlayer> jugadoresValorant = new ArrayList<>();
+        String jpql = "SELECT vp FROM ValorantPlayer vp " +
+                "WHERE vp.rol = :rol";
+
+        try {
+            em.getTransaction().begin();
+            jugadoresValorant = em.createQuery(jpql, ValorantPlayer.class)
+                    .setParameter("rol", rol)
+                    .getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadoresValorant;
+    }
+
+    public static List<ValorantPlayer> getJugadorPorNickname(String nombreNickname) {
+        ConnectionDAO.llamadaEntityManager llamadaEM = ConnectionDAO.getLlamadaEntityManager();
+        EntityManager em = llamadaEM.em();
+        List<ValorantPlayer> jugadoresValorant = new ArrayList<>();
+        String jpql = "SELECT vp FROM ValorantPlayer vp WHERE vp.Nickname like :nickname";
+
+        try {
+            em.getTransaction().begin();
+            jugadoresValorant = em.createQuery(jpql, ValorantPlayer.class).setParameter("nickname", nombreNickname).getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            llamadaEM.emf().close();
+        }
+
+        return jugadoresValorant;
     }
 }

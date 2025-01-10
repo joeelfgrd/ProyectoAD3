@@ -250,6 +250,117 @@ public class JugadoresValoViewController {
         }
     }
 
+    @FXML
+    public void mostrarJugadoresValoPorEquipo() {
+        // Obtener el nombre del equipo seleccionado en el ComboBox
+        String equipoSeleccionado = ValoPlayerTeamCmb.getValue();
+
+        if (equipoSeleccionado == null || equipoSeleccionado.isEmpty()) {
+            // Si no se ha seleccionado ningún equipo, mostrar un mensaje de advertencia
+            AlertasController.mostrarAdvertencia("Selección de equipo", "Por favor, selecciona un equipo.");
+            return;
+        }
+
+        // Obtener la lista de jugadores para el equipo seleccionado
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            List<ValorantPlayer> jugadoresPorEquipo = JugadorValoDAO.getJugadorValorantPorEquipo(equipoSeleccionado);
+
+            // Verificar si se obtuvieron jugadores
+            if (jugadoresPorEquipo.isEmpty()) {
+                AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el equipo " + equipoSeleccionado);
+            } else {
+                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
+                ObservableList<ValorantPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorEquipo);
+                ValoPlayerTableView.setItems(jugadoresObservableList);
+            }
+
+            // Cerrar la conexión después de obtener los datos
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void mostrarJugadoresValoPorPais() {
+        // Obtener el país seleccionado en el ComboBox
+        String paisSeleccionado = ValoPlayerCountryCmb.getValue();
+
+        if (paisSeleccionado == null || paisSeleccionado.isEmpty()) {
+            // Si no se ha seleccionado ningún país, mostrar un mensaje de advertencia
+            AlertasController.mostrarAdvertencia("Selección de país", "Por favor, selecciona un país.");
+            return;
+        }
+
+        // Obtener la lista de jugadores para el país seleccionado
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            List<ValorantPlayer> jugadoresPorPais = JugadorValoDAO.getJugadorValorantPorPais(paisSeleccionado);
+
+            // Verificar si se obtuvieron jugadores
+            if (jugadoresPorPais.isEmpty()) {
+                AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el país " + paisSeleccionado);
+            } else {
+                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
+                ObservableList<ValorantPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorPais);
+                ValoPlayerTableView.setItems(jugadoresObservableList);
+            }
+
+            // Cerrar la conexión después de obtener los datos
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void mostrarJugadoresValoPorRol() {
+        // Obtener el rol seleccionado en el ComboBox
+        String rolSeleccionado = ValoPlayerRolCmb.getValue();
+
+        if (rolSeleccionado == null || rolSeleccionado.isEmpty()) {
+            // Si no se ha seleccionado ningún rol, mostrar un mensaje de advertencia
+            AlertasController.mostrarAdvertencia("Selección de rol", "Por favor, selecciona un rol.");
+            return;
+        }
+
+        // Obtener la lista de jugadores para el rol seleccionado
+        Connection connection = conectionApp.crearConexion();
+        if (connection != null) {
+            List<ValorantPlayer> jugadoresPorRol = JugadorValoDAO.getJugadorValorantPorRol(rolSeleccionado);
+
+            // Verificar si se obtuvieron jugadores
+            if (jugadoresPorRol.isEmpty()) {
+                AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el rol " + rolSeleccionado);
+            } else {
+                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
+                ObservableList<ValorantPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorRol);
+                ValoPlayerTableView.setItems(jugadoresObservableList);
+            }
+
+            // Cerrar la conexión después de obtener los datos
+            ConnectionDAO.cerrarConexion(connection);
+        } else {
+            AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
+        }
+    }
+
+    @FXML
+    public void searchValoPlayerByName() {
+        String nombreNickname = ValoPlayerNickTxt.getText().trim();
+
+        if (!nombreNickname.isEmpty()) {
+            List<ValorantPlayer> jugadores = JugadorValoDAO.getJugadorPorNickname(nombreNickname);
+            ObservableList<ValorantPlayer> equipoObservableList = FXCollections.observableArrayList(jugadores);
+            ValoPlayerTableView.setItems(equipoObservableList);
+        } else {
+            AlertasController.mostrarAdvertencia("Campo vacío", "Debe ingresar un nickname para buscar.");
+        }
+    }
+
+
+
     private boolean checkCamposVaciosValoPlayer() {
         return ValoPlayerNameTxt.getText().isEmpty() || ValoPlayerSurnameTxt.getText().isEmpty() ||
                 ValoPlayerNickTxt.getText().isEmpty() || ValoPlayerRolCmb.getValue() == null ||
@@ -278,6 +389,15 @@ public class JugadoresValoViewController {
             IGLCheckbox.setSelected(jugadorSeleccionado.isIGL());
         }
     }
+
+
+    @FXML
+    private void recargarCeldasYtabla() {
+        limpiarCamposValorantPlayer();
+        ValoPlayerTableView.refresh();
+        loadValoDataToTable();
+    }
+
 
 
 
