@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class Conection_App {
 
-    private final String URLDB = "jdbc:mysql://127.0.0.1:3307/ESPORTS";
+    private final String URLDB = "jdbc:mysql://esportsdb.cngww6m8qbrx.eu-west-2.rds.amazonaws.com:3308/EsportsDB";
 
 
 
@@ -18,7 +18,7 @@ public class Conection_App {
         try {
             Properties propiedadesConexion = new Properties();
             propiedadesConexion.setProperty("user", "root");
-            propiedadesConexion.setProperty("password", "root");
+            propiedadesConexion.setProperty("password", "*on1OrIaQi9R");
             Connection c = DriverManager.getConnection(URLDB, propiedadesConexion);
             return c;
         } catch (SQLException e) {
