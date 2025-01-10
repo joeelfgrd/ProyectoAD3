@@ -1,6 +1,8 @@
 package edu.badpals.proyectoad3.controller;
 
-import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.DAO.EquipoDAO;
+import edu.badpals.proyectoad3.DAO.JugadorValoDAO;
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import edu.badpals.proyectoad3.model.entities.InformacionPersonal;
 import edu.badpals.proyectoad3.model.entities.ValorantPlayer;
@@ -16,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -83,7 +84,7 @@ public class JugadoresValoViewController {
     @FXML
     private CheckBox IGLCheckbox;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private final ConnectionDAO conectionApp = new ConnectionDAO();
 
     //  Metodos iniciales para cargar los datos de la tabla y los combobox y la tabla
 
@@ -91,7 +92,7 @@ public class JugadoresValoViewController {
     public void initialize() {
         setCells();
         loadValoDataToTable();
-        List<String> lista = Conection_App.returnAllTeams(conectionApp.crearConexion());
+        List<String> lista = EquipoDAO.returnAllTeams(conectionApp.crearConexion());
         ValoPlayerRolCmb.getItems().addAll("Duelista", "Iniciador", "Controlador", "Centinela");
         ValoPlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. Swaziland)", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
         ValoPlayerTeamCmb.getItems().addAll(lista);
@@ -150,8 +151,8 @@ public class JugadoresValoViewController {
                 player.setInformacionPersonal(new InformacionPersonal());
             }
             cargarDatosJugadorDeTablaAceldas(player, connection);
-            Conection_App.addValoPlayer(player);
-            Conection_App.cerrarConexion(connection);
+            JugadorValoDAO.addValoPlayer(player);
+            ConnectionDAO.cerrarConexion(connection);
             loadValoDataToTable();
             limpiarCamposValorantPlayer();
             AlertasController.mostrarInformacion("Éxito", "Jugador creado correctamente.");
@@ -174,7 +175,7 @@ public class JugadoresValoViewController {
 
         try {
             cargarDatosJugadorDeTablaAceldas(playerSeleccionado, conectionApp.crearConexion());
-            Conection_App.updateValoPlayer(playerSeleccionado);
+            JugadorValoDAO.updateValoPlayer(playerSeleccionado);
             loadValoDataToTable();
             limpiarCamposValorantPlayer();
 
@@ -194,8 +195,8 @@ public class JugadoresValoViewController {
 
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            Conection_App.deleteValoPlayerForID(playerSeleccionado.getId_jugador());
-            Conection_App.cerrarConexion(connection);
+            JugadorValoDAO.deleteValoPlayerForID(playerSeleccionado.getId_jugador());
+            ConnectionDAO.cerrarConexion(connection);
             loadValoDataToTable();
             AlertasController.mostrarInformacion("Éxito", "Jugador eliminado exitosamente." );
         } else {
@@ -226,7 +227,7 @@ public class JugadoresValoViewController {
         player.setIGL(IGLCheckbox.isSelected());
 
         if (ValoPlayerTeamCmb.getValue() != null) {
-            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            List<Equipo> equipos = EquipoDAO.getEquipos(connection);
             for (Equipo equipo : equipos) {
                 if (equipo.getNombre().equals(ValoPlayerTeamCmb.getValue())) {
                     player.setEquipo(equipo);
@@ -240,10 +241,10 @@ public class JugadoresValoViewController {
     public void loadValoDataToTable() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            List<ValorantPlayer> valorantPlayers = Conection_App.getJugadorValorant(connection);
+            List<ValorantPlayer> valorantPlayers = JugadorValoDAO.getJugadorValorant(connection);
             ObservableList<ValorantPlayer> valorantPlayerObservableList = FXCollections.observableArrayList(valorantPlayers);
             ValoPlayerTableView.setItems(valorantPlayerObservableList);
-            Conection_App.cerrarConexion(connection);
+            ConnectionDAO.cerrarConexion(connection);
         } else {
             AlertasController.mostrarError("Error", "No se pudo establecer la conexión con la base de datos.");
         }

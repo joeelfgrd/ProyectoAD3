@@ -1,13 +1,13 @@
 package edu.badpals.proyectoad3.model;
 
+import edu.badpals.proyectoad3.DAO.*;
 import edu.badpals.proyectoad3.model.entities.*;
 import jakarta.persistence.*;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 
 public class Main {
-    private static final Conection_App conectionApp = new Conection_App();
+    private static final ConnectionDAO conectionApp = new ConnectionDAO();
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
@@ -22,7 +22,7 @@ public class Main {
             liga.setRegion("NA");
             liga.setTier("1");
 
-            Conection_App.addLeague(liga);
+            LigasDAO.addLeague(liga);
 
             // Crear y agregar equipo
             Equipo equipo = new Equipo();
@@ -31,7 +31,7 @@ public class Main {
             equipo.setRegion("EU");
             equipo.setTier("2");
 
-            Conection_App.addTeam(equipo);
+            EquipoDAO.addTeam(equipo);
 
             // Crear y registrar equipo en liga
             EquipoLiga equipoLiga = new EquipoLiga();
@@ -49,20 +49,20 @@ public class Main {
             equipoLiga.setPrecioPlaza(5000.00);
 
             // Desinscribir y registrar el equipo
-            Conection_App.unregisterTeam(equipoLiga);
-            Conection_App.registerTeam(equipoLiga);
+            EquipoLigaDAO.unregisterTeam(equipoLiga);
+            EquipoLigaDAO.registerTeam(equipoLiga);
 
             // Eliminar liga y equipo por ID
-            //Conection_App.deleteTeamForID(1L);
+            //ConnectionDAO.deleteTeamForID(1L);
 
             // Actualizar equipo, liga y participación
             Equipo equipoActualizado = new Equipo(3L, "Movistar Riders", LocalDate.of(2015, 5, 15), "EU", "2", null);
             Liga ligaActualizada = new Liga(2L, "Super Liga Orange", LocalDate.of(2020, 1, 1), "EU", "3", null);
             EquipoLiga equipoLigaActualizado = new EquipoLiga(2L, em.find(Equipo.class, 3L), em.find(Liga.class, 2L), LocalDate.of(2021, 10, 10), 1000.00);
 
-            Conection_App.updateTeam(equipoActualizado);
-            Conection_App.updateLeague(ligaActualizada);
-            Conection_App.updateParticipation(equipoLigaActualizado);
+            EquipoDAO.updateTeam(equipoActualizado);
+            LigasDAO.updateLeague(ligaActualizada);
+            EquipoLigaDAO.updateParticipation(equipoLigaActualizado);
 
             // Agregar jugadores de LoL y Valorant
             LolPlayer lolPlayer = new LolPlayer();
@@ -71,8 +71,8 @@ public class Main {
             lolPlayer.setLateShotcaller(false);
             lolPlayer.setInformacionPersonal(new InformacionPersonal("Juan", "Perez", "ES"));
             lolPlayer.setNickname("Wunder");
-            lolPlayer.setEquipo(Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()));
-            Conection_App.addLolPlayer(lolPlayer);
+            lolPlayer.setEquipo(EquipoDAO.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()));
+            JugadorLolDAO.addLolPlayer(lolPlayer);
 
             ValorantPlayer valorantPlayer = new ValorantPlayer();
             valorantPlayer.setRol("Duelista");
@@ -80,19 +80,19 @@ public class Main {
             valorantPlayer.setIGL(false);
             valorantPlayer.setInformacionPersonal(new InformacionPersonal("Juan", "Perez", "ES"));
             valorantPlayer.setNickname("Nats");
-            valorantPlayer.setEquipo(Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()));
-            Conection_App.addValoPlayer(valorantPlayer);
+            valorantPlayer.setEquipo(EquipoDAO.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()));
+            JugadorValoDAO.addValoPlayer(valorantPlayer);
 
             // Eliminar jugadores por ID
-            Conection_App.deleteLolPlayerForID(1L);
-            Conection_App.deleteValoPlayerForID(2L);
+            JugadorLolDAO.deleteLolPlayerForID(1L);
+            JugadorValoDAO.deleteValoPlayerForID(2L);
 
             // Actualizar jugadores
-            LolPlayer lolPlayerActualizado = new LolPlayer(3L, new InformacionPersonal("Rasmus", "Borregaard Winther", "DEN"), "Caps", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Mid", true, false);
-            ValorantPlayer valorantPlayerActualizado = new ValorantPlayer(4L, new InformacionPersonal("Oscar", "Cañellas", "ES"), "Mixwell", Conection_App.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Centinela", "Chyper", true);
+            LolPlayer lolPlayerActualizado = new LolPlayer(3L, new InformacionPersonal("Rasmus", "Borregaard Winther", "DEN"), "Caps", EquipoDAO.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Mid", true, false);
+            ValorantPlayer valorantPlayerActualizado = new ValorantPlayer(4L, new InformacionPersonal("Oscar", "Cañellas", "ES"), "Mixwell", EquipoDAO.getEquipoFromName("Movistar Riders", conectionApp.crearConexion()), "Centinela", "Chyper", true);
 
-            Conection_App.updateLolPlayer(lolPlayerActualizado);
-            Conection_App.updateValoPlayer(valorantPlayerActualizado);
+            JugadorLolDAO.updateLolPlayer(lolPlayerActualizado);
+            JugadorValoDAO.updateValoPlayer(valorantPlayerActualizado);
 
             em.getTransaction().commit();
         } catch (Exception e) {

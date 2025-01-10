@@ -13,4 +13,6 @@ module edu.badpals.proyectoad3 {
     opens edu.badpals.proyectoad3.model.entities to javafx.fxml, org.hibernate.orm.core;
     exports edu.badpals.proyectoad3.controller;
     opens edu.badpals.proyectoad3.controller to javafx.fxml;
+    exports edu.badpals.proyectoad3.DAO;
+    opens edu.badpals.proyectoad3.DAO to javafx.fxml, org.hibernate.orm.core;
 }

@@ -1,10 +1,12 @@
 package edu.badpals.proyectoad3.controller;
 
-import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.DAO.EquipoDAO;
+import edu.badpals.proyectoad3.DAO.EquipoLigaDAO;
+import edu.badpals.proyectoad3.DAO.LigasDAO;
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import edu.badpals.proyectoad3.model.entities.EquipoLiga;
 import edu.badpals.proyectoad3.model.entities.Liga;
-import edu.badpals.proyectoad3.model.entities.ValorantPlayer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -71,7 +73,7 @@ public class RegisterViewController {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
     private EntityManager em;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private final ConnectionDAO conectionApp = new ConnectionDAO();
 
     private final Connection connection = conectionApp.crearConexion();
     @FXML
@@ -99,19 +101,19 @@ public class RegisterViewController {
 
     private void loadData() {
         Connection connection = conectionApp.crearConexion();
-        List<EquipoLiga> registros = Conection_App.getEquipoLiga(connection, em);
+        List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
         ObservableList<EquipoLiga> registroObservableList = FXCollections.observableArrayList(registros);
         tableRegister.setItems(registroObservableList);
     }
 
     private void loadComboBoxes() {
-        Connection connection = new Conection_App().crearConexion();
+        Connection connection = new ConnectionDAO().crearConexion();
         if (connection != null) {
-            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            List<Equipo> equipos = EquipoDAO.getEquipos(connection);
             equipos.forEach(equipo -> SelectTeamCmb.getItems().add(equipo.getNombre()));
-            List<Liga> ligas = Conection_App.getLigas(connection);
+            List<Liga> ligas = LigasDAO.getLigas(connection);
             ligas.forEach(liga -> SelectLeagueCmb.getItems().add(liga.getNombre()));
-            new Conection_App().cerrarConexion(connection);
+            new ConnectionDAO().cerrarConexion(connection);
         }
     }
 
@@ -151,7 +153,7 @@ public class RegisterViewController {
             equipoliga.setFechaInscripcion(DateRegisterTxt.getValue());
 
             if (SelectTeamCmb.getValue() != null) {
-                List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
+                List<Equipo> equipos = EquipoDAO.getEquipos(conectionApp.crearConexion());
                 for (Equipo equipo : equipos) {
                     if (equipo.getNombre().equals(SelectTeamCmb.getValue())) {
                         equipoliga.setEquipo(equipo);
@@ -161,7 +163,7 @@ public class RegisterViewController {
             }
 
             if (SelectLeagueCmb.getValue() != null) {
-                List<Liga> ligas = Conection_App.getLigas(conectionApp.crearConexion());
+                List<Liga> ligas = LigasDAO.getLigas(conectionApp.crearConexion());
                 for (Liga liga : ligas) {
                     if (liga.getNombre().equals(SelectLeagueCmb.getValue())) {
                         equipoliga.setLiga(liga);
@@ -177,7 +179,7 @@ public class RegisterViewController {
 
             if (checkPlazaExiste(connection))
                 return;
-            Conection_App.registerTeam(equipoliga);
+            EquipoLigaDAO.registerTeam(equipoliga);
             loadData();
             limpiarCamposRegisterEquipoLiga();
             AlertasController.mostrarInformacion("Éxito", "Plaza asignada exitosamente.");
@@ -208,7 +210,7 @@ public class RegisterViewController {
             equipoLigaSeleccionado.setFechaInscripcion(DateRegisterTxt.getValue());
 
             if (SelectTeamCmb.getValue() != null) {
-                List<Equipo> equipos = Conection_App.getEquipos(conectionApp.crearConexion());
+                List<Equipo> equipos = EquipoDAO.getEquipos(conectionApp.crearConexion());
                 for (Equipo equipo : equipos) {
                     if (equipo.getNombre().equals(SelectTeamCmb.getValue())) {
                         equipoLigaSeleccionado.setEquipo(equipo);
@@ -218,7 +220,7 @@ public class RegisterViewController {
             }
 
             if (SelectLeagueCmb.getValue() != null) {
-                List<Liga> ligas = Conection_App.getLigas(conectionApp.crearConexion());
+                List<Liga> ligas = LigasDAO.getLigas(conectionApp.crearConexion());
                 for (Liga liga : ligas) {
                     if (liga.getNombre().equals(SelectLeagueCmb.getValue())) {
                         equipoLigaSeleccionado.setLiga(liga);
@@ -232,10 +234,8 @@ public class RegisterViewController {
                 return;
             }
 
-            if (checkPlazaExiste(connection))
-                return;
 
-            Conection_App.updateParticipation(equipoLigaSeleccionado);
+            EquipoLigaDAO.updateParticipation(equipoLigaSeleccionado);
             tableRegister.refresh();
             limpiarCamposRegisterEquipoLiga();
             loadData();
@@ -256,8 +256,8 @@ public class RegisterViewController {
 
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            Conection_App.unregisterTeam(equipoLigaSeleccionado);
-            Conection_App.cerrarConexion(connection);
+            EquipoLigaDAO.unregisterTeam(equipoLigaSeleccionado);
+            ConnectionDAO.cerrarConexion(connection);
             loadData();
             AlertasController.mostrarInformacion("Éxito", "Plaza eliminado exitosamente.");
         } else {
@@ -267,7 +267,7 @@ public class RegisterViewController {
 
     private boolean checkPlazaExiste(Connection connection) {
         boolean plazaExiste = false;
-        List<EquipoLiga> registros = Conection_App.getEquipoLiga(connection, em);
+        List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
         for (EquipoLiga registro : registros) {
             if (registro.getEquipo().getNombre().equalsIgnoreCase(SelectTeamCmb.getValue()) && registro.getLiga().getNombre().equalsIgnoreCase(SelectLeagueCmb.getValue()) ) {
                 plazaExiste = true;

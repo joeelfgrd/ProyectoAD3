@@ -1,6 +1,7 @@
 package edu.badpals.proyectoad3.controller;
 
-import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.DAO.LigasDAO;
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import edu.badpals.proyectoad3.model.entities.Liga;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -61,7 +61,7 @@ public class LeaguesViewController {
     @FXML
     private ComboBox LigaTierCmb;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private final ConnectionDAO conectionApp = new ConnectionDAO();
 
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
@@ -87,10 +87,10 @@ public class LeaguesViewController {
     public void loadData() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            List<Liga> ligas = Conection_App.getLigas(connection);
+            List<Liga> ligas = LigasDAO.getLigas(connection);
             ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
             tableLigas.setItems(ligasObservableList);
-            Conection_App.cerrarConexion(connection);
+            ConnectionDAO.cerrarConexion(connection);
         } else {
             System.out.println("No se pudo establecer la conexión con la base de datos.");
         }
@@ -136,8 +136,8 @@ public class LeaguesViewController {
             liga.setFechaCreacion(LigaDateTxt.getValue());
             liga.setRegion(LigaRegionCmb.getValue().toString());
             liga.setTier(LigaTierCmb.getValue().toString());
-            Conection_App.addLeague(liga);
-            Conection_App.cerrarConexion(connection);
+            LigasDAO.addLeague(liga);
+            ConnectionDAO.cerrarConexion(connection);
             loadData();
             AlertasController.mostrarInformacion("Éxito", "Liga creada correctamente.");
         } else {
@@ -159,8 +159,8 @@ public class LeaguesViewController {
             liga.setFechaCreacion(LigaDateTxt.getValue());
             liga.setRegion(LigaRegionCmb.getValue().toString());
             liga.setTier(LigaTierCmb.getValue().toString());
-            Conection_App.updateLeague(liga);
-            Conection_App.cerrarConexion(connection);
+            LigasDAO.updateLeague(liga);
+            ConnectionDAO.cerrarConexion(connection);
             loadData();
             AlertasController.mostrarInformacion("Éxito", "Liga actualizada exitosamente.");
         } else {
@@ -173,8 +173,8 @@ public class LeaguesViewController {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             Liga liga = tableLigas.getSelectionModel().getSelectedItem();
-            Conection_App.deleteLeague(liga);
-            Conection_App.cerrarConexion(connection);
+            LigasDAO.deleteLeague(liga);
+            ConnectionDAO.cerrarConexion(connection);
             loadData();
             AlertasController.mostrarInformacion("Éxito", "Liga eliminada exitosamente.");
         } else {

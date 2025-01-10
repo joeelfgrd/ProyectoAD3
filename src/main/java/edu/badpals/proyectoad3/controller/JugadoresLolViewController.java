@@ -1,6 +1,8 @@
 package edu.badpals.proyectoad3.controller;
 
-import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.DAO.EquipoDAO;
+import edu.badpals.proyectoad3.DAO.JugadorLolDAO;
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import edu.badpals.proyectoad3.model.entities.InformacionPersonal;
 import edu.badpals.proyectoad3.model.entities.LolPlayer;
@@ -66,7 +68,7 @@ public class JugadoresLolViewController {
     @FXML
     private ComboBox<String> LeaguePlayerCountryCmb;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private final ConnectionDAO conectionApp = new ConnectionDAO();
 
 //  Metodos iniciales para cargar los datos de la tabla y los combobox y la tabla
 
@@ -76,7 +78,7 @@ public class JugadoresLolViewController {
         loadLolDataToTable();
         LeaguePlayerPositionCmb.getItems().addAll("Top", "Jungle", "Mid", "ADC", "Support");
         LeaguePlayerCountryCmb.getItems().addAll("Afghanistan", "Albania", "Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany", "India", "Japan", "Korea (South)", "Mexico", "Spain", "United Kingdom", "United States", "Vietnam");
-        LeaguePlayerTeamCmb.getItems().addAll(Conection_App.returnAllTeams(conectionApp.crearConexion()));
+        LeaguePlayerTeamCmb.getItems().addAll(EquipoDAO.returnAllTeams(conectionApp.crearConexion()));
         LolPlayerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         LolPlayerTableView.setOnMouseClicked(event -> {
             if (!LolPlayerTableView.getSelectionModel().isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
@@ -127,8 +129,8 @@ public class JugadoresLolViewController {
 
             obtenerDatosCamposLolPlayer(player, connection);
 
-            Conection_App.addLolPlayer(player);
-            Conection_App.cerrarConexion(connection);
+            JugadorLolDAO.addLolPlayer(player);
+            ConnectionDAO.cerrarConexion(connection);
             loadLolDataToTable();
             limpiarCamposLeaguePlayer();
             AlertasController.mostrarInformacion("Éxito", "Jugador creado exitosamente.");
@@ -153,8 +155,8 @@ public class JugadoresLolViewController {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             obtenerDatosCamposLolPlayer(selectedPlayer, connection);
-            Conection_App.updateLolPlayer(selectedPlayer);
-            Conection_App.cerrarConexion(connection);
+            JugadorLolDAO.updateLolPlayer(selectedPlayer);
+            ConnectionDAO.cerrarConexion(connection);
             loadLolDataToTable();
             limpiarCamposLeaguePlayer();
             AlertasController.mostrarInformacion("Éxito", "Jugador actualizado correctamente.");
@@ -173,8 +175,8 @@ public class JugadoresLolViewController {
 
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            Conection_App.deleteLolPlayerForID(selectedPlayer.getId_jugador());
-            Conection_App.cerrarConexion(connection);
+            JugadorLolDAO.deleteLolPlayerForID(selectedPlayer.getId_jugador());
+            ConnectionDAO.cerrarConexion(connection);
             loadLolDataToTable();
             limpiarCamposLeaguePlayer();
             AlertasController.mostrarInformacion("Éxito", "Jugador eliminado correctamente.");
@@ -189,10 +191,10 @@ public class JugadoresLolViewController {
     public void loadLolDataToTable() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            List<LolPlayer> LolPlayer = Conection_App.getLolPlayers(connection);
+            List<LolPlayer> LolPlayer = JugadorLolDAO.getLolPlayers(connection);
             ObservableList<LolPlayer> leaguePlayerObservableList = FXCollections.observableArrayList(LolPlayer);
             LolPlayerTableView.setItems(leaguePlayerObservableList);
-            Conection_App.cerrarConexion(connection);
+            ConnectionDAO.cerrarConexion(connection);
         } else {
             System.out.println("No se pudo establecer la conexión con la base de datos.");
         }
@@ -207,7 +209,7 @@ public class JugadoresLolViewController {
         selectedPlayer.setEarlyShotcaller(LeaguePlayerEarlyShtCllrChk.isSelected());
         selectedPlayer.setLateShotcaller(LeaguePlayerLateShtCllrChk.isSelected());
 
-        List<Equipo> equipos = Conection_App.getEquipos(connection);
+        List<Equipo> equipos = EquipoDAO.getEquipos(connection);
         for (Equipo equipo : equipos) {
             if (equipo.getNombre().equals(LeaguePlayerTeamCmb.getValue())) {
                 selectedPlayer.setEquipo(equipo);

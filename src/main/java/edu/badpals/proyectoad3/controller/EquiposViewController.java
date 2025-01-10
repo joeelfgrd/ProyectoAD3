@@ -1,6 +1,7 @@
 package edu.badpals.proyectoad3.controller;
 
-import edu.badpals.proyectoad3.model.Conection_App;
+import edu.badpals.proyectoad3.DAO.EquipoDAO;
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import edu.badpals.proyectoad3.model.entities.Equipo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +48,7 @@ public class EquiposViewController {
     @FXML
     private ComboBox<String> TeamTierCmb;
 
-    private final Conection_App conectionApp = new Conection_App();
+    private final ConnectionDAO conectionApp = new ConnectionDAO();
 
     @FXML
     public void initialize() {
@@ -86,7 +87,7 @@ public class EquiposViewController {
     public void loadData() {
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            List<Equipo> equipos = Conection_App.getEquipos(connection);
+            List<Equipo> equipos = EquipoDAO.getEquipos(connection);
             ObservableList<Equipo> equiposObservableList = FXCollections.observableArrayList(equipos);
             tableEquipos.setItems(equiposObservableList);
             conectionApp.cerrarConexion(connection);
@@ -101,7 +102,7 @@ public class EquiposViewController {
         try {
             Connection connection = conectionApp.crearConexion();
             if (connection != null) {
-                List<Equipo> equipos = Conection_App.getEquipos(connection);
+                List<Equipo> equipos = EquipoDAO.getEquipos(connection);
                 boolean nombreExiste = false;
                 for (Equipo equipo : equipos) {
                     if (equipo.getNombre().equalsIgnoreCase(TeamNameTxt.getText())) {
@@ -122,7 +123,7 @@ public class EquiposViewController {
                 equipo.setRegion(TeamRegionCmb.getValue().toString());
                 equipo.setTier(TeamTierCmb.getValue().toString());
 
-                Conection_App.addTeam(equipo);
+                EquipoDAO.addTeam(equipo);
                 loadData();
                 limpiarCeldasEquipos();
 
@@ -150,7 +151,7 @@ public class EquiposViewController {
             equipoSeleccionado.setFechaCreacion(TeamDateTxt.getValue());
             equipoSeleccionado.setRegion(TeamRegionCmb.getValue().toString());
             equipoSeleccionado.setTier(TeamTierCmb.getValue().toString());
-            Conection_App.updateTeam(equipoSeleccionado);
+            EquipoDAO.updateTeam(equipoSeleccionado);
 
             loadData();
             limpiarCeldasEquipos();
@@ -169,7 +170,7 @@ public class EquiposViewController {
             return;
         }
         try {
-            Conection_App.deleteTeam(equipoSeleccionado);
+            EquipoDAO.deleteTeam(equipoSeleccionado);
             loadData();
             limpiarCeldasEquipos();
 
