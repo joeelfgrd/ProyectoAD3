@@ -177,10 +177,10 @@ public class EquiposViewController {
                 AlertasController.mostrarError("Error", "No se puede eliminar el equipo porque tiene jugadores asociados.");
                 return;
             }
+
             EquipoDAO.deleteTeam(equipoSeleccionado);
             loadData();
             limpiarCeldasEquipos();
-
             AlertasController.mostrarInformacion("Éxito", "Equipo eliminado exitosamente.");
         } catch (Exception e) {
             AlertasController.mostrarError("Error", "Ocurrió un error al eliminar el equipo: " + e.getMessage());

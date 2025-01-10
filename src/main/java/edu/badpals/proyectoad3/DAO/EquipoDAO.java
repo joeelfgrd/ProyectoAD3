@@ -177,17 +177,20 @@ public class EquipoDAO {
         ConnectionDAO connectionDAO = new ConnectionDAO();
         Connection c = connectionDAO.crearConexion();
         boolean hasPlayers = false;
-        try {
-            String query = "SELECT * FROM jugadores WHERE idEquipo = " + equipoSeleccionado.getIdEquipo();
-            try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(query)) {
+        String query = "SELECT * FROM personal WHERE equipo = ?";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setLong(1, equipoSeleccionado.getIdEquipo());
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     hasPlayers = true;
                 }
             }
         } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            ConnectionDAO.cerrarConexion(c);
         }
-        ConnectionDAO.cerrarConexion(c);
         return hasPlayers;
     }
 }
