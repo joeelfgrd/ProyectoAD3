@@ -1,5 +1,6 @@
 package edu.badpals.proyectoad3.controller;
 
+import edu.badpals.proyectoad3.DAO.ConnectionDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +24,8 @@ public class HelloController {
 
 
     @FXML
-    protected void onHelloButtonClick() {
-        Main.generateDB();
+    protected void onHelloButtonClick() throws Exception {
+        ConnectionDAO.resetDatabase();
     }
 
     @FXML
