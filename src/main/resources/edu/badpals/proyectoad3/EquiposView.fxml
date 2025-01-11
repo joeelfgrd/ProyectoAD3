@@ -41,7 +41,7 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-                <Button fx:id="UpdateTeamBtn" layoutX="455.0" layoutY="241.0" mnemonicParsing="false" onAction="#actualizarEquipo" prefHeight="33.0" prefWidth="88.0" text="Actualizar">
+                <Button fx:id="UpdateTeamBtn" layoutX="438.0" layoutY="241.0" mnemonicParsing="false" onAction="#actualizarEquipo" prefHeight="36.0" prefWidth="105.0" text="Actualizar">
                <font>
                   <Font size="14.0" />
                </font></Button>

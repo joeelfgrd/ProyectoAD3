@@ -245,8 +245,8 @@ public class LeaguesViewController {
             // Llamamos a la función que obtiene las ligas por tier
             List<Liga> ligas = LigasDAO.getLigasPorTier(tier);
             ObservableList<Liga> ligasObservableList = FXCollections.observableArrayList(ligas);
-            tableLigas.setItems(ligasObservableList);  // Establecemos las ligas en la tabla
-            ConnectionDAO.cerrarConexion(connection);  // Cerramos la conexión
+            tableLigas.setItems(ligasObservableList);
+            ConnectionDAO.cerrarConexion(connection);
         } else {
             AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
         }
@@ -256,6 +256,7 @@ public class LeaguesViewController {
     @FXML
     private void recargarCeldasYtabla() {
         limpiarCeldasLigas();
+        tableLigas.refresh();
         tableLigas.refresh();
         loadData();
     }
