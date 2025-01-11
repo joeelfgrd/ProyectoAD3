@@ -10,18 +10,18 @@ Autores: **Manuel Cendón Rodriguez** y **Joel Figueirido Molares**
 
 ### 1.1 Descripción del Proyecto
 
-Este proyecto tiene comom objetivo crear una aplicacion para gestionar y consultar información sobre campeonatos de Esports.
-Los usuarios pueden interactuar con la aplicacion para poder crear eliminar o modificar,tanto equipos,como ligas,como jugadores de los dos videjuegos que gestionamos (Valorant y LOL)
-También podemos realizar esas mismas funcionalidades para inscribir equipos en diferentes ligas y inscribir jugadores en sus equipos.
+Este proyecto tiene como objetivo crear una aplicación para gestionar y consultar información sobre campeonatos de Esports.
+Los usuarios pueden interactuar con la aplicación para poder crear eliminar o modificar, tanto equipos, como ligas, como jugadores de los dos videojuegos que gestionamos (Valorant y LOL)
+También podemos realizar esas mismas funcionalidades para inscribir equipos en diferentes ligas e inscribir jugadores en sus equipos.
 
 
 #### Funcionalidades principales:
 
-- **Ordenacion de campos**: Los usuarios pueden seleccionar el orden segun el cual quieren ordenar
-- **Visualización de equipos,ligas,jugadores de valorant,jugadores de lol y el conjunto de equipos y sus ligas**: Permite a los usuarios consultar los datos de la base de datos
-- **Creación de equipos,ligas,jugadores de valorant,jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden crear nuevos datos y que se vilualicen en las listas.
-- **Modificación de equipos,ligas,jugadores de valorant,jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden editar todos los campos que se visualizan en las tablas.
-- **Eliminación de equipos,ligas,jugadores de valorant,jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden eliminar cualquier dato de la base de datos.
+- **Ordenación de campos**: Los usuarios pueden seleccionar el orden según el cual quieren ordenar
+- **Visualización de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Permite a los usuarios consultar los datos de la base de datos
+- **Creación de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden crear nuevos datos y que se visualicen en las listas.
+- **Modificación de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden editar todos los campos que se visualizan en las tablas.
+- **Eliminación de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden eliminar cualquier dato de la base de datos.
 
 ## Modelo Entidad-Relación
 ![Descripción de la imagen](img/AD3.png)
@@ -43,9 +43,15 @@ La aplicación obtiene los datos desde dos bases de datos diferentes:
 
 - **Base de datos Login**: Almacena las credenciales encriptadas de los usuarios para el inicio de sesión.
   ![E_R_Login](src/main/resources/img/E-R-Login_ddbb.png)
-- **Base de datos app_series**: Almacena la información de las series de televisión, y sus episodios.
+- **Base de datos app_series**: Almacena la información de los equipos, jugadores y ligas.
   ![E_R_Series](src/main/resources/img/E-R-Series_ddbb.png)
-- En general trabajamos con 3 tablas,la tabla series,la tabla episodios y la tabla usuarios.
+- En general trabajamos con 6 tablas diferentes:
+  - **Equipos**: Almacena la información de los equipos.
+  - **Ligas**: Almacena la información de las ligas.
+  - **Personal**: Almacena la información personal de los jugadores, en nuestro caso es un objeto embebido.
+  - **LolPlayers**: Almacena la información de los jugadores que juegan al League of Legends.
+  - **ValorantPlayers**: Almacena la información de los jugadores que juegan al Valorant.
+  - **Equipo_liga**: Almacena la información de qué equipos están registrados en qué liga.
 
 ### 1.4 Tecnologías utilizadas
 
@@ -55,10 +61,10 @@ Este proyecto ha sido desarrollado con las siguientes tecnologías:
 - **JavaFX**: Para la creación de la interfaz gráfica de usuario (GUI).
 - **FXML**: Lenguaje utilizado para diseñar las vistas de la aplicación.
 - **Maven**: Utilizado para la gestión de dependencias y la construcción del proyecto.
-- **MySQL**: Base de datos utilizada para almacenar la información de las series y los episodios y las credenciales de
-  los usuarios.
+- **MySQL**: Base de datos utilizada para almacenar la información de los equipos, jugadores y ligas.
 - **AWS**: Servicio de alojamiento en la nube para la base de datos.
 - **Git**: Sistema de control de versiones para gestionar el código fuente.
+- **MongoDB Atlas**: Base de datos utilizada para almacenar las credenciales de los usuarios.
 
 ## 2. Estructura del Proyecto
 
@@ -84,8 +90,7 @@ operaciones CRUD (crear, leer, actualizar y eliminar) en la base de datos.
 2. JavaFX 17: Usado para la interfaz gráfica de usuario (GUI) en Java.
 3. Maven: Herramienta para la gestión de proyectos y dependencias en Java.
 4. Git: Sistema de control de versiones para gestionar el código fuente.
-5. MySQL: Base de datos utilizada para almacenar la información de las series y los episodios y las credenciales de los
-   usuarios.
+5. MySQL: Base de datos utilizada para almacenar la información de los equipos, jugadores y ligas.
 6. AWS: Servicio de alojamiento en la nube para la base de datos.
 
 ## Instrucciones de Instalación
@@ -102,13 +107,13 @@ cd C:\Users\nombredeusuario\Escritorio
   mkdir Directorio
 ```
 
-### 3.Sitúate en el directorio:
+### 3. Sitúate en el directorio:
 
 ```bash
   cd Directorio
 ```
 
-### 4.Instala los requisitos:
+### 4. Instala los requisitos:
 
 #### Instalar JDK 21:
 
@@ -139,7 +144,7 @@ set PATH=%PATH%;ruta_a_javafx\lib
 
 - Si no tienes Maven instalado, descárgalo e instálalo desde [Apache Maven](https://maven.apache.org/download.cgi).
 - Descomprime el archivo descargado en un directorio de tu elección.
-- Añaade la ruta de la carpeta bin de Maven a la variable de entorno PATH.
+- Añade la ruta de la carpeta bin de Maven a la variable de entorno PATH.
 - Para verificar la instalación, ejecuta el siguiente comando en la terminal:
 
 ```bash
@@ -212,38 +217,41 @@ LINK AL VIDEO
 
 # Tiempo dedicado
 
-- **Manuel Cendón Rodríguez **:Horas aproximadas: 27h
+- **Manuel Cendón Rodríguez **:Horas aproximadas: 25h
 - Tareas:
 - Tareas CRUD
-- Creación de la base de datos
+- Plantear modelo de base de datos
+- Plantear funcionamiento de la aplicación
 - Corrección de errores en CRUD
 - Manejo de excepciones
-- Arreglos en la interfaz gráfica
-- Generado el jar
+- Creación en la interfaz gráfica
+- Documentación
+- DAO
 
 
-- **Joel Figueirido Molares**:Horas aproximadas: 20h
+- **Joel Figueirido Molares**:Horas aproximadas: 30h
 - Creación de la base de datos
+- Creación de la base de datos de login
+- Creación de las clases
+- Conexiones a AWS y MongoDB Atlas
 - Corrección de errores en CRUD
-- Creación de la interfaz gráfica
+- Arreglos de la interfaz gráfica
+- MVC
+- Manejo de excepciones
 - Documentación
 - Añadir login
 
 
 # Propuestas de Mejora
-- **Posibilidad de crear nuevas series** no lo tuvimos en cuenta porque consideramos demasiado pesado para el usuario tener que crear la serie con todos los episodios,pero en una posible mejora lo consideramos importante.
-- **Mejora de la interfaz gráfica** para hacerla mas intuitiva,tal vez cambiar el tipo de filtrado por unos combobox en los que aparezcan las opciones de filtrado.
-- **Añadir más funcionalidades** desde poder buscar una serie por su nombre como la posibilidad de marcar series como favoritas, ver recomendaciones
-  personalizadas, etc.
-- **Añadir un sistema de seguimiento** En el que los usuarios podrían decir que series han visto y cuales no,ademas de poder marcar episodios como vistos.
-- **Modificar el código para que se ajuste a más dispositivos** en mi caso tuve que redimensionar la ventana para que se viera bien en mi portatil ya que tenia una pantalla mas pequeña que la de clase.
-- **Implementar un sistema de valoración** para que los usuarios puedan calificar las series y dejar comentarios que otra gente pueda ver y comentar.De esta forma podríamos crear un sistema de valoración nuevo en función de los gustos de la gente,tal vez poniendo las típicas estrellitas de valoración.
-- **Incluir un sistema de recomendaciones** para sugerir series similares a las que le gustan al usuario.
-- **Añadir la funcionalidad de poder ver los episodios** Tal vez redirigiendo a una plataforma externa.
+- **Expandir sus casos de uso** para abarcar todos los esports y no solo dos.
+- **Mejora de la interfaz gráfica** para la visualización de los datos, con gráficos y estadísticas.
+- **Añadir más funcionalidades** como la posibilidad de hacer seguimiento de torneos en tiempo real, así como de las punctuations de las partidas.
+- **Refactorización de código** porque hay fragmentos de código que se podrían simplificar y encapsular en métodos.
 
 # Conclusiones
 
-- En este proyecto,hemos mejorado nuestra habilidad manejando javafx,como ya sabíamos más o menos como funcionaba,en este proyecto hemos tratado más la parte visual de la aplicación,ya que la parte funcional nos resultó mas facil que en el anterior,tratando de hacerla agradable para el usuario,cabe destacar la intervencion de juan carlos el profesor de la interfaces al que acudimos a preguntar sobre la gestion de colores elegida.
-- También nos sirvió para practicar las consultas sql a la base de datos,ya que realizamos todo el CRUD.
-- Lo del jar sigue dando un poco de pereza hacerlo pero está bien para no olvidarse de como se hace.
-- En general estamos contentos con el resultado final de la aplicación,creemos que hemos mejorado mucho con respecto a la anterior y que la nota que esperamos es de al menos un 8.
+- Con este trabajo hemos aprendido que no hay suficiente documentación accesible de MongoDB y AWS para poder realizar el trabajo.
+- Hemos seguido mejorando nuestras habilidades con SQL y JavaFX.
+- También ganamos soltura con JPQL y con la creación de consultas.
+- En general estamos contentos con el resultado final del proyecto, hemos conseguido realizar casi todas las funcionalidades que ns planteamos en un inicio además de añadir un log in y una interfaz gráfica accesible para el usuario.
+- Teniendo en cuenta todo lo anterior, creemos que una nota justa para el trabajo realizado sería un 9.
