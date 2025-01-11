@@ -26,8 +26,8 @@
             <Button fx:id="CreateRegisterBtn" layoutX="296.0" layoutY="208.0" mnemonicParsing="false" onAction="#registrarEquipoEnLiga" text="Crear" />
             <Button fx:id="UpdateRegisterBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#actualizarEquipoEnLiga" text="Actualizar" />
             <Button fx:id="DeleteRegisterBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#DeleteEquipoLiga" text="Eliminar" />
-            <ComboBox fx:id="SelectTeamCmb" layoutX="296.0" layoutY="86.0" prefWidth="150.0" promptText="Elige el Equipo" />
-            <ComboBox fx:id="SelectLeagueCmb" layoutX="297.0" layoutY="129.0" prefWidth="150.0" promptText="Elige la Liga" />
+            <ComboBox fx:id="SelectTeamCmb" layoutX="296.0" layoutY="86.0" prefWidth="150.0" />
+            <ComboBox fx:id="SelectLeagueCmb" layoutX="297.0" layoutY="129.0" prefWidth="150.0" />
             <TextField fx:id="PriceRegisterTxt" layoutX="635.0" layoutY="85.0" />
             <Label layoutX="417.0" layoutY="29.0" text="Registrar">
                <font>

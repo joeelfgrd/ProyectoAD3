@@ -27,8 +27,8 @@
             <Button fx:id="UpdateLigaBtn" layoutX="405.0" layoutY="208.0" mnemonicParsing="false" onAction="#UpdateLiga" text="Actualizar" />
             <Button fx:id="DeleteLigaBtn" layoutX="603.0" layoutY="208.0" mnemonicParsing="false" onAction="#DeleteLiga" text="Eliminar" />
             <TextField fx:id="LigaNameTxt" layoutX="273.0" layoutY="86.0" />
-            <ComboBox fx:id="LigaRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" promptText="Elige la Region" />
-            <ComboBox fx:id="LigaTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0" promptText="Elige el tier" />
+            <ComboBox fx:id="LigaRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" />
+            <ComboBox fx:id="LigaTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0"  />
             <Label layoutX="437.0" layoutY="29.0" text="Ligas">
                <font>
                   <Font name="Calibri" size="36.0" />

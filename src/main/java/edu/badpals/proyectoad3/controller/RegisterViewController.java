@@ -143,7 +143,7 @@ public class RegisterViewController {
     public void registrarEquipoEnLiga() {
         if (SelectTeamCmb.getValue() == null ||
                 SelectLeagueCmb.getValue() == null || PriceRegisterTxt.getText().isEmpty() || DateRegisterTxt.getValue() == null) {
-            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
+            AlertasController.mostrarAdvertencia("Error", "Todos los campos deben estar completos.");
             return;
         }
         try {
@@ -173,12 +173,14 @@ public class RegisterViewController {
             }
 
             if (equipoliga.getEquipo() == null || equipoliga.getLiga() == null) {
-                AlertasController.mostrarError("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
+                AlertasController.mostrarAdvertencia("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
                 return;
             }
 
-            if (checkPlazaExiste(connection))
+            if (checkPlazaExiste(connection)) {
+                AlertasController.mostrarError("Error", "Ya existe ese registro en la base de datos");
                 return;
+            }
             EquipoLigaDAO.registerTeam(equipoliga);
             loadData();
             limpiarCamposRegisterEquipoLiga();
@@ -196,12 +198,12 @@ public class RegisterViewController {
     public void actualizarEquipoEnLiga() {
         EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
         if (equipoLigaSeleccionado == null) {
-            AlertasController.mostrarError("Error", "Debe seleccionar una plaza para actualizar.");
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar una plaza para actualizar.");
             return;
         }
         if (PriceRegisterTxt.getText().isEmpty() || SelectTeamCmb.getValue() == null ||
                 SelectLeagueCmb.getValue() == null || DateRegisterTxt.getValue() == null) {
-            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
+            AlertasController.mostrarAdvertencia("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -229,8 +231,13 @@ public class RegisterViewController {
                 }
             }
 
-            if (equipoLigaSeleccionado.getEquipo() == null || equipoLigaSeleccionado.getLiga() == null) {
-                AlertasController.mostrarError("Error", "No se pudo encontrar el equipo o la liga seleccionada.");
+            if (!checkPlazaExiste(connection)) {
+                AlertasController.mostrarAdvertencia("Error", "No existe ese registro en la base de datos");
+                return;
+            }
+
+            if (checkPlazaExiste(connection) && !equipoLigaSeleccionado.getId().equals(getPlazaId(connection))) {
+                AlertasController.mostrarAdvertencia("Error", "Ya existe ese registro en la base de datos");
                 return;
             }
 
@@ -250,7 +257,7 @@ public class RegisterViewController {
     private void DeleteEquipoLiga(ActionEvent event) {
         EquipoLiga equipoLigaSeleccionado = tableRegister.getSelectionModel().getSelectedItem();
         if (equipoLigaSeleccionado == null) {
-            AlertasController.mostrarError("Error", "Debe seleccionar una plaza para eliminarla.");
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar una plaza para eliminarla.");
             return;
         }
 
@@ -294,7 +301,7 @@ public class RegisterViewController {
                 AlertasController.mostrarError("Error", "El equipo seleccionado no existe.");
             }
         } else {
-            AlertasController.mostrarError("Error", "Por favor, selecciona un equipo.");
+            AlertasController.mostrarAdvertencia("Campo vacío", "Por favor, selecciona un equipo.");
         }
     }
 
@@ -327,23 +334,17 @@ public class RegisterViewController {
                 AlertasController.mostrarError("Error", "La liga seleccionada no existe.");
             }
         } else {
-            AlertasController.mostrarError("Error", "Por favor, selecciona una liga.");
+            AlertasController.mostrarAdvertencia("Campo vacío", "Por favor, selecciona una liga.");
         }
     }
 
 
     private boolean checkPlazaExiste(Connection connection) {
-        boolean plazaExiste = false;
         List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
         for (EquipoLiga registro : registros) {
             if (registro.getEquipo().getNombre().equalsIgnoreCase(SelectTeamCmb.getValue()) && registro.getLiga().getNombre().equalsIgnoreCase(SelectLeagueCmb.getValue()) ) {
-                plazaExiste = true;
-                break;
+                return true;
             }
-        }
-        if (plazaExiste){
-            AlertasController.mostrarError("Error" , "Ya existe ese registro en la base de datos");
-            return true;
         }
         return false;
     }
@@ -353,7 +354,19 @@ public class RegisterViewController {
         DateRegisterTxt.setValue(null);
         SelectTeamCmb.setValue(null);
         SelectLeagueCmb.setValue(null);
+        tableRegister.getSelectionModel().clearSelection();
     }
+
+    private Long getPlazaId(Connection connection) {
+    List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
+    for (EquipoLiga registro : registros) {
+        if (registro.getEquipo().getNombre().equalsIgnoreCase(SelectTeamCmb.getValue()) &&
+            registro.getLiga().getNombre().equalsIgnoreCase(SelectLeagueCmb.getValue())) {
+            return registro.getId();
+        }
+    }
+    return null;
+}
 
     @FXML
     private void recargarCeldasYtabla() {

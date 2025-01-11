@@ -141,7 +141,7 @@ public class JugadoresValoViewController {
     private void CreateValorantPlayer(ActionEvent event) {
         Connection connection = conectionApp.crearConexion();
         if (checkCamposVaciosValoPlayer()) {
-            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
+            AlertasController.mostrarAdvertencia("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -165,11 +165,11 @@ public class JugadoresValoViewController {
     public void actualizarValorantPlayer() {
         ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
         if (playerSeleccionado == null) {
-            AlertasController.mostrarError("Error", "Debe seleccionar un jugador disponible en la base de datos.");
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar un jugador disponible en la base de datos.");
             return;
         }
         if (checkCamposVaciosValoPlayer()) {
-            AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
+            AlertasController.mostrarAdvertencia("Error", "Todos los campos deben estar completos.");
             return;
         }
 
@@ -189,7 +189,7 @@ public class JugadoresValoViewController {
     private void DeleteValorantPlayer(ActionEvent event) {
         ValorantPlayer playerSeleccionado = ValoPlayerTableView.getSelectionModel().getSelectedItem();
         if (playerSeleccionado == null) {
-            AlertasController.mostrarError("Error", "Debe seleccionar un jugador para eliminar." );
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar un jugador para eliminar." );
             return;
         }
 
@@ -215,6 +215,7 @@ public class JugadoresValoViewController {
         ValoPlayerSurnameTxt.clear();
         ValoPlayerCountryCmb.setValue(null);
         ValoPlayerTeamCmb.setValue(null);
+        ValoPlayerTableView.getSelectionModel().clearSelection();
     }
 
     private void cargarDatosJugadorDeTablaAceldas(ValorantPlayer player, Connection connection) {
