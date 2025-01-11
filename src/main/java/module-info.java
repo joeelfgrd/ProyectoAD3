@@ -3,7 +3,6 @@ module edu.badpals.proyectoad3 {
     requires javafx.fxml;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
-    requires org.checkerframework.checker.qual;
     requires annotations;
     requires org.mongodb.driver.core;
     requires org.mongodb.bson;
