@@ -131,6 +131,20 @@ public class LeaguesViewController {
             AlertasController.mostrarError("Error", "Todos los campos deben estar completos.");
             return;
         }
+        List<Liga> ligas = LigasDAO.getLigas(connection);
+        boolean ligaExiste = false;
+        for (Liga liga : ligas) {
+            if (liga.getNombre().equals(LigaNameTxt.getText())) {
+                ligaExiste = true;
+                break;
+            }
+        }
+
+        if (ligaExiste) {
+            AlertasController.mostrarError("Error", "Ya existe una liga con ese nombre.");
+            return;
+        }
+
         if (connection != null) {
             Liga liga = new Liga();
             liga.setNombre(LigaNameTxt.getText());
@@ -149,6 +163,11 @@ public class LeaguesViewController {
 
     @FXML
     private void UpdateLiga(ActionEvent event) {
+        Liga ligaSeleccionada = tableLigas.getSelectionModel().getSelectedItem();
+        if (ligaSeleccionada == null) {
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar una liga para actualizar.");
+            return;
+        }
         Connection connection = conectionApp.crearConexion();
         if (LigaNameTxt.getText().isEmpty() || LigaDateTxt.getValue() == null ||
                 LigaRegionCmb.getValue() == null || LigaTierCmb.getValue() == null) {
@@ -173,6 +192,11 @@ public class LeaguesViewController {
 
     @FXML
     private void DeleteLiga(ActionEvent event) {
+        Liga ligaSeleccionada = tableLigas.getSelectionModel().getSelectedItem();
+        if (ligaSeleccionada == null) {
+            AlertasController.mostrarAdvertencia("Error", "Debe seleccionar una liga para eliminar.");
+            return;
+        }
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             Liga liga = tableLigas.getSelectionModel().getSelectedItem();
@@ -242,6 +266,7 @@ public class LeaguesViewController {
         LigaDateTxt.setValue(null);
         LigaRegionCmb.setValue(null);
         LigaTierCmb.setValue(null);
+        tableLigas.getSelectionModel().clearSelection();
     }
 
 

@@ -254,6 +254,7 @@ public class EquiposViewController {
         TeamDateTxt.setValue(null);
         TeamRegionCmb.setValue(null);
         TeamTierCmb.setValue(null);
+        tableEquipos.getSelectionModel().clearSelection();
     }
 
     @FXML

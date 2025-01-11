@@ -27,8 +27,8 @@
             <Button fx:id="UpdateTeamBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#actualizarEquipo" text="Actualizar" />
             <Button fx:id="DeleteTeamBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#eliminarEquipo" text="Eliminar" />
             <TextField fx:id="TeamNameTxt" layoutX="297.0" layoutY="86.0" />
-            <ComboBox fx:id="TeamRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" promptText="Elige la Region" />
-            <ComboBox fx:id="TeamTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0" promptText="Elige el tier" />
+            <ComboBox fx:id="TeamRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" />
+            <ComboBox fx:id="TeamTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0" />
             <Label layoutX="417.0" layoutY="29.0" text="Equipos">
                <font>
                   <Font name="Calibri" size="36.0" />

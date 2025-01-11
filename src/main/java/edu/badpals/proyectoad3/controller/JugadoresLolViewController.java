@@ -350,6 +350,7 @@ public class JugadoresLolViewController {
         LeaguePlayerPositionCmb.setValue(null);
         LeaguePlayerEarlyShtCllrChk.setSelected(false);
         LeaguePlayerLateShtCllrChk.setSelected(false);
+        LolPlayerTableView.getSelectionModel().clearSelection();
     }
 
     @FXML
