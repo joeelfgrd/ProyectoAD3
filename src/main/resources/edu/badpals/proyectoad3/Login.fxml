@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="25.0" style="-fx-background-color: #635D8CFF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.controlador.LoginController">
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="25.0" style="-fx-background-color: #635D8CFF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.LoginController">
     <children>
         <!-- Título principal -->
         <Label fx:id="lblLogin" style="-fx-text-fill: #4ECCA3FF;" text="TV Series" textAlignment="CENTER">
@@ -38,10 +38,10 @@
             </VBox>
         </VBox>
         <!-- Botón de Login -->
-        <Button fx:id="btnAcceder" maxWidth="200.0"  prefHeight="45.0" style="-fx-background-color: #4ECCA3; -fx-text-fill: #1F1B24; -fx-font-size: 14px; -fx-background-radius: 25px;" text="Log In" />
+        <Button fx:id="btnAcceder" maxWidth="200.0"  prefHeight="45.0" style="-fx-background-color: #4ECCA3; -fx-text-fill: #1F1B24; -fx-font-size: 14px; -fx-background-radius: 25px;" onAction="#acceder" text="Log In" />
         <!-- Separador -->
         <Separator opacity="0.3" prefWidth="250.0" />
         <!-- Botón de Sign Up -->
-        <Button fx:id="btnRegistrar" maxWidth="200.0"  prefHeight="40.0" style="-fx-background-color: transparent; -fx-text-fill: #FF6F61; -fx-border-color: #FF6F61; -fx-border-width: 1.5px; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Sign Up" />
+        <Button fx:id="btnRegistrar" maxWidth="200.0"  prefHeight="40.0" style="-fx-background-color: transparent; -fx-text-fill: #FF6F61; -fx-border-color: #FF6F61; -fx-border-width: 1.5px; -fx-border-radius: 25px; -fx-background-radius: 25px;" onAction="#registrarUser" text="Sign Up" />
     </children>
 </VBox>

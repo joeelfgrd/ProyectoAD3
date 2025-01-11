@@ -29,18 +29,16 @@ public class HelloController {
 
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/MainView.fxml"));
 
-        // Carga la vista principal
+
         Parent root = loader.load();
 
-        // Crear y mostrar una nueva ventana
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
 
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
