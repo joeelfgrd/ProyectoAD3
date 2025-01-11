@@ -115,9 +115,9 @@ cd C:\Users\nombredeusuario\Escritorio
 
 ### 4. Instala los requisitos:
 
-#### Instalar JDK 21:
+#### Instalar JDK 17:
 
-- Si no tienes JDK instalado, descárgalo e instálalo desde Oracle JDK 21.
+- Si no tienes JDK instalado, descárgalo e instálalo desde Oracle JDK 17.
 - Durante la instalación, asegúrate de seleccionar la opción de añadir Java al PATH para que puedas usarlo desde la
   línea de comandos.
 
@@ -208,7 +208,7 @@ git --version
 
 ## Notas:
 
-- Si solo vas a usar el programa sin necesidad de realizar cambios en el código, asegúrate de tener JDK 21, JavaFX 17 y
+- Si solo vas a usar el programa sin necesidad de realizar cambios en el código, asegúrate de tener JDK 17, JavaFX 17 y
   el archivo JAR ejecutable en la carpeta del proyecto.
 - Git es opcional; puedes descargar el ZIP del repositorio y extraerlo sin necesidad de clonar.
 
