@@ -208,9 +208,11 @@ public class RegisterViewController {
         }
 
         try {
+            // Actualizamos los datos del objeto EquipoLiga con los nuevos valores
             equipoLigaSeleccionado.setPrecioPlaza(Double.valueOf(PriceRegisterTxt.getText()));
             equipoLigaSeleccionado.setFechaInscripcion(DateRegisterTxt.getValue());
 
+            // Asignamos el equipo seleccionado
             if (SelectTeamCmb.getValue() != null) {
                 List<Equipo> equipos = EquipoDAO.getEquipos(conectionApp.crearConexion());
                 for (Equipo equipo : equipos) {
@@ -221,6 +223,7 @@ public class RegisterViewController {
                 }
             }
 
+            // Asignamos la liga seleccionada
             if (SelectLeagueCmb.getValue() != null) {
                 List<Liga> ligas = LigasDAO.getLigas(conectionApp.crearConexion());
                 for (Liga liga : ligas) {
@@ -231,17 +234,13 @@ public class RegisterViewController {
                 }
             }
 
-            if (!checkPlazaExiste(connection)) {
-                AlertasController.mostrarAdvertencia("Error", "No existe ese registro en la base de datos");
+            // Verificamos si ya existe un registro con el mismo equipo y liga, pero con ID diferente
+            if (checkPlazaYaExisteConDiferenteId(equipoLigaSeleccionado, connection)) {
+                AlertasController.mostrarAdvertencia("Error", "Ya existe un registro con el mismo equipo y liga en la base de datos.");
                 return;
             }
 
-            if (checkPlazaExiste(connection) && !equipoLigaSeleccionado.getId().equals(getPlazaId(connection))) {
-                AlertasController.mostrarAdvertencia("Error", "Ya existe ese registro en la base de datos");
-                return;
-            }
-
-
+            // Si todo está correcto, actualizamos el registro
             EquipoLigaDAO.updateParticipation(equipoLigaSeleccionado);
             tableRegister.refresh();
             limpiarCamposRegisterEquipoLiga();
@@ -348,6 +347,21 @@ public class RegisterViewController {
         }
         return false;
     }
+
+    private boolean checkPlazaYaExisteConDiferenteId(EquipoLiga equipoLigaSeleccionado, Connection connection) {
+        List<EquipoLiga> registros = EquipoLigaDAO.getEquipoLiga(connection, em);
+        for (EquipoLiga registro : registros) {
+            // Comprobamos si ya existe otro registro con el mismo equipo y liga pero con diferente ID
+            if (registro.getEquipo().getNombre().equalsIgnoreCase(equipoLigaSeleccionado.getEquipo().getNombre()) &&
+                    registro.getLiga().getNombre().equalsIgnoreCase(equipoLigaSeleccionado.getLiga().getNombre()) &&
+                    !registro.getId().equals(equipoLigaSeleccionado.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     private void limpiarCamposRegisterEquipoLiga() {
         PriceRegisterTxt.clear();
