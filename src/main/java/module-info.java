@@ -5,6 +5,10 @@ module edu.badpals.proyectoad3 {
     requires org.hibernate.orm.core;
     requires org.checkerframework.checker.qual;
     requires annotations;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.sync.client;
+    requires jbcrypt;
 
     // Model package
     opens edu.badpals.proyectoad3.model to javafx.fxml, org.hibernate.orm.core;

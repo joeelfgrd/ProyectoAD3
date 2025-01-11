@@ -334,7 +334,6 @@ public class JugadoresValoViewController {
             if (jugadoresPorRol.isEmpty()) {
                 AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el rol " + rolSeleccionado);
             } else {
-                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
                 ObservableList<ValorantPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorRol);
                 ValoPlayerTableView.setItems(jugadoresObservableList);
             }

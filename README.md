@@ -62,7 +62,7 @@ Este proyecto ha sido desarrollado con las siguientes tecnologías:
 
 ## 2. Estructura del Proyecto
 
-El proyecto sigue el patrón de arquitectura **DAO (Data Access Object)**, que separa la lógica de negocio de la capa de
+El proyecto sigue el patrón de arquitectura **DAO (Data Access Object)**,y MVC(Modelo vista controlador) que separa la lógica de negocio de la capa de
 acceso a datos. La estructura del proyecto se divide en cuatro paquetes principales: **controlador**, **modelo**, **DAO** y **vista**.
 
 - **Modelo**: Contiene las entidades que representan las tablas de la base de datos.
@@ -80,7 +80,7 @@ operaciones CRUD (crear, leer, actualizar y eliminar) en la base de datos.
 
 ### Antes de comenzar, asegúrate de que tienes instalados los siguientes componentes en tu sistema:
 
-1. JDK 21: Necesario para compilar y ejecutar aplicaciones Java.
+1. JDK 17: Necesario para compilar y ejecutar aplicaciones Java.
 2. JavaFX 17: Usado para la interfaz gráfica de usuario (GUI) en Java.
 3. Maven: Herramienta para la gestión de proyectos y dependencias en Java.
 4. Git: Sistema de control de versiones para gestionar el código fuente.
@@ -160,13 +160,13 @@ git --version
 ### 5. Clona el repositorio de la aplicación:
 
 ```bash
-   git clone https://github.com/joeelfgrd/Series-Api.git
+   git clone https://github.com/CGAInstitution/proyectoud3-esportsdb.git
 ```
 
 ### 6. Sitúate en el directorio del proyecto:
 
 ```bash
-    cd Series-Api
+    cd proyectoud3-esportsdb
 ```
 
 ### 7. Instala las dependencias del proyecto:
