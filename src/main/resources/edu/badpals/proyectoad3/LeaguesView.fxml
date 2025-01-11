@@ -18,10 +18,22 @@
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0">
             <children>
-                <Label layoutX="123.0" layoutY="109.0" text="Nombre" />
-                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación" />
-                <Label layoutX="504.0" layoutY="109.0" text="Region" />
-                <Label layoutX="503.0" layoutY="163.0" text="Tier" />
+                <Label layoutX="123.0" layoutY="109.0" text="Nombre">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="504.0" layoutY="109.0" text="Region">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="503.0" layoutY="163.0" text="Tier">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <Label layoutX="396.0" layoutY="62.0" />
                 <Button fx:id="CreateLigaBtn" layoutX="343.0" layoutY="241.0" mnemonicParsing="false" onAction="#CreateLiga" text="Crear" />
                 <Button fx:id="UpdateLigaBtn" layoutX="461.0" layoutY="241.0" mnemonicParsing="false" onAction="#UpdateLiga" text="Actualizar" />
@@ -43,7 +55,7 @@
                         <TableColumn fx:id="colFechaCreacion" editable="false" prefWidth="141.0" text="Fecha de Creacion" />
                     </columns>
                 </TableView>
-                <DatePicker fx:id="LigaDateTxt" layoutX="256.0" layoutY="159.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                <DatePicker fx:id="LigaDateTxt" layoutX="256.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                 <MenuBar layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1003.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Buscar por">

@@ -18,14 +18,35 @@
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0">
             <children>
-                <Label layoutX="123.0" layoutY="109.0" text="Nombre" />
-                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación" />
-                <Label layoutX="504.0" layoutY="109.0" text="Region" />
-                <Label layoutX="503.0" layoutY="163.0" text="Tier" />
+                <Label layoutX="123.0" layoutY="109.0" text="Nombre">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="504.0" layoutY="109.0" text="Region">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Label layoutX="503.0" layoutY="163.0" text="Tier">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
                 <Label layoutX="396.0" layoutY="62.0" />
-                <Button fx:id="CreateTeamBtn" layoutX="343.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEquipo" prefHeight="33.0" prefWidth="75.0" text="Crear" />
-                <Button fx:id="UpdateTeamBtn" layoutX="455.0" layoutY="241.0" mnemonicParsing="false" onAction="#actualizarEquipo" prefHeight="33.0" prefWidth="88.0" text="Actualizar" />
-                <Button fx:id="DeleteTeamBtn" layoutX="578.0" layoutY="241.0" mnemonicParsing="false" onAction="#eliminarEquipo" prefHeight="33.0" prefWidth="75.0" text="Eliminar" />
+                <Button fx:id="CreateTeamBtn" layoutX="343.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEquipo" prefHeight="33.0" prefWidth="75.0" text="Crear">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+                <Button fx:id="UpdateTeamBtn" layoutX="455.0" layoutY="241.0" mnemonicParsing="false" onAction="#actualizarEquipo" prefHeight="33.0" prefWidth="88.0" text="Actualizar">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+                <Button fx:id="DeleteTeamBtn" layoutX="578.0" layoutY="241.0" mnemonicParsing="false" onAction="#eliminarEquipo" prefHeight="36.0" prefWidth="88.0" text="Eliminar">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
                 <TextField fx:id="TeamNameTxt" layoutX="256.0" layoutY="100.0" />
                 <ComboBox fx:id="TeamRegionCmb" layoutX="566.0" layoutY="104.0" prefWidth="150.0" />
                 <ComboBox fx:id="TeamTierCmb" layoutX="566.0" layoutY="158.0" prefWidth="150.0" />
@@ -34,7 +55,10 @@
                         <Font name="Calibri" size="36.0" />
                     </font>
                 </Label>
-                <Button fx:id="VolverTeamBtn" layoutX="907.0" layoutY="33.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="27.0" prefWidth="72.0" text="Volver" />
+                <Button fx:id="VolverTeamBtn" layoutX="907.0" layoutY="33.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="27.0" prefWidth="72.0" text="Volver">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
                 <TableView fx:id="tableEquipos" layoutX="-3.0" layoutY="324.0" prefHeight="376.0" prefWidth="1003.0">
                     <columns>
                         <TableColumn fx:id="colNombre" editable="false" prefWidth="75.0" text="Nombre" />

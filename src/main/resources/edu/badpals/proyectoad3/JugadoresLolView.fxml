@@ -18,29 +18,65 @@
    <children>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0">
          <children>
-            <Label layoutX="76.0" layoutY="99.0" text="Nombre" />
-            <Label layoutX="74.0" layoutY="142.0" text="Apellidos" />
-            <Label layoutX="321.0" layoutY="142.0" text="Equipo" />
-            <Label layoutX="73.0" layoutY="183.0" text="País" />
-            <Label layoutX="321.0" layoutY="99.0" text="Nickname" />
-            <Label layoutX="317.0" layoutY="183.0" text="Posición" />
-            <CheckBox fx:id="LeaguePlayerEarlyShtCllrChk" layoutX="614.0" layoutY="99.0" mnemonicParsing="false" text="Early ShotCaller" />
-            <CheckBox fx:id="LeaguePlayerLateShtCllrChk" layoutX="616.0" layoutY="142.0" mnemonicParsing="false" text="Late ShotCaller" />
-            <Button fx:id="CreateLeaguePlayerBtn" layoutX="328.0" layoutY="266.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createLolPlayer" prefHeight="33.0" prefWidth="75.0" text="Crear" />
-            <Button fx:id="UpdateLeaguePlayerBtn" layoutX="458.0" layoutY="266.0" mnemonicParsing="false" onAction="#updateLeaguePlayer" text="Actualizar" />
-            <Button fx:id="DeleteLeaguePlayerBtn" layoutX="591.0" layoutY="266.0" mnemonicParsing="false" onAction="#deleteLolPlayer" text="Eliminar" />
-            <TextField fx:id="LeaguePlayerNameTxt" layoutX="141.0" layoutY="94.0" />
-            <TextField fx:id="LeaguePlayerSurnameTxt" layoutX="142.0" layoutY="137.0" />
-            <ComboBox fx:id="LeaguePlayerCountryCmb" layoutX="143.0" layoutY="178.0" prefWidth="150.0" />
+            <Label layoutX="60.0" layoutY="99.0" text="Nombre">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="57.0" layoutY="142.0" text="Apellidos">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="332.0" layoutY="142.0" text="Equipo">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="57.0" layoutY="183.0" text="País">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="334.0" layoutY="100.0" text="Nickname">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="332.0" layoutY="181.0" text="Posición">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <CheckBox fx:id="LeaguePlayerEarlyShtCllrChk" layoutX="632.0" layoutY="100.0" mnemonicParsing="false" text="Early ShotCaller">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="LeaguePlayerLateShtCllrChk" layoutX="632.0" layoutY="142.0" mnemonicParsing="false" text="Late ShotCaller">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <Button fx:id="CreateLeaguePlayerBtn" layoutX="334.0" layoutY="268.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createLolPlayer" prefHeight="33.0" prefWidth="100.0" text="Crear">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="UpdateLeaguePlayerBtn" layoutX="450.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#updateLeaguePlayer" prefHeight="33.0" prefWidth="100.0" text="Actualizar">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="DeleteLeaguePlayerBtn" layoutX="569.0" layoutY="268.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteLolPlayer" prefHeight="33.0" prefWidth="100.0" text="Eliminar">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <TextField fx:id="LeaguePlayerNameTxt" layoutX="129.0" layoutY="94.0" />
+            <TextField fx:id="LeaguePlayerSurnameTxt" layoutX="129.0" layoutY="136.0" />
+            <ComboBox fx:id="LeaguePlayerCountryCmb" layoutX="129.0" layoutY="178.0" prefWidth="150.0" />
             <ComboBox fx:id="LeaguePlayerTeamCmb" layoutX="398.0" layoutY="137.0" prefWidth="150.0" />
             <ComboBox fx:id="LeaguePlayerPositionCmb" layoutX="398.0" layoutY="178.0" prefWidth="150.0" />
-            <TextField fx:id="LeaguePlayerNickTxt" layoutX="398.0" layoutY="94.0" />
-            <Label layoutX="339.0" layoutY="33.0" prefHeight="49.0" prefWidth="284.0" text="League of Legends">
+            <TextField fx:id="LeaguePlayerNickTxt" layoutX="410.0" layoutY="93.0" />
+            <Label fx:id="IdLOL" layoutX="321.0" layoutY="31.0" prefHeight="50.0" prefWidth="357.0" text="League of Legends">
                <font>
-                  <Font name="Calibri" size="36.0" />
+                  <Font name="Calibri" size="43.0" />
                </font>
             </Label>
-            <Button fx:id="VolverLeaguePlayerBtn" layoutX="914.0" layoutY="37.0" mnemonicParsing="false" onAction="#toMainMenu" text="Volver" />
+            <Button fx:id="VolverLeaguePlayerBtn" layoutX="878.0" layoutY="39.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="33.0" prefWidth="100.0" text="Volver">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
             <TableView fx:id="LolPlayerTableView" layoutX="-2.0" layoutY="324.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="1003.0">
                <columns>
                   <TableColumn fx:id="colName" prefWidth="150.0" text="Nombre" />
@@ -64,7 +100,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="782.0" layoutY="124.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="25.0" prefWidth="25.0" />
+            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="795.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="25.0" prefWidth="25.0" />
          </children>
       </AnchorPane>
    </children>

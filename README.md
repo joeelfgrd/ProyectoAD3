@@ -1,7 +1,3 @@
-
-
-
-
 # Proyecto de Gestion de Ligas de Esports
 
 Autores: **Manuel Cendón Rodriguez** y **Joel Figueirido Molares**
@@ -17,7 +13,7 @@ También podemos realizar esas mismas funcionalidades para inscribir equipos en 
 
 #### Funcionalidades principales:
 
-- **Ordenación de campos**: Los usuarios pueden seleccionar el orden según el cual quieren ordenar
+- **Ordenación de campos**: Los usuarios pueden seleccionar por que campo quieren ordenar los datos.
 - **Visualización de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Permite a los usuarios consultar los datos de la base de datos
 - **Creación de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden crear nuevos datos y que se visualicen en las listas.
 - **Modificación de equipos, ligas, jugadores de valorant, jugadores de lol y el conjunto de equipos y sus ligas**: Los usuarios pueden editar todos los campos que se visualizan en las tablas.
@@ -25,9 +21,6 @@ También podemos realizar esas mismas funcionalidades para inscribir equipos en 
 
 ## Modelo Entidad-Relación
 ![Descripción de la imagen](img/AD3.png)
-
-
-
 ### 1.2 Descripción de la Base de Datos
 
 La base de datos estará diseñada para gestionar información detallada de las principales ligas de videojuegos, permitiendo un seguimiento integral de los jugadores, equipos y ligas. Cada jugador será identificado
@@ -42,9 +35,13 @@ modelo de franquicias. La base de datos facilitará un análisis claro y actuali
 La aplicación obtiene los datos desde dos bases de datos diferentes:
 
 - **Base de datos Login**: Almacena las credenciales encriptadas de los usuarios para el inicio de sesión.
-  ![E_R_Login](src/main/resources/img/E-R-Login_ddbb.png)
-- **Base de datos app_series**: Almacena la información de los equipos, jugadores y ligas.
-  ![E_R_Series](src/main/resources/img/E-R-Series_ddbb.png)
+  En este caso es una base de datos de MongoDB Atlas que esta basada en nosql y en ella tras acceder con nuestra contraseña se cifra y lo que guardamos 
+  es el usuario con su hash en una coleccion.
+- ![BDLogin](src/main/resources/edu/badpals/proyectoad3/img/MongoDbTablas.png)
+  - **Base de datos EsportsDb**:La base de datos esta desplegada en AWS utilizando amazon aurora que es compatible con mysql 
+   y en ella se almacena toda la información de los equipos, jugadores y ligas.
+  
+  - ![EsportsDB](src/main/resources/edu/badpals/proyectoad3/img/AWSPanelBasesDatos.png)
 - En general trabajamos con 6 tablas diferentes:
   - **Equipos**: Almacena la información de los equipos.
   - **Ligas**: Almacena la información de las ligas.
@@ -52,6 +49,8 @@ La aplicación obtiene los datos desde dos bases de datos diferentes:
   - **LolPlayers**: Almacena la información de los jugadores que juegan al League of Legends.
   - **ValorantPlayers**: Almacena la información de los jugadores que juegan al Valorant.
   - **Equipo_liga**: Almacena la información de qué equipos están registrados en qué liga.
+  
+  
 
 ### 1.4 Tecnologías utilizadas
 
@@ -65,6 +64,7 @@ Este proyecto ha sido desarrollado con las siguientes tecnologías:
 - **AWS**: Servicio de alojamiento en la nube para la base de datos.
 - **Git**: Sistema de control de versiones para gestionar el código fuente.
 - **MongoDB Atlas**: Base de datos utilizada para almacenar las credenciales de los usuarios.
+- **jBCrypt**: Es una implementación en Java del código hash de contraseña Blowfish de OpenBSD ,lo usamos para cifrar las contraseñas de los usuarios.
 
 ## 2. Estructura del Proyecto
 
@@ -91,7 +91,8 @@ operaciones CRUD (crear, leer, actualizar y eliminar) en la base de datos.
 3. Maven: Herramienta para la gestión de proyectos y dependencias en Java.
 4. Git: Sistema de control de versiones para gestionar el código fuente.
 5. MySQL: Base de datos utilizada para almacenar la información de los equipos, jugadores y ligas.
-6. AWS: Servicio de alojamiento en la nube para la base de datos.
+6. AWS: Tienes que tener una cuenta para poder acceder a sus servicios, si pagas 1€ puedes tener acceso a una parte "gratuita".
+7. MongoDB Atlas: También necesitas una cuenta para poder acceder a sus servicios,pero en este caso no es necesario pagar nada.
 
 ## Instrucciones de Instalación
 
@@ -192,24 +193,75 @@ git --version
 -Ejecuta el siguiente comando en la terminal pero sustituyendo la ruta del javafx por la tuya:
 
 ```bash
-    
  java --module-path C:\javafx-sdk-17.0.13\lib --add-modules javafx.controls,javafx.fxml -jar .\target\controlador-1.0-SNAPSHOT.jar
 ```
 
 ## Crear Instancia de Base de Datos en AWS
 
 ### 1. Accede a la Consola de AWS:
-
+- Por seguridad,he ocultado todas las ip y posibles contraseñas que se puedan ver en las imagenes.
 - Inicia sesión en tu cuenta de AWS.
 - En la consola de AWS, busca el servicio de RDS (Relational Database Service).
 - Haz clic en "Create database" para crear una nueva instancia de base de datos.
+- ![Crear Base de Datos](src/main/resources/edu/badpals/proyectoad3/img/AWSPanelBasesDatos.png)
+### 2. Configura la Base de Datos:
+- Selecciona el motor de base de datos que deseas utilizar (MySQL).
+- ![Configurar Base de Datos](src/main/resources/edu/badpals/proyectoad3/img/AWSCreacion1.png)
+- Elige la opción de "Free tier" para no incurrir en costos adicionales.
+- ![Configurar Base de Datos](src/main/resources/edu/badpals/proyectoad3/img/AWSCreacion2.png)
+- Configura las redes,los puertos y las credenciales de acceso.
+- ![Configurar Base de Datos](src/main/resources/edu/badpals/proyectoad3/img/AWSCreacion3.png)
+- Configura las opciones de la base de datos.
+- ![Configurar Base de Datos](src/main/resources/edu/badpals/proyectoad3/img/AWSCreacion4.png)
+- Revisa la configuración y haz clic en "Create database".
+### 3. Creacion de grupo de seguridad:
+- En la consola de AWS, busca el servicio de Ec2.
+- En el panel de navegación, selecciona "Security Groups".
+- Haz clic en "Create security group".
+- Tambien debes añadir una regla de entrada para poder acceder a la base de datos,en mi caso como usamos cada uno su ip añadimos una regla para cada ip.
+- ![Crear Grupo de Seguridad](src/main/resources/edu/badpals/proyectoad3/img/AWSGruposSeguridad.png)
+### 4. Conexion desde java:
+- En la consola de AWS, busca el servicio de RDS (Relational Database Service).
+- Haz clic en la base de datos que has creado.
+- En la pestaña de "Connectivity & security", busca la sección de "Security".
+- Haz clic en el grupo de seguridad que has creado.
+- Copia la URL de la base de datos, el nombre de usuario y la contraseña.
+- En el archivo **persistence.xml** del proyecto, modifica la URL, el usuario y la contraseña con los datos de tu base de datos.
 
 
+## Crear cluster en MongoDB Atlas:
+
+### 1. Accede a la Consola de MongoDB Atlas:
+- Inicia sesión en tu cuenta de MongoDB Atlas.
+- En la consola de MongoDB Atlas, busca el servicio de Clusters.
+- Haz clic en "Create cluster" para crear un nuevo cluster.
+- ![Crear Cluster](src/main/resources/edu/badpals/proyectoad3/img/MongoDbPantallaGeneral.png)
+- Selecciona la nube y la región donde deseas alojar el cluster.
+- Configura las opciones de la base de datos.
+- Haz clic en "Create cluster" para crear el cluster.
+### 2. Crea un usuario para la base de datos:
+- En la pestaña de "Database Access", haz clic en "Add new database user".
+- ![Crear Usuario](src/main/resources/edu/badpals/proyectoad3/img/MongoDbUsers.png)
+- Introduce un nombre de usuario y una contraseña,tambien puedes autogenerarla.
+- Asigna los permisos necesarios al usuario, en este caso debe ser readWriteAnyDatabase@admin y dbAdminAnyDatabase@admin .
+- Haz clic en "Add user" para crear el usuario.
+### 3. Configura la IP de acceso:
+- En la pestaña de "Network Access", haz clic en "Add IP Address".
+- ![Configurar IP](src/main/resources/edu/badpals/proyectoad3/img/MongoDbNetwork.png)
+- Introduce la dirección IP de tu ordenador o de la red a la que deseas permitir el acceso.
+- Haz clic en "Add IP Address" para guardar la configuración.
+### 4. Conecta la aplicación a MongoDB Atlas:
+- En la pestaña de "Clusters", haz clic en "Connect".
+- Selecciona la opción de "Connect your application".
+- Copia la cadena de conexión y modifica el archivo **MongoDBLoginDAO.java** del proyecto con los datos de tu base de datos.
+- ![Conectar Aplicación](src/main/resources/edu/badpals/proyectoad3/img/MongoDbConexionLink.png)
+### 6. Crear colección en MongoDB Atlas:
+- Para crear tanto la base de datos como la colección, debes insertar un documento en la colección.
+- En mi caso lo hice desde java,pero puedes hacerlo desde la consola de MongoDB Atlas.
+- ![Crear Colección](src/main/resources/edu/badpals/proyectoad3/img/MongoDbTablas.png)
+- Ese es el resultado final de la colección después de insertar un documento tambien se puede ver el cifrado de la contraseña usando jBCrypt.
 
 ## Notas:
-
-- Si solo vas a usar el programa sin necesidad de realizar cambios en el código, asegúrate de tener JDK 17, JavaFX 17 y
-  el archivo JAR ejecutable en la carpeta del proyecto.
 - Git es opcional; puedes descargar el ZIP del repositorio y extraerlo sin necesidad de clonar.
 
 # <u>Manual de Usuario</u>
@@ -229,11 +281,12 @@ LINK AL VIDEO
 - DAO
 
 
-- **Joel Figueirido Molares**:Horas aproximadas: 30h
+- **Joel Figueirido Molares**:Horas aproximadas: 42h (Contando las horas de investigación de MongoDB y AWS)
 - Creación de la base de datos
 - Creación de la base de datos de login
-- Creación de las clases
-- Conexiones a AWS y MongoDB Atlas
+- Creación de las clases modelo 
+- Conexiones a AWS y crear la base de datos
+- Conexion a MongoDB Atlas y crear la base de datos
 - Corrección de errores en CRUD
 - Arreglos de la interfaz gráfica
 - MVC

@@ -1,0 +1,80 @@
+AnchorPane {
+    -fx-background-color: transparent;
+}
+
+Label {
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #000000, 3, 0.5, 1, 1);
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+}
+
+Label#lblTitle {
+    -fx-text-fill: #ffd700;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0.8, 2, 2);
+}
+
+Button {
+    -fx-background-color: rgba(0, 123, 255, 0.8);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+Button:hover {
+    -fx-background-color: rgba(30, 144, 255, 0.9);
+    -fx-text-fill: #ffd700;
+}
+
+Button#btnEquipos, Button#btnLigas, Button#btnRegistrar {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-text-fill: #000000;
+}
+
+Button#btnEquipos:hover, Button#btnLigas:hover, Button#btnRegistrar:hover {
+    -fx-background-color: rgba(255, 215, 0, 0.7);
+    -fx-text-fill: #ffffff;
+}
+
+Pane.titlePane {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-padding: 10;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+Label#menuPrincipal {
+    -fx-text-fill: #ffd700;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0.8, 2, 2);
+}
+
+MenuBar {
+    -fx-background-color: #878686;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #6d6d6d;
+    -fx-border-width: 1px;
+}
+
+Menu {
+    -fx-text-fill: #ffffff;
+}
+
+Menu:hover {
+    -fx-background-color: #a5a5a5;
+}
+
+MenuItem {
+    -fx-background-color: #9f9f9f;
+    -fx-text-fill: #ffffff;
+}
+
+MenuItem:hover {
+    -fx-background-color: #9a9a9a;
+}
+

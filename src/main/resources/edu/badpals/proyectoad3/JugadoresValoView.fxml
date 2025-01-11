@@ -14,28 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="970.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresValoViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.JugadoresValoViewController">
    <children>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="960.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0">
          <children>
-            <Label layoutX="75.0" layoutY="84.0" text="Nombre" />
-            <Label layoutX="72.0" layoutY="126.0" text="Apellidos" />
-            <Label layoutX="320.0" layoutY="126.0" text="Equipo" />
-            <Label layoutX="86.0" layoutY="167.0" text="Pais" />
-            <Label layoutX="312.0" layoutY="84.0" text="Nickname" />
-            <Label layoutX="330.0" layoutY="168.0" text="Rol" />
-            <Label layoutX="396.0" layoutY="62.0" />
-
-            <CheckBox fx:id="IGLCheckbox" layoutX="620.0" layoutY="126.0" mnemonicParsing="false" text="IGL" />
-            <TextField fx:id="ValoPlayerNameTxt" layoutX="141.0" layoutY="80.0" />
-            <TextField fx:id="ValoPlayerSurnameTxt" layoutX="142.0" layoutY="123.0" />
-            <ComboBox fx:id="ValoPlayerCountryCmb" layoutX="141.0" layoutY="164.0" prefWidth="150.0" />
-            <ComboBox fx:id="ValoPlayerTeamCmb" layoutX="398.0" layoutY="123.0" prefWidth="150.0" />
-            <ComboBox fx:id="ValoPlayerRolCmb" layoutX="398.0" layoutY="164.0" prefWidth="150.0" />
-            <TextField fx:id="ValoPlayerNickTxt" layoutX="399.0" layoutY="80.0" />
-            <ComboBox fx:id="ValoPlayerAgentCmb" layoutX="673.0" layoutY="80.0" prefWidth="150.0" />
-
-            <TableView fx:id="ValoPlayerTableView" layoutX="-2.0" layoutY="247.0" prefHeight="400.0" prefWidth="950.0">
+            <Label layoutX="60.0" layoutY="100.0" text="Nombre">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TableView fx:id="ValoPlayerTableView" layoutX="-2.0" layoutY="324.0" prefHeight="376.0" prefWidth="1003.0">
                <columns>
                   <TableColumn fx:id="colName" prefWidth="150.0" text="Nombre" />
                   <TableColumn fx:id="colSurname" prefWidth="150.0" text="Apellidos" />
@@ -47,31 +34,66 @@
                   <TableColumn fx:id="colIGL" prefWidth="150.0" text="IGL" />
                </columns>
             </TableView>
-
-            <Button fx:id="CreateValoPlayerBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" onAction="#CreateValorantPlayer" text="Crear" />
-            <Button fx:id="UpdateValoPlayerBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#actualizarValorantPlayer" text="Actualizar" />
-            <Button fx:id="DeleteValoPlayerBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#DeleteValorantPlayer" text="Eliminar" />
-            <Button fx:id="VolverValoPlayerBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" onAction="#toMainMenu" text="Volver" />
-            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="830.0" layoutY="58.0" mnemonicParsing="false" onAction="#recargarCeldasYtabla" text="Limpiar" />
-
-            <Label layoutX="378.0" layoutY="33.0" text="Valorant">
+            <Label layoutX="60.0" layoutY="142.0" text="Apellidos">
                <font>
-                  <Font name="Calibri" size="36.0" />
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="327.0" layoutY="142.0" text="Equipo">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="60.0" layoutY="188.0" text="Pais">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="327.0" layoutY="100.0" prefHeight="20.0" prefWidth="71.0" text="Nickname">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="327.0" layoutY="188.0" text="Rol">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="396.0" layoutY="62.0" />
+            <CheckBox fx:id="IGLCheckbox" layoutX="621.0" layoutY="142.0" mnemonicParsing="false" text="IGL">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <Button fx:id="CreateValoPlayerBtn" layoutX="327.0" layoutY="257.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CreateValorantPlayer" prefHeight="33.0" prefWidth="100.0" text="Crear" />
+            <Button fx:id="UpdateValoPlayerBtn" layoutX="450.0" layoutY="257.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarValorantPlayer" prefHeight="33.0" prefWidth="100.0" text="Actualizar" />
+            <Button fx:id="DeleteValoPlayerBtn" layoutX="571.0" layoutY="257.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#DeleteValorantPlayer" prefHeight="33.0" prefWidth="100.0" text="Eliminar" />
+            <TextField fx:id="ValoPlayerNameTxt" layoutX="128.0" layoutY="94.0" />
+            <TextField fx:id="ValoPlayerSurnameTxt" layoutX="128.0" layoutY="136.0" />
+            <ComboBox fx:id="ValoPlayerCountryCmb" layoutX="128.0" layoutY="188.0" prefWidth="150.0" />
+            <ComboBox fx:id="ValoPlayerTeamCmb" layoutX="396.0" layoutY="137.0" prefWidth="150.0" />
+            <ComboBox fx:id="ValoPlayerRolCmb" layoutX="396.0" layoutY="185.0" prefWidth="150.0" />
+            <TextField fx:id="ValoPlayerNickTxt" layoutX="411.0" layoutY="94.0" />
+            <Label fx:id="idValo" layoutX="433.0" layoutY="38.0" prefHeight="45.0" prefWidth="134.0" text="Valorant">
+               <font>
+                  <Font name="Calibri Light" size="38.0" />
                </font>
             </Label>
-
-            <MenuBar layoutX="-2.0" layoutY="2.0" prefHeight="25.0" prefWidth="970.0">
+            <Button fx:id="VolverValoPlayerBtn" layoutX="883.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="33.0" prefWidth="100.0" text="Volver">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Label layoutX="611.0" layoutY="99.0" text="Agente">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <ComboBox fx:id="ValoPlayerAgentCmb" layoutX="668.0" layoutY="94.0" prefWidth="150.0" />
+            <MenuBar layoutX="-2.0" layoutY="2.0" prefHeight="25.0" prefWidth="1003.0">
                <menus>
                   <Menu mnemonicParsing="false" text="Buscar por">
                      <items>
-                        <MenuItem fx:id="PlayerValoMIEquipo" onAction="#mostrarJugadoresValoPorEquipo" mnemonicParsing="false" text="Equipo" />
-                        <MenuItem fx:id="PlayerValoMIPais" onAction="#mostrarJugadoresValoPorPais" mnemonicParsing="false" text="Pais" />
-                        <MenuItem fx:id="PlayerValoMIRol" onAction="#mostrarJugadoresValoPorRol" mnemonicParsing="false" text="Rol" />
+                        <MenuItem fx:id="PlayerValoMIEquipo" mnemonicParsing="false" onAction="#mostrarJugadoresValoPorEquipo" text="Equipo" />
+                        <MenuItem fx:id="PlayerValoMIPais" mnemonicParsing="false" onAction="#mostrarJugadoresValoPorPais" text="Pais" />
+                        <MenuItem fx:id="PlayerValoMIRol" mnemonicParsing="false" onAction="#mostrarJugadoresValoPorRol" text="Rol" />
                      </items>
                   </Menu>
                </menus>
             </MenuBar>
-
+            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="858.0" layoutY="152.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="25.0" prefWidth="25.0" />
          </children>
       </AnchorPane>
    </children>

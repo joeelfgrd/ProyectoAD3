@@ -1,75 +1,93 @@
-/* Fondo del contenedor principal: color pastel */
-VBox {
-    -fx-background-color: #f3e9e5; /* Fondo pastel cálido */
-}
-
-/* Fondo del AnchorPane */
-AnchorPane {
-    -fx-background-color: #fff4e6; /* Fondo ligeramente más claro */
-    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-padding: 10;
-}
-
-/* Estilo para las etiquetas */
 Label {
-    -fx-text-fill: #5d5654; /* Gris suave para el texto */
+    -fx-text-fill: #5d5654;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
 }
 
-/* Estilo para el título */
-Label:top {
-    -fx-text-fill: #a37d74; /* Marrón pastel suave */
+
+Label#lblLogin {
+    -fx-text-fill: #a37d74;
     -fx-font-weight: bold;
+    -fx-font-size: 28px;
 }
 
-/* Botones */
+
 Button {
-    -fx-background-color: #cfa490; /* Marrón pastel */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-border-radius: 5px;
+    -fx-background-color: #cfa490;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 15px;
     -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15px;
 }
 
 Button:hover {
-    -fx-background-color: #b48978; /* Marrón pastel más oscuro */
+    -fx-background-color: #b48978;
 }
 
-/* Campos de texto */
-TextField, ComboBox, Spinner, PasswordField {
-    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
-    -fx-border-radius: 3px;
-    -fx-background-color: #ffffff; /* Fondo blanco para claridad */
-    -fx-text-fill: #5d5654; /* Gris suave */
+TextField, PasswordField {
+    -fx-border-color: #e0d2c9;
+    -fx-border-radius: 10px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #5d5654;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
 }
 
-/* CheckBoxes */
-CheckBox {
-    -fx-text-fill: #5d5654; /* Gris suave */
-    -fx-cursor: hand;
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #cfa490;
+    -fx-background-color: #fef9f6;
+    -fx-background-radius: 10px;
 }
 
-/* Spinners */
-Spinner {
-    -fx-border-color: #e0d2c9; /* Borde en tono pastel */
-    -fx-background-color: #ffffff; /* Fondo claro */
-    -fx-text-fill: #5d5654; /* Texto gris suave */
+#idValo {
+    -fx-font-size: 36px;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: #d88e8e;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
-/* Efectos de hover para los campos */
-TextField:focused, ComboBox:focused, Spinner:focused, PasswordField:focused {
-    -fx-border-color: #cfa490; /* Cambia el borde al marrón pastel cuando se enfoca */
-    -fx-background-color: #fef9f6; /* Fondo ligeramente más cálido */
+#IdLOL {
+    -fx-font-size: 43px;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: #6ea1cf;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
-/* Estilo para los CheckBoxes cuando se seleccionan */
-CheckBox:selected {
-    -fx-text-fill: #a37d74; /* Marrón pastel suave */
+.alert {
+    -fx-background-color: #fef9f6;
+    -fx-border-color: #e0d2c9;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-text-fill: #5d5654;
 }
 
-/* Styles.css */
-VBox {
-    -fx-background-image: url("/edu/badpals/proyectoad3/img/fondoMain.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
+.alert .content {
+    -fx-text-fill: #5d5654;
+    -fx-font-size: 14px;
+}
+
+.alert .header {
+    -fx-text-fill: #a37d74;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.alert .button {
+    -fx-background-color: #cfa490;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 15px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.alert .button:hover {
+    -fx-background-color: #b48978;
 }

@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="700.0" stylesheets="@StylesMain.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="700.0">
          <children>
             <!-- Imagen de fondo -->
-            <ImageView fitWidth="700" fitHeight="450" preserveRatio="true">
-               <Image url="@img/fondoMain.jpg"/>
+            <ImageView fitHeight="450.0" fitWidth="700" preserveRatio="true">
+               <Image url="@img/fondoMain.jpg" />
             </ImageView>
 
             <!-- Contenido existente en el AnchorPane -->
-            <Label layoutX="241.0" layoutY="41.0" text="Menu Principal">
+            <Label fx:id="menuPrincipal" layoutX="264.0" layoutY="27.0" text="Menu Principal">
                <font>
-                  <Font name="Calibri" size="36.0" />
+                  <Font name="Calibri" size="39.0" />
                </font>
             </Label>
-            <Button fx:id="toEquiposBtn" layoutX="149.0" layoutY="122.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toTeams" prefHeight="35.0" prefWidth="85.0" text="Equipos" />
-            <Button fx:id="toLigasBtn" layoutX="149.0" layoutY="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagues" prefHeight="35.0" prefWidth="85.0" text="Ligas" />
-            <Button fx:id="toValorantBtn" layoutX="412.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toValorant" prefHeight="35.0" prefWidth="85.0" text="Valorant" />
-            <Button fx:id="toLeagueBtn" layoutX="412.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagueOfLegends" prefHeight="35.0" prefWidth="134.0" text="League of Legends" />
-            <Label layoutX="70.0" layoutY="129.0" text="Equipos">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="70.0" layoutY="182.0" text="Ligas">
+            <Button fx:id="toEquiposBtn" layoutX="125.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toTeams" prefHeight="35.0" prefWidth="85.0" text="Equipos" />
+            <Button fx:id="toLigasBtn" layoutX="125.0" layoutY="162.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagues" prefHeight="35.0" prefWidth="85.0" text="Ligas" />
+            <Button fx:id="toValorantBtn" layoutX="505.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toValorant" prefHeight="35.0" prefWidth="85.0" text="Valorant" />
+            <Button fx:id="toLeagueBtn" layoutX="480.0" layoutY="221.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagueOfLegends" prefHeight="35.0" prefWidth="134.0" text="League of Legends" />
+            <Label layoutX="50.0" layoutY="102.0" text="Equipos" textFill="#fffbfb">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="315.0" layoutY="119.0" prefHeight="41.0" prefWidth="74.0" text="Jugadores:" textAlignment="RIGHT" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+            <Label layoutX="50.0" layoutY="169.0" text="Ligas">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="toRegisterBtn" layoutX="106.0" layoutY="277.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toRegister" prefHeight="35.0" prefWidth="85.0" text="Registrar" />
-            <Label layoutX="70.0" layoutY="249.0" text="Registrar equipos en Liga">
+            <Label layoutX="504.0" layoutY="110.0" prefHeight="41.0" prefWidth="85.0" text="Jugadores:" textAlignment="RIGHT" textFill="#eeeeee" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="703.0">
+            <Button fx:id="toRegisterBtn" layoutX="99.0" layoutY="276.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toRegister" prefHeight="35.0" prefWidth="85.0" text="Registrar" />
+            <Label layoutX="50.0" layoutY="238.0" text="Registrar equipos en Liga">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <MenuBar layoutX="-1.0" layoutY="-6.0" prefHeight="25.0" prefWidth="703.0">
                <menus>
                   <Menu mnemonicParsing="false" text="Iniciar Sesion">
                      <items>
