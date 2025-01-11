@@ -265,7 +265,8 @@ git --version
 - Git es opcional; puedes descargar el ZIP del repositorio y extraerlo sin necesidad de clonar.
 
 # <u>Manual de Usuario</u>
-LINK AL VIDEO
+El video esta en src/main/resources/edu/badpals/proyectoad3/img/VideoExplicacion.mkv
+
 
 # Tiempo dedicado
 
