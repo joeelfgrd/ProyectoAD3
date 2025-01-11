@@ -255,7 +255,7 @@ git --version
 - Selecciona la opción de "Connect your application".
 - Copia la cadena de conexión y modifica el archivo **MongoDBLoginDAO.java** del proyecto con los datos de tu base de datos.
 - ![Conectar Aplicación](src/main/resources/edu/badpals/proyectoad3/img/MongoDbConexionLink.png)
-### 6. Crear colección en MongoDB Atlas:
+### 5. Crear colección en MongoDB Atlas:
 - Para crear tanto la base de datos como la colección, debes insertar un documento en la colección.
 - En mi caso lo hice desde java,pero puedes hacerlo desde la consola de MongoDB Atlas.
 - ![Crear Colección](src/main/resources/edu/badpals/proyectoad3/img/MongoDbTablas.png)
@@ -281,12 +281,12 @@ LINK AL VIDEO
 - DAO
 
 
-- **Joel Figueirido Molares**:Horas aproximadas: 42h (Contando las horas de investigación de MongoDB y AWS)
+- **Joel Figueirido Molares**:Horas aproximadas: 42h (Contando las horas de investigación de MongoDB y AWS, por no mencionar las horas perdidas con Firebase)
 - Creación de la base de datos
 - Creación de la base de datos de login
 - Creación de las clases modelo 
 - Conexiones a AWS y crear la base de datos
-- Conexion a MongoDB Atlas y crear la base de datos
+- Conexión a MongoDB Atlas y crear la base de datos
 - Corrección de errores en CRUD
 - Arreglos de la interfaz gráfica
 - MVC
@@ -306,5 +306,5 @@ LINK AL VIDEO
 - Con este trabajo hemos aprendido que no hay suficiente documentación accesible de MongoDB y AWS para poder realizar el trabajo.
 - Hemos seguido mejorando nuestras habilidades con SQL y JavaFX.
 - También ganamos soltura con JPQL y con la creación de consultas.
-- En general estamos contentos con el resultado final del proyecto, hemos conseguido realizar casi todas las funcionalidades que ns planteamos en un inicio además de añadir un log in y una interfaz gráfica accesible para el usuario.
+- En general estamos contentos con el resultado final del proyecto, hemos conseguido realizar casi todas las funcionalidades que nos planteamos en un inicio además de añadir un login y una interfaz gráfica accesible para el usuario.
 - Teniendo en cuenta todo lo anterior, creemos que una nota justa para el trabajo realizado sería un 9.
