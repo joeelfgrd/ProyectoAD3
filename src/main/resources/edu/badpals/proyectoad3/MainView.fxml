@@ -31,7 +31,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Iniciar Sesion">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Log In" />
+                    <MenuItem fx:id="toLoginBtn" mnemonicParsing="false" onAction="#toLogin" text="Log In" />
                   </items>
                 </Menu>
               </menus>

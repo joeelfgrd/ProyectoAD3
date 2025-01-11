@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,21 +29,30 @@ public class MainViewController {
     @FXML
     private Button toRegisterBtn;
 
+    @FXML
+    private MenuItem toLoginBtn;
 
     @FXML
-    public void toTeams(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/EquiposView.fxml"));
-
-        // Carga la vista principal
+    public void toLogin(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/Login.fxml"));
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
 
-        // Cerrar la ventana actual
+
+
+
+    @FXML
+    public void toTeams(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/EquiposView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -50,18 +60,11 @@ public class MainViewController {
 
     @FXML
     public void toLeagues(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/LeaguesView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -69,18 +72,11 @@ public class MainViewController {
 
     @FXML
     public void toLeagueOfLegends(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/JugadoresLolView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -88,18 +84,11 @@ public class MainViewController {
 
     @FXML
     public void toValorant(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/JugadoresValoView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -107,18 +96,11 @@ public class MainViewController {
 
     @FXML
     public void toRegister(ActionEvent event) throws IOException {
-        // Carga el archivo FXML usando una ruta absoluta
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/RegisterView.fxml"));
-
-        // Carga la vista principal
         Parent root = loader.load();
-
-        // Crear y mostrar una nueva ventana
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-        // Cerrar la ventana actual
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
