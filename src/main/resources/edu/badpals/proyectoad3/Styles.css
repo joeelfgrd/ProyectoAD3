@@ -53,10 +53,37 @@ TextField:focused, PasswordField:focused {
 #IdLOL {
     -fx-font-size: 43px;
     -fx-font-family: 'Calibri';
-    -fx-text-fill: #6ea1cf;
+    -fx-text-fill: #d88e8e;
     -fx-font-weight: bold;
     -fx-alignment: center;
 }
+
+#idLigas {
+    -fx-font-size: 36px;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: #d88e8e;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+#IdRegistrar {
+    -fx-font-size: 36px;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: #d88e8e;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+
+#IdEquipos {
+    -fx-font-size: 36px;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: #d88e8e;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+
 
 .alert {
     -fx-background-color: #fef9f6;

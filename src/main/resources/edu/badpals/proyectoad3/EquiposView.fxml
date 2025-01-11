@@ -10,6 +10,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,7 +24,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación">
+                <Label layoutX="92.0" layoutY="163.0" text="Fecha de Creación">
                <font>
                   <Font size="14.0" />
                </font></Label>
@@ -30,7 +32,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-                <Label layoutX="503.0" layoutY="163.0" text="Tier">
+                <Label layoutX="514.0" layoutY="163.0" text="Tier">
                <font>
                   <Font size="14.0" />
                </font></Label>
@@ -47,15 +49,15 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-                <TextField fx:id="TeamNameTxt" layoutX="256.0" layoutY="100.0" />
-                <ComboBox fx:id="TeamRegionCmb" layoutX="566.0" layoutY="104.0" prefWidth="150.0" />
-                <ComboBox fx:id="TeamTierCmb" layoutX="566.0" layoutY="158.0" prefWidth="150.0" />
-                <Label layoutX="444.0" layoutY="42.0" prefHeight="41.0" prefWidth="120.0" text="Equipos">
+                <TextField fx:id="TeamNameTxt" layoutX="252.0" layoutY="100.0" />
+                <ComboBox fx:id="TeamRegionCmb" layoutX="566.0" layoutY="106.0" prefWidth="150.0" />
+                <ComboBox fx:id="TeamTierCmb" layoutX="566.0" layoutY="160.0" prefWidth="150.0" />
+                <Label fx:id="IdEquipos" layoutX="423.0" layoutY="41.0" prefHeight="42.0" prefWidth="150.0" text="Equipos">
                     <font>
                         <Font name="Calibri" size="36.0" />
                     </font>
                 </Label>
-                <Button fx:id="VolverTeamBtn" layoutX="907.0" layoutY="33.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="27.0" prefWidth="72.0" text="Volver">
+                <Button fx:id="VolverTeamBtn" layoutX="904.0" layoutY="33.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="36.0" prefWidth="75.0" text="Volver">
                <font>
                   <Font size="14.0" />
                </font></Button>
@@ -67,7 +69,7 @@
                         <TableColumn fx:id="colFechaCreacion" editable="false" prefWidth="141.0" text="Fecha de Creacion" />
                     </columns>
                 </TableView>
-                <DatePicker fx:id="TeamDateTxt" layoutX="256.0" layoutY="159.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                <DatePicker fx:id="TeamDateTxt" layoutX="255.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                 <MenuBar layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1003.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Buscar por">
@@ -79,7 +81,17 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <Button fx:id="LimpiarCamposEquiposBtn" layoutX="746.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="25.0" prefWidth="25.0" text="Limpiar" />
+                <Button fx:id="LimpiarCamposEquiposBtn" layoutX="772.0" layoutY="129.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="40.0" prefWidth="40.0">
+                    <graphic>
+                        <ImageView fitHeight="25" fitWidth="25">
+                            <image>
+                                <Image url="@img/icono_limpiar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+
 
             </children>
         </AnchorPane>
