@@ -66,3 +66,10 @@ TextField:focused, ComboBox:focused, Spinner:focused, PasswordField:focused {
 CheckBox:selected {
     -fx-text-fill: #a37d74; /* Marrón pastel suave */
 }
+
+/* Styles.css */
+VBox {
+    -fx-background-image: url("/edu/badpals/proyectoad3/img/fondoMain.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}

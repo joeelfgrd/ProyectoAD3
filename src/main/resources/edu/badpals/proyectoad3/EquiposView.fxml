@@ -14,49 +14,50 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="993.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.EquiposViewController">
-   <children>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="985.0">
-         <children>
-            <Label layoutX="171.0" layoutY="91.0" text="Nombre" />
-            <Label layoutX="171.0" layoutY="133.0" text="Fecha de Creación" />
-            <Label layoutX="494.0" layoutY="90.0" text="Region" />
-            <Label layoutX="503.0" layoutY="133.0" text="Tier" />
-            <Label layoutX="396.0" layoutY="62.0" />
-            <Button fx:id="CreateTeamBtn" layoutX="280.0" layoutY="208.0" mnemonicParsing="false" onAction="#crearEquipo" text="Crear" />
-            <Button fx:id="UpdateTeamBtn" layoutX="441.0" layoutY="208.0" mnemonicParsing="false" onAction="#actualizarEquipo" text="Actualizar" />
-            <Button fx:id="DeleteTeamBtn" layoutX="635.0" layoutY="208.0" mnemonicParsing="false" onAction="#eliminarEquipo" text="Eliminar" />
-            <TextField fx:id="TeamNameTxt" layoutX="297.0" layoutY="86.0" />
-            <ComboBox fx:id="TeamRegionCmb" layoutX="569.0" layoutY="86.0" prefWidth="150.0" />
-            <ComboBox fx:id="TeamTierCmb" layoutX="565.0" layoutY="129.0" prefWidth="150.0" />
-            <Label layoutX="417.0" layoutY="29.0" text="Equipos">
-               <font>
-                  <Font name="Calibri" size="36.0" />
-               </font>
-            </Label>
-            <Button fx:id="VolverTeamBtn" layoutX="856.0" layoutY="208.0" mnemonicParsing="false" onAction="#toMainMenu" text="Volver" />
-            <TableView fx:id="tableEquipos" layoutX="19.0" layoutY="285.0" prefHeight="400.0" prefWidth="950.0">
-              <columns>
-                <TableColumn fx:id="colNombre" editable="false" prefWidth="75.0" text="Nombre" />
-                <TableColumn fx:id="colRegion" editable="false" prefWidth="75.0" text="Region" />
-                  <TableColumn fx:id="colTier" editable="false" prefWidth="75.0" text="Tier" />
-                  <TableColumn fx:id="colFechaCreacion" editable="false" prefWidth="141.0" text="Fecha de Creacion" />
-              </columns>
-            </TableView>
-            <DatePicker fx:id="TeamDateTxt" layoutX="297.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
-            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="993.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="Buscar por">
-                  <items>
-                    <MenuItem fx:id="EquipoMINombre" mnemonicParsing="false" onAction="#searchEquipoByName" text="Nombre" />
-                        <MenuItem fx:id="EquipoMIRegion" mnemonicParsing="false" onAction="#mostrarEquiposPorRegion" text="Region" />
-                        <MenuItem fx:id="EquipoMITier" mnemonicParsing="false" onAction="#mostrarEquiposPorTier" text="Tier" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <Button fx:id="LimpiarCamposEquiposBtn" layoutX="830.0" layoutY="58.0" mnemonicParsing="false" onAction="#recargarCeldasYtabla" text="Limpiar" />
-         </children>
-      </AnchorPane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.EquiposViewController">
+    <children>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0">
+            <children>
+                <Label layoutX="123.0" layoutY="109.0" text="Nombre" />
+                <Label layoutX="123.0" layoutY="163.0" text="Fecha de Creación" />
+                <Label layoutX="504.0" layoutY="109.0" text="Region" />
+                <Label layoutX="503.0" layoutY="163.0" text="Tier" />
+                <Label layoutX="396.0" layoutY="62.0" />
+                <Button fx:id="CreateTeamBtn" layoutX="343.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEquipo" prefHeight="33.0" prefWidth="75.0" text="Crear" />
+                <Button fx:id="UpdateTeamBtn" layoutX="455.0" layoutY="241.0" mnemonicParsing="false" onAction="#actualizarEquipo" prefHeight="33.0" prefWidth="88.0" text="Actualizar" />
+                <Button fx:id="DeleteTeamBtn" layoutX="578.0" layoutY="241.0" mnemonicParsing="false" onAction="#eliminarEquipo" prefHeight="33.0" prefWidth="75.0" text="Eliminar" />
+                <TextField fx:id="TeamNameTxt" layoutX="256.0" layoutY="100.0" />
+                <ComboBox fx:id="TeamRegionCmb" layoutX="566.0" layoutY="104.0" prefWidth="150.0" />
+                <ComboBox fx:id="TeamTierCmb" layoutX="566.0" layoutY="158.0" prefWidth="150.0" />
+                <Label layoutX="444.0" layoutY="42.0" prefHeight="41.0" prefWidth="120.0" text="Equipos">
+                    <font>
+                        <Font name="Calibri" size="36.0" />
+                    </font>
+                </Label>
+                <Button fx:id="VolverTeamBtn" layoutX="907.0" layoutY="33.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="27.0" prefWidth="72.0" text="Volver" />
+                <TableView fx:id="tableEquipos" layoutX="-3.0" layoutY="324.0" prefHeight="376.0" prefWidth="1003.0">
+                    <columns>
+                        <TableColumn fx:id="colNombre" editable="false" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="colRegion" editable="false" prefWidth="75.0" text="Region" />
+                        <TableColumn fx:id="colTier" editable="false" prefWidth="75.0" text="Tier" />
+                        <TableColumn fx:id="colFechaCreacion" editable="false" prefWidth="141.0" text="Fecha de Creacion" />
+                    </columns>
+                </TableView>
+                <DatePicker fx:id="TeamDateTxt" layoutX="256.0" layoutY="159.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                <MenuBar layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1003.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Buscar por">
+                            <items>
+                                <MenuItem fx:id="EquipoMINombre" mnemonicParsing="false" onAction="#searchEquipoByName" text="Nombre" />
+                                <MenuItem fx:id="EquipoMIRegion" mnemonicParsing="false" onAction="#mostrarEquiposPorRegion" text="Region" />
+                                <MenuItem fx:id="EquipoMITier" mnemonicParsing="false" onAction="#mostrarEquiposPorTier" text="Tier" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <Button fx:id="LimpiarCamposEquiposBtn" layoutX="746.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recargarCeldasYtabla" prefHeight="25.0" prefWidth="25.0" text="Limpiar" />
+
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

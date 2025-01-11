@@ -9,25 +9,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="581.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.proyectoad3.controller.MainViewController">
    <children>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="582.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0">
          <children>
-            <Label layoutX="180.0" layoutY="34.0" text="Menu Principal">
+            <Label layoutX="241.0" layoutY="41.0" text="Menu Principal">
                <font>
                   <Font name="Calibri" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="toEquiposBtn" layoutX="87.0" layoutY="172.0" mnemonicParsing="false" onAction="#toTeams" text="Equipos" />
-            <Button fx:id="toLigasBtn" layoutX="257.0" layoutY="172.0" mnemonicParsing="false" onAction="#toLeagues" text="Ligas" />
-            <Button fx:id="toValorantBtn" layoutX="437.0" layoutY="146.0" mnemonicParsing="false" onAction="#toValorant" text="Valorant" />
-            <Button fx:id="toLeagueBtn" layoutX="409.0" layoutY="223.0" mnemonicParsing="false" onAction="#toLeagueOfLegends" text="League of Legends" />
-            <Label layoutX="95.0" layoutY="120.0" text="Equipos" />
-            <Label layoutX="265.0" layoutY="120.0" text="Ligas" />
-            <Label layoutX="440.0" layoutY="120.0" text="Jugadores" />
-            <Button fx:id="toRegisterBtn" layoutX="163.0" layoutY="282.0" mnemonicParsing="false" onAction="#toRegister" text="Registrar" />
-            <Label layoutX="122.0" layoutY="249.0" text="Registrar equipos en Liga" />
-            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="581.0">
+            <Button fx:id="toEquiposBtn" layoutX="149.0" layoutY="122.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toTeams" prefHeight="35.0" prefWidth="85.0" text="Equipos" />
+            <Button fx:id="toLigasBtn" layoutX="149.0" layoutY="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagues" prefHeight="35.0" prefWidth="85.0" text="Ligas" />
+            <Button fx:id="toValorantBtn" layoutX="412.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toValorant" prefHeight="35.0" prefWidth="85.0" text="Valorant" />
+            <Button fx:id="toLeagueBtn" layoutX="412.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toLeagueOfLegends" prefHeight="35.0" prefWidth="134.0" text="League of Legends" />
+            <Label layoutX="70.0" layoutY="129.0" text="Equipos">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="70.0" layoutY="182.0" text="Ligas">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="315.0" layoutY="119.0" prefHeight="41.0" prefWidth="74.0" text="Jugadores:" textAlignment="RIGHT" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Button fx:id="toRegisterBtn" layoutX="106.0" layoutY="277.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toRegister" prefHeight="35.0" prefWidth="85.0" text="Registrar" />
+            <Label layoutX="70.0" layoutY="249.0" text="Registrar equipos en Liga">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="703.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Iniciar Sesion">
                   <items>

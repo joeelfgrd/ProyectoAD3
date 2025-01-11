@@ -202,30 +202,21 @@ public class JugadoresLolViewController {
 
     @FXML
     public void mostrarJugadoresLolPorEquipo() {
-        // Obtener el nombre del equipo seleccionado en el ComboBox
         String equipoSeleccionado = LeaguePlayerTeamCmb.getValue();
 
         if (equipoSeleccionado == null || equipoSeleccionado.isEmpty()) {
-            // Si no se ha seleccionado ningún equipo, mostrar un mensaje de advertencia
             AlertasController.mostrarAdvertencia("Selección de equipo", "Por favor, selecciona un equipo.");
             return;
         }
-
-        // Obtener la lista de jugadores para el equipo seleccionado
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
             List<LolPlayer> jugadoresPorEquipo = JugadorLolDAO.getJugadorLolPorEquipo(equipoSeleccionado);
-
-            // Verificar si se obtuvieron jugadores
             if (jugadoresPorEquipo.isEmpty()) {
                 AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el equipo " + equipoSeleccionado);
             } else {
-                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
                 ObservableList<LolPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorEquipo);
                 LolPlayerTableView.setItems(jugadoresObservableList);
             }
-
-            // Cerrar la conexión después de obtener los datos
             ConnectionDAO.cerrarConexion(connection);
         } else {
             AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
@@ -239,23 +230,15 @@ public class JugadoresLolViewController {
             AlertasController.mostrarAdvertencia("Selección de país", "Por favor, selecciona un país.");
             return;
         }
-
-        // Establecer la conexión con la base de datos
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            // Llamamos a la función que obtiene los jugadores por país
             List<LolPlayer> jugadoresPorPais = JugadorLolDAO.getJugadorLolPorPais(paisSeleccionado);
-
-            // Verificar si se obtuvieron jugadores
             if (jugadoresPorPais.isEmpty()) {
                 AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para el país " + paisSeleccionado);
             } else {
-                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
                 ObservableList<LolPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorPais);
-                LolPlayerTableView.setItems(jugadoresObservableList);  // Establecemos los jugadores en la tabla
+                LolPlayerTableView.setItems(jugadoresObservableList);
             }
-
-            // Cerrar la conexión después de obtener los datos
             ConnectionDAO.cerrarConexion(connection);
         } else {
             AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");
@@ -264,31 +247,22 @@ public class JugadoresLolViewController {
 
     @FXML
     public void mostrarJugadoresLolPorPosicion(ActionEvent event) {
-        // Obtener la posición seleccionada en el ComboBox
-        String posicionSeleccionada = LeaguePlayerPositionCmb.getValue();  // Obtén el valor de la posición seleccionada
+        String posicionSeleccionada = LeaguePlayerPositionCmb.getValue();
 
         if (posicionSeleccionada == null || posicionSeleccionada.isEmpty()) {
-            // Si no se ha seleccionado ninguna posición, mostrar un mensaje de advertencia
             AlertasController.mostrarAdvertencia("Selección de posición", "Por favor, selecciona una posición.");
             return;
         }
-
-        // Establecer la conexión con la base de datos
         Connection connection = conectionApp.crearConexion();
         if (connection != null) {
-            // Llamamos a la función que obtiene los jugadores por posición
             List<LolPlayer> jugadoresPorPosicion = JugadorLolDAO.getJugadoresLolPorPosicion(posicionSeleccionada);
-
-            // Verificar si se obtuvieron jugadores
             if (jugadoresPorPosicion.isEmpty()) {
                 AlertasController.mostrarAdvertencia("Sin jugadores", "No se encontraron jugadores para la posición " + posicionSeleccionada);
             } else {
-                // Convertir la lista de jugadores a una lista observable para actualizar la TableView
                 ObservableList<LolPlayer> jugadoresObservableList = FXCollections.observableArrayList(jugadoresPorPosicion);
-                LolPlayerTableView.setItems(jugadoresObservableList);  // Establecemos los jugadores en la tabla
+                LolPlayerTableView.setItems(jugadoresObservableList);
             }
 
-            // Cerrar la conexión después de obtener los datos
             ConnectionDAO.cerrarConexion(connection);
         } else {
             AlertasController.mostrarError("Error de conexión", "No se pudo establecer la conexión con la base de datos.");

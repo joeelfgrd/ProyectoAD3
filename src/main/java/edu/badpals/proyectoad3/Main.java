@@ -11,9 +11,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 500, 600);
         stage.setTitle("Inicio de sesión");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

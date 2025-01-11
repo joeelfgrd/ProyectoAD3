@@ -30,19 +30,13 @@ public class HelloController {
     @FXML
     public void toMainMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/MainView.fxml"));
-
-
         Parent root = loader.load();
-
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
-
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
-
-
 }

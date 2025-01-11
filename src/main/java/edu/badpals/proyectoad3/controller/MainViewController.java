@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class MainViewController {
@@ -47,20 +46,18 @@ public class MainViewController {
         }
     }
 
-
-
-
     @FXML
     public void toTeams(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/EquiposView.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
 
     @FXML
     public void toLeagues(ActionEvent event) throws IOException {
@@ -68,11 +65,12 @@ public class MainViewController {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
 
     @FXML
     public void toLeagueOfLegends(ActionEvent event) throws IOException {
@@ -80,11 +78,12 @@ public class MainViewController {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
 
     @FXML
     public void toValorant(ActionEvent event) throws IOException {
@@ -92,11 +91,12 @@ public class MainViewController {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
 
     @FXML
     public void toRegister(ActionEvent event) throws IOException {
@@ -104,9 +104,10 @@ public class MainViewController {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMaximized(false);
+        stage.setResizable(false);
         stage.show();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
-
 }
