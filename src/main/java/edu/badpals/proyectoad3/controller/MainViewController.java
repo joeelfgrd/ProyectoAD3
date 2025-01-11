@@ -32,15 +32,19 @@ public class MainViewController {
     @FXML
     private MenuItem toLoginBtn;
 
-    @FXML
-    public void toLogin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/Login.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
+    public void toLogin(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/badpals/proyectoad3/login.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
+            Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow();
+            stage.setScene(scene);
+            stage.show();
+            stage.setMaximized(false);
+            stage.setResizable(false);
+            stage.setTitle("Login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
